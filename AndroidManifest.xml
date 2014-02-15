@@ -17,12 +17,16 @@
             android:name="com.example.catnap.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
-            android:theme="@style/FullscreenTheme" >
+            android:theme="@style/FULLSCREEN" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name="com.example.catnap.NapActivity"
+            android:label="@string/title_activity_nap" >
         </activity>
     </application>
 
