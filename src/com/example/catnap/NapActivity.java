@@ -1,11 +1,11 @@
 package com.example.catnap;
 
 import android.app.Activity;
+import android.content.ClipData;
 import android.os.Bundle;
-import android.view.DragEvent;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnDragListener;
+import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
 
 public class NapActivity extends Activity {
@@ -16,14 +16,15 @@ public class NapActivity extends Activity {
 		setContentView(R.layout.activity_nap);
 		
 		ImageView sleepyCat = (ImageView)findViewById(R.id.sleepyCat);
-		sleepyCat.setOnDragListener(new OnDragListener() {
+		sleepyCat.setTag("icon bitmap");
+		sleepyCat.setOnLongClickListener(new OnLongClickListener() {
 			
 			@Override
-			public boolean onDrag(View v, DragEvent event) {
-				int action = event.getAction();
-				if (action==ACTION_DRAG_ENTERED) {
-					
-				}
+			public boolean onLongClick(View v) {
+				System.out.println("Long click works!");
+//				ClipData.Item item = new ClipData.Item((CharSequence) v.getTag()); 
+//				ClipData dragData = new ClipData(v.getTag(),ClipData.MIMETYPE_TEXT_PLAIN,item);
+//				View.DragShadowBuilder myShadow = new MyDragShadowBuilder(sleepyCat);
 				return false;
 			}
 		});
