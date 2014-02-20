@@ -9,21 +9,21 @@
     tools:context=".NapActivity" >
 
     <ImageView
-        android:id="@+id/sleepyCat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="143dp"
-        android:src="@drawable/caticon" />
-
-    <ImageView
-        android:id="@+id/testArea"
+        android:id="@+id/catBed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="112dp"
-        android:src="@drawable/ic_launcher" />
+        android:layout_marginTop="55dp"
+        android:src="@drawable/catbed" />
+
+    <ImageView
+        android:id="@+id/sleepingCat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/catBed"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="159dp"
+        android:src="@drawable/catsleeping" />
 
 </RelativeLayout>

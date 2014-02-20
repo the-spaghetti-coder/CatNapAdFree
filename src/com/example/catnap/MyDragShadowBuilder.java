@@ -20,11 +20,11 @@ public class MyDragShadowBuilder extends View.DragShadowBuilder{
 		public void onProvideShadowMetrics (Point size, Point touch) {
         // Defines local variables
 			int width, height;
-			width = getView().getWidth() * 2;
-			height = getView().getHeight() * 2;
+			width = getView().getWidth() ;
+			height = getView().getHeight() ;
 			
 			size.set(width, height);
-			touch.set(width / 2 , height / 2);
+			touch.set(width /2 , height/2 );
 		}	
 
 		public void onDrawShadow(Canvas canvas) {
