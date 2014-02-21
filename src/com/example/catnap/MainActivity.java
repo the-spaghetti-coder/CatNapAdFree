@@ -27,6 +27,16 @@ public class MainActivity extends Activity {
 		Button chooseNaptime = (Button)findViewById(R.id.chooseNaptime);
 		Button options = (Button)findViewById(R.id.options);
 		
+		options.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Intent i = new Intent(MainActivity.this, Options.class);
+				startActivity(i);
+				
+			}
+		});
+		
 		chooseNaptime.setOnClickListener(new OnClickListener() {
 			
 			@Override

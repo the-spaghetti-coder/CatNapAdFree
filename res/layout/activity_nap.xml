@@ -17,6 +17,23 @@
         android:layout_marginTop="55dp"
         android:src="@drawable/catbed" />
 
+
+    
+    <ViewSwitcher 
+        android:id="@+id/catViewSwitcher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        
+    </ViewSwitcher>
+
+    <ImageView
+        android:id="@+id/happyCat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/happycat" />
+		
     <ImageView
         android:id="@+id/sleepingCat"
         android:layout_width="wrap_content"
@@ -25,5 +42,5 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="159dp"
         android:src="@drawable/catsleeping" />
-
+    
 </RelativeLayout>

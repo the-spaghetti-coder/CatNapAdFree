@@ -3,7 +3,9 @@
     package="com.example.catnap"
     android:versionCode="1"
     android:versionName="1.0" >
-	<uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
+
     <uses-sdk
         android:minSdkVersion="11"
         android:targetSdkVersion="11" />
@@ -28,6 +30,11 @@
             android:name="com.example.catnap.NapActivity"
             android:label="@string/title_activity_nap"
             android:theme="@style/FULLSCREEN" >
+        </activity>
+        <activity
+            android:name="com.example.catnap.Options"
+            android:label="@string/title_activity_options"
+            android:theme="@style/FULLSCREEN">
         </activity>
     </application>
 

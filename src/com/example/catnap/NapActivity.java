@@ -5,6 +5,7 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Intent;
@@ -15,8 +16,11 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.ImageView;
 import android.widget.Toast;
+import android.widget.ViewSwitcher;
 
 public class NapActivity extends Activity {
 
@@ -26,15 +30,19 @@ public class NapActivity extends Activity {
 		setContentView(R.layout.activity_nap);
 		
 		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
-		final ImageView droid = (ImageView)findViewById(R.id.catBed);
+		final ImageView catBed = (ImageView)findViewById(R.id.catBed);
+		final ImageView happyCat = (ImageView)findViewById(R.id.happyCat);
+		final ViewSwitcher vw = (ViewSwitcher)findViewById(R.id.catViewSwitcher);
+//		ViewGroup vg = new ViewGroup(this);
 		
-
-		
+		happyCat.setVisibility(4);
 		
 		
 		
 		sleepyCat.setTag("icon bitmap");
 		sleepyCat.setOnLongClickListener(new OnLongClickListener() {
+		
+			
 			
 			@Override
 			public boolean onLongClick(View v) {
@@ -50,7 +58,7 @@ public class NapActivity extends Activity {
 			}
 		});
 		
-		droid.setOnDragListener(new OnDragListener() {
+		catBed.setOnDragListener(new OnDragListener() {
 
 			
 ;
@@ -61,31 +69,58 @@ public class NapActivity extends Activity {
 				case DragEvent.ACTION_DRAG_ENDED:
 //					Toast.makeText(NapActivity.this, "You dropped it! Woo!", Toast.LENGTH_SHORT).show();
 					System.out.println("actiondragENDED");
-					
+//					sleepyCat.setVisibility(0);
 					//add confirmation dialog. if yes, then put alarm through with skip ui
-
+					
+					happyCat.setVisibility(0);
+//					AlphaAnimation alpha4 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
+//					alpha4.setDuration(0); // Make animation instant
+//					 // Tell it to persist after the animation ends
+//					// And then on your imageview
+//					sleepyCat.startAnimation(alpha4);
+					
 					break;
 				case DragEvent.ACTION_DRAG_ENTERED:
 //					Toast.makeText(NapActivity.this, "Entered the bounding zone", Toast.LENGTH_SHORT).show();
 					System.out.println("actiondragENTERED");
-					
-					droid.setVisibility(4);
+//					vw.showNext();
+					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
+					alpha.setDuration(500); // Make animation instant
+					alpha.setFillAfter(false); // Tell it to persist after the animation ends
+					// And then on your imageview
+					catBed.startAnimation(alpha);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
-					droid.setVisibility(0);
+//					AlphaAnimation alpha2 = new AlphaAnimation(0.5F, 1.0F); // change values as you want
+//					alpha2.setDuration(0); // Make animation instant
+//					alpha2.setFillAfter(true); // Tell it to persist after the animation ends
+//					// And then on your imageview
+//					catBed.startAnimation(alpha2);
+					
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
-					System.out.println("actiondragLOCATION");
+//					System.out.println("actiondragLOCATION");
 					break;
 				case DragEvent.ACTION_DRAG_STARTED:
 					System.out.println("actiondragSTARTED");
+//					sleepyCat.setVisibility(4);
+					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
+					alpha3.setDuration(0); // Make animation instant
+//					alpha3.setFillAfter(true); // Tell it to persist after the animation ends
+					// And then on your imageview
+					sleepyCat.startAnimation(alpha3);
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
 					DateFormat df = new SimpleDateFormat("H");
 					DateFormat df2 = new SimpleDateFormat("mm");
 					Date date = new Date();
+					
+					Dialog dialog = new Dialog(NapActivity.this);
+					dialog.setTitle("title");
+					dialog.addContentView(happyCat, null);
+					dialog.show();
 					
 					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
@@ -94,8 +129,8 @@ public class NapActivity extends Activity {
 					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
 					Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 			        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
-			        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 30);
-			        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, false);
+			        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 31);
+			        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
 			        startActivity(openNewAlarm);
 					return true;
 				default:
