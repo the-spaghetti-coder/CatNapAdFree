@@ -18,16 +18,23 @@ public class Options extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_options);
-		 imgsw = (ImageSwitcher)findViewById(R.id.imageSwitcher1);
+		
+//		final ImageView happyCat = (ImageView)findViewById(R.id.happyCatOptions);
+		imgsw = (ImageSwitcher)findViewById(R.id.imageSwitcher1);
 //		imgsw.setImageResource(R.id.happyCat);
+		 Animation slide_in_left = AnimationUtils.loadAnimation(this,
+				    android.R.anim.slide_in_left);
+		Animation slide_out_right = AnimationUtils.loadAnimation(this,
+				    android.R.anim.slide_out_right);
+		imgsw.setInAnimation(slide_in_left);
+		imgsw.setOutAnimation(slide_out_right);
+		int childCount = imgsw.getChildCount();
+		System.out.println("childCount = " + String.valueOf(childCount));
 		imgsw.setFactory(new ViewFactory() {
 			
 			@Override
 			public View makeView() {
-				ImageView happyCat = (ImageView)findViewById(R.id.happyCat);
-				happyCat.setScaleType(ImageView.ScaleType.FIT_CENTER);
-				happyCat.setLayoutParams(new ImageSwitcher.LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-				
+				final ImageView happyCat = new ImageView(Options.this);
 				return happyCat;
 			}
 		});

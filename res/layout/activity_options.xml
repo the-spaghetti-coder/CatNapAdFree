@@ -26,6 +26,30 @@
         android:layout_below="@+id/switchViews"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="142dp" >
+        
+            <ImageView
+        android:id="@+id/droidIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageSwitcher1"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="79dp"
+        android:layout_marginLeft="56dp"
+        android:src="@drawable/catbed" />
+        
+<!--                 <ImageView -->
+<!--         android:id="@+id/happyCatOptions" -->
+<!--         android:layout_width="wrap_content" -->
+<!--         android:layout_height="wrap_content" -->
+<!--         android:layout_alignLeft="@+id/imageView1" -->
+<!--         android:layout_alignParentBottom="true" -->
+<!--         android:layout_marginBottom="64dp" -->
+<!--         android:src="@drawable/happycat" /> -->
+            
     </ImageSwitcher>
+
+
+
+
 
 </RelativeLayout>

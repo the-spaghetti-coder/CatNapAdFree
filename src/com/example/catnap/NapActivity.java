@@ -5,9 +5,11 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.Dialog;
+import android.app.AlertDialog;
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.provider.AlarmClock;
@@ -17,9 +19,7 @@ import android.view.View;
 import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
 import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher;
 
 public class NapActivity extends Activity {
@@ -34,8 +34,8 @@ public class NapActivity extends Activity {
 		final ImageView happyCat = (ImageView)findViewById(R.id.happyCat);
 		final ViewSwitcher vw = (ViewSwitcher)findViewById(R.id.catViewSwitcher);
 //		ViewGroup vg = new ViewGroup(this);
+		final View checkBoxView = View.inflate(this, R.layout.alarmdialog, null);
 		
-		happyCat.setVisibility(4);
 		
 		
 		
@@ -51,7 +51,7 @@ public class NapActivity extends Activity {
 				ClipData.Item item = new ClipData.Item((CharSequence) v.getTag()); 
 				ClipData dragData = new ClipData((CharSequence) v.getTag(), mimetypes, item);
 				View.DragShadowBuilder myShadow = new MyDragShadowBuilder(sleepyCat);
-				Toast.makeText(NapActivity.this, "Drag started!", Toast.LENGTH_LONG).show();
+//				Toast.makeText(NapActivity.this, "Drag started!", Toast.LENGTH_LONG).show();
 //				sleepyCat.setVisibility(4);  MAKES INVISIBLE
 				return v.startDrag(dragData, myShadow, null, 0);
 				
@@ -72,7 +72,7 @@ public class NapActivity extends Activity {
 //					sleepyCat.setVisibility(0);
 					//add confirmation dialog. if yes, then put alarm through with skip ui
 					
-					happyCat.setVisibility(0);
+					
 //					AlphaAnimation alpha4 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
 //					alpha4.setDuration(0); // Make animation instant
 //					 // Tell it to persist after the animation ends
@@ -113,25 +113,54 @@ public class NapActivity extends Activity {
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
-					DateFormat df = new SimpleDateFormat("H");
-					DateFormat df2 = new SimpleDateFormat("mm");
-					Date date = new Date();
-					
-					Dialog dialog = new Dialog(NapActivity.this);
-					dialog.setTitle("title");
-					dialog.addContentView(happyCat, null);
-					dialog.show();
-					
+					final DateFormat df = new SimpleDateFormat("H");
+					final DateFormat df3 = new SimpleDateFormat("h");
+					final DateFormat df2 = new SimpleDateFormat("mm");
+					final Date date = new Date();
+					long currentDate = date.getTime();
+					long futureDate = currentDate + 1800000;
+					String futureHourTime = df3.format(futureDate);
+					String futureMinuteTime = df2.format(futureDate);
 					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
-					ClipData clipData = event.getClipData();
+					
 					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
 					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
-					Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-			        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
-			        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 31);
-			        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-			        startActivity(openNewAlarm);
+					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
+					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
+					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
+;
+					ClipData clipData = event.getClipData();
+					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
+					dialog.setTitle("Confirm alarm");
+					dialog.setMessage("Your alarm will be set to: " + futureAlarmTime);
+					dialog.setPositiveButton("OK", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							System.out.println("positive button");
+
+							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 31);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+					        startActivity(openNewAlarm);
+						}
+					});
+					
+					dialog.setNegativeButton("Cancel", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							 System.out.println("Cancel");
+							
+						}
+					});
+					dialog.setInverseBackgroundForced(true);
+					dialog.show();
+					
+					
+					
 					return true;
 				default:
 					System.out.println("fail");
