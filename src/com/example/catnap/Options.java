@@ -4,24 +4,32 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
 
-public class Options extends Activity {
+public class Options extends Activity implements ViewFactory {
 	private ImageSwitcher imgsw;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_options);
 		
-//		final ImageView happyCat = (ImageView)findViewById(R.id.happyCatOptions);
+		final int imgs[] = {
+			R.drawable.catbed,
+			R.drawable.caticon
+		};
+		
+		Button switchViews = (Button)findViewById(R.id.switchViews);
+		Button switchViewsAgain = (Button)findViewById(R.id.switchViewsAgain);
+		
 		imgsw = (ImageSwitcher)findViewById(R.id.imageSwitcher1);
-//		imgsw.setImageResource(R.id.happyCat);
+		
 		 Animation slide_in_left = AnimationUtils.loadAnimation(this,
 				    android.R.anim.slide_in_left);
 		Animation slide_out_right = AnimationUtils.loadAnimation(this,
@@ -30,12 +38,23 @@ public class Options extends Activity {
 		imgsw.setOutAnimation(slide_out_right);
 		int childCount = imgsw.getChildCount();
 		System.out.println("childCount = " + String.valueOf(childCount));
-		imgsw.setFactory(new ViewFactory() {
+		imgsw.setFactory(this);
+		
+		switchViews.setOnClickListener(new OnClickListener() {
 			
 			@Override
-			public View makeView() {
-				final ImageView happyCat = new ImageView(Options.this);
-				return happyCat;
+			public void onClick(View arg0) {
+				 imgsw.setImageResource(imgs[1]);
+				
+			}
+		});
+		
+		switchViewsAgain.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				 imgsw.setImageResource(imgs[0]);
+				
 			}
 		});
 		
@@ -61,5 +80,15 @@ public class Options extends Activity {
 		getMenuInflater().inflate(R.menu.options, menu);
 		return true;
 	}
+
+@Override
+public View makeView() {
+	ImageView iView = new ImageView(this);
+	iView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+	iView.setLayoutParams(new ImageSwitcher.LayoutParams
+		(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+	iView.setBackgroundColor(0xFF000000);
+	return iView;
+}
 
 }

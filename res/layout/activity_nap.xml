@@ -8,50 +8,10 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".NapActivity" >
 
-    <ImageView
-        android:id="@+id/catBed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="55dp"
-        android:src="@drawable/catbed" />
-
 
     
-    <ViewSwitcher 
-        android:id="@+id/catViewSwitcher"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content">
-        
-    </ViewSwitcher>
-		
-    <ImageView
-        android:id="@+id/sleepingCat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/catBed"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="159dp"
-        android:src="@drawable/catsleeping" />
 
-    <ImageView
-        android:id="@+id/happyCat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/catBed"
-        android:layout_marginTop="24dp"
-        android:src="@drawable/happycat" />
 
-    <ImageView
-        android:id="@+id/droidIcon"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/sleepingCat"
-        android:layout_alignTop="@+id/happyCat"
-        android:layout_marginTop="68dp"
-        android:src="@drawable/ic_launcher" />
 
     <ImageView
         android:id="@+id/catIcon"
@@ -60,5 +20,41 @@
         android:layout_above="@+id/droidIcon"
         android:layout_alignParentLeft="true"
         android:src="@drawable/caticon" />
+
+    <ImageView
+        android:id="@+id/happyCat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/catBed"
+        android:layout_marginTop="26dp"
+        android:src="@drawable/happycat" />
+
+    <ImageView
+        android:id="@+id/catBed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/catViewSwitcher"
+        android:layout_marginTop="34dp"
+        android:src="@drawable/catbed" />
+
+    <ImageView
+        android:id="@+id/droidIcon"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignTop="@+id/happyCat"
+        android:layout_marginTop="39dp"
+        android:src="@drawable/ic_launcher" />
+
+    <ImageView
+        android:id="@+id/sleepingCat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="14dp"
+        android:src="@drawable/catsleeping" />
     
 </RelativeLayout>
