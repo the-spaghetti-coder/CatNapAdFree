@@ -30,16 +30,15 @@ public class Options extends Activity implements ViewFactory {
 		
 		imgsw = (ImageSwitcher)findViewById(R.id.imageSwitcher1);
 		
-		 Animation slide_in_left = AnimationUtils.loadAnimation(this,
-				    android.R.anim.slide_in_left);
+		Animation slide_in_left = AnimationUtils.loadAnimation(this,
+				    android.R.anim.fade_in);
 		Animation slide_out_right = AnimationUtils.loadAnimation(this,
-				    android.R.anim.slide_out_right);
-		imgsw.setInAnimation(slide_in_left);
-		imgsw.setOutAnimation(slide_out_right);
-		int childCount = imgsw.getChildCount();
-		System.out.println("childCount = " + String.valueOf(childCount));
+				    android.R.anim.fade_out);
+//		imgsw.setInAnimation(slide_in_left);
+//		imgsw.setOutAnimation(slide_out_right);
+
 		imgsw.setFactory(this);
-		
+		imgsw.setImageResource(imgs[0]);
 		switchViews.setOnClickListener(new OnClickListener() {
 			
 			@Override
@@ -57,22 +56,17 @@ public class Options extends Activity implements ViewFactory {
 				
 			}
 		});
-		
+		imgsw.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				 System.out.println("imgswitcher clicked");
+				
+			}
+		});
 	}
-	
-//	public void next(View view){
-//	      Toast.makeText(getApplicationContext(), "Next Image", 
-//	      Toast.LENGTH_LONG).show();
-//	      Animation in = AnimationUtils.loadAnimation(this,
-//	      android.R.anim.slide_in_left);
-//	      Animation out = AnimationUtils.loadAnimation(this,
-//	      android.R.anim.slide_out_right);
-//	      imgsw.setInAnimation(in);
-//	      imgsw.setOutAnimation(out);
-//	      imgsw.setImageResource(R.drawable.ic_launcher);
-//	   }
-	
-	
+
+		
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -84,10 +78,10 @@ public class Options extends Activity implements ViewFactory {
 @Override
 public View makeView() {
 	ImageView iView = new ImageView(this);
-	iView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//	iView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 	iView.setLayoutParams(new ImageSwitcher.LayoutParams
 		(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-	iView.setBackgroundColor(0xFF000000);
+	
 	return iView;
 }
 

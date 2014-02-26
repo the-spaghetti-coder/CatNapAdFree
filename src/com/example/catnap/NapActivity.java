@@ -18,11 +18,14 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.view.animation.AlphaAnimation;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.ViewSwitcher;
+import android.widget.ViewSwitcher.ViewFactory;
 
-public class NapActivity extends Activity {
+public class NapActivity extends Activity implements ViewFactory{
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -30,14 +33,17 @@ public class NapActivity extends Activity {
 		setContentView(R.layout.activity_nap);
 		
 		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
-		final ImageView catBed = (ImageView)findViewById(R.id.catBed);
+//		final ImageView catBed = (ImageView)findViewById(R.id.catBed);
 		final ImageView happyCat = (ImageView)findViewById(R.id.happyCat);
-		final ViewSwitcher vw = (ViewSwitcher)findViewById(R.id.catViewSwitcher);
-//		ViewGroup vg = new ViewGroup(this);
+		
+		
 		final View checkBoxView = View.inflate(this, R.layout.alarmdialog, null);
+		final ImageSwitcher catBedImgSw = (ImageSwitcher)findViewById(R.id.catBedimageSwitcher);
 		
+		final int[] catBedImgs = {R.drawable.catbed, R.drawable.catsleeping };
 		
-		
+		catBedImgSw.setFactory(this);
+		catBedImgSw.setImageResource(catBedImgs[0]);
 		
 		sleepyCat.setTag("icon bitmap");
 		sleepyCat.setOnLongClickListener(new OnLongClickListener() {
@@ -58,7 +64,7 @@ public class NapActivity extends Activity {
 			}
 		});
 		
-		catBed.setOnDragListener(new OnDragListener() {
+		catBedImgSw.setOnDragListener(new OnDragListener() {
 
 			
 ;
@@ -88,7 +94,8 @@ public class NapActivity extends Activity {
 					alpha.setDuration(500); // Make animation instant
 					alpha.setFillAfter(false); // Tell it to persist after the animation ends
 					// And then on your imageview
-					catBed.startAnimation(alpha);
+//					catBed.startAnimation(alpha);
+					catBedImgSw.setImageResource(catBedImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
@@ -97,7 +104,7 @@ public class NapActivity extends Activity {
 //					alpha2.setFillAfter(true); // Tell it to persist after the animation ends
 //					// And then on your imageview
 //					catBed.startAnimation(alpha2);
-					
+					catBedImgSw.setImageResource(catBedImgs[0]);
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
 //					System.out.println("actiondragLOCATION");
@@ -178,6 +185,19 @@ public class NapActivity extends Activity {
 		// Inflate the menu; this adds items to the action bar if it is present.
 		getMenuInflater().inflate(R.menu.nap, menu);
 		return true;
+	}
+
+	@Override
+	public View makeView() {
+		ImageView iView = new ImageView(this);
+		iView.setScaleType(ImageView.ScaleType.FIT_CENTER);
+//		iView.setMaxHeight(75);
+//		iView.setMaxWidth(75);
+		
+		iView.setLayoutParams(new ImageSwitcher.LayoutParams
+			(100,100));
+		
+		return iView;
 	}
 
 }
