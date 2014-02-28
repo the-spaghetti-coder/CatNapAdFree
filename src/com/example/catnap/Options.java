@@ -28,7 +28,7 @@ public class Options extends Activity implements ViewFactory {
 		Button switchViews = (Button)findViewById(R.id.switchViews);
 		Button switchViewsAgain = (Button)findViewById(R.id.switchViewsAgain);
 		
-		imgsw = (ImageSwitcher)findViewById(R.id.imageSwitcher1);
+		imgsw = (ImageSwitcher)findViewById(R.id.customTimer);
 		
 		Animation slide_in_left = AnimationUtils.loadAnimation(this,
 				    android.R.anim.fade_in);

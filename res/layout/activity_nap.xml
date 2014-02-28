@@ -16,8 +16,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:maxHeight="100dp"
-        android:maxWidth="100dp"
+        android:maxHeight="50dp"
+        android:maxWidth="50dp"
         android:scaleType="fitCenter"
         android:src="@drawable/vcatnap_cat" />
 
@@ -27,19 +27,6 @@
             android:layout_height="wrap_content"
             android:layout_alignBottom="@+id/catBedimageSwitcher"
             android:layout_toLeftOf="@+id/sleepingCat"
-            android:adjustViewBounds="true"
-            android:maxHeight="150dp"
-            android:maxWidth="100dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/catbed" />
-
-        <ImageView
-            android:id="@+id/droidIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignLeft="@+id/catIcon"
-            android:layout_below="@+id/sleepingCat"
-            android:layout_marginTop="40dp"
             android:adjustViewBounds="true"
             android:maxHeight="150dp"
             android:maxWidth="100dp"
@@ -69,5 +56,27 @@
             android:maxWidth="75dp"
             android:scaleType="fitCenter"
             android:src="@drawable/catbed" />
+
+        <ImageSwitcher
+            android:id="@+id/customTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="17dp"
+            android:layout_marginTop="22dp" >
+        </ImageSwitcher>
+
+        <ImageView
+            android:id="@+id/droidIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/sleepingCat"
+            android:adjustViewBounds="true"
+            android:maxHeight="200dp"
+            android:maxWidth="150dp"
+            android:scaleType="fitCenter"
+            android:src="@drawable/vcatnap_boot" />
     
 </RelativeLayout>
