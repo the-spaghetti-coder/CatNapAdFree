@@ -14,6 +14,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.DialogPreference;
 import android.provider.AlarmClock;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -23,6 +24,7 @@ import android.view.View.OnDragListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.animation.AlphaAnimation;
+import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TimePicker;
@@ -39,15 +41,18 @@ public class NapActivity extends Activity implements ViewFactory{
 
 		final ImageSwitcher catBedImgSw = (ImageSwitcher)findViewById(R.id.catBedimageSwitcher);
 		final ImageSwitcher customImgSw = (ImageSwitcher)findViewById(R.id.customTimer);
+		final ImageSwitcher bootImgSw = (ImageSwitcher)findViewById(R.id.catBoot);
 		
 		final int[] catBedImgs = {R.drawable.catbed, R.drawable.catsleeping };
-		final int[] customImgs = {R.drawable.vcatnap_cardboard, R.drawable.catbed};
+		final int[] customImgs = {R.drawable.vcatnap_cardboard, R.drawable.v2catnap_cardboard};
+		final int[] catBootImgs = {R.drawable.vcatnap_boot, R.drawable.v2catnap_boot};
 		
 		catBedImgSw.setFactory(this);
 		catBedImgSw.setImageResource(catBedImgs[0]);
-		
 		customImgSw.setFactory(this);
 		customImgSw.setImageResource(customImgs[0]);
+		bootImgSw.setFactory(this);
+		bootImgSw.setImageResource(catBootImgs[0]);
 		
 		sleepyCat.setOnTouchListener(new OnTouchListener() {
 			
@@ -157,6 +162,91 @@ public class NapActivity extends Activity implements ViewFactory{
 			}
 		});
 		
+		bootImgSw.setOnDragListener(new OnDragListener() {
+			@Override
+			public boolean onDrag(View arg0, DragEvent event) {
+				final int action = event.getAction();
+				switch(action) {
+				case DragEvent.ACTION_DRAG_ENDED:
+					System.out.println("actiondragENDED");
+					break;
+				case DragEvent.ACTION_DRAG_ENTERED:
+					System.out.println("actiondragENTERED");
+					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
+					alpha.setDuration(500); // Make animation instant
+					alpha.setFillAfter(false); // Tell it to persist after the animation ends
+					bootImgSw.setImageResource(catBootImgs[1]);
+					break;
+				case DragEvent.ACTION_DRAG_EXITED:
+					System.out.println("actiondragEXITED");
+					bootImgSw.setImageResource(catBootImgs[0]);
+					break;
+				case DragEvent.ACTION_DRAG_LOCATION:
+					break;
+				case DragEvent.ACTION_DRAG_STARTED:
+					System.out.println("actiondragSTARTED");
+					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
+					alpha3.setDuration(0); // Make animation instant
+					sleepyCat.startAnimation(alpha3);
+					return true;
+				case DragEvent.ACTION_DROP:
+					System.out.println("actionDROP");
+					final DateFormat df = new SimpleDateFormat("H");
+					final DateFormat df3 = new SimpleDateFormat("h");
+					final DateFormat df2 = new SimpleDateFormat("mm");
+					final Date date = new Date();
+					long currentDate = date.getTime();
+					long futureDate = currentDate + 1800000;
+					String futureHourTime = df3.format(futureDate);
+					String futureMinuteTime = df2.format(futureDate);
+					String currentHourTime = df.format(date);
+					String currentMinuteTime = df2.format(date);
+					
+					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
+					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
+					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
+					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
+					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
+;
+					ClipData clipData = event.getClipData();
+					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
+					dialog.setTitle("Confirm alarm");
+					dialog.setMessage("Your alarm will be set to\n " + futureAlarmTime);
+					dialog.setPositiveButton("OK", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							System.out.println("positive button");
+
+							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 21);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+					        startActivity(openNewAlarm);
+						}
+					});
+					
+					dialog.setNegativeButton("Cancel", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							 System.out.println("Cancel");
+						}
+					});
+
+					dialog.setInverseBackgroundForced(true);
+					dialog.show();
+					return true;
+				default:
+					System.out.println("fail");
+					return false;
+				}
+				;
+				return false;
+			}
+		});
+		
+		
 		customImgSw.setOnDragListener(new OnDragListener() {
 			@Override
 			public boolean onDrag(View arg0, DragEvent event) {
@@ -170,7 +260,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
 					alpha.setDuration(500); // Make animation instant
 					alpha.setFillAfter(false); // Tell it to persist after the animation ends
-					customImgSw.setImageResource(catBedImgs[1]);
+					customImgSw.setImageResource(customImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
@@ -219,10 +309,12 @@ public class NapActivity extends Activity implements ViewFactory{
 							
 						}
 					};
-					
+//					TimePickerDialog.On
 					
 					TimePickerDialog tpDialog = new TimePickerDialog(NapActivity.this, tpListener, currentHourTimeNum, currentMinuteTimeNum, false);
 					tpDialog.setMessage("Set custom naptime!");
+					tpDialog.setCancelable(true);
+//					tpDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", );
 					tpDialog.show();
 					
 					return true;

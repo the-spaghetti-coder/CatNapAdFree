@@ -16,8 +16,8 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:adjustViewBounds="true"
-        android:maxHeight="50dp"
-        android:maxWidth="50dp"
+        android:maxHeight="70dp"
+        android:maxWidth="70dp"
         android:scaleType="fitCenter"
         android:src="@drawable/vcatnap_cat" />
 
@@ -49,7 +49,7 @@
             android:id="@+id/happyCat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/droidIcon"
+            android:layout_below="@+id/sleepingCat"
             android:layout_toRightOf="@+id/sleepingCat"
             android:adjustViewBounds="true"
             android:maxHeight="75dp"
@@ -67,16 +67,12 @@
             android:layout_marginTop="22dp" >
         </ImageSwitcher>
 
-        <ImageView
-            android:id="@+id/droidIcon"
+        <ImageSwitcher
+            android:id="@+id/catBoot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_below="@+id/sleepingCat"
-            android:adjustViewBounds="true"
-            android:maxHeight="200dp"
-            android:maxWidth="150dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/vcatnap_boot" />
+            android:layout_below="@+id/happyCat"
+            android:layout_toLeftOf="@+id/sleepingCat" >
+        </ImageSwitcher>
     
 </RelativeLayout>
