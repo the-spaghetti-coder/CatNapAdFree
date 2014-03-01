@@ -39,46 +39,48 @@ public class NapActivity extends Activity implements ViewFactory{
 		
 		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
 
-		final ImageSwitcher catBedImgSw = (ImageSwitcher)findViewById(R.id.catBedimageSwitcher);
+		final ImageSwitcher windowImgSw = (ImageSwitcher)findViewById(R.id.window);
 		final ImageSwitcher customImgSw = (ImageSwitcher)findViewById(R.id.customTimer);
 		final ImageSwitcher bootImgSw = (ImageSwitcher)findViewById(R.id.catBoot);
+		final ImageSwitcher laptopSw = (ImageSwitcher)findViewById(R.id.laptop);
+		final ImageSwitcher laundrySw = (ImageSwitcher)findViewById(R.id.laundry);
 		
 		final int[] catBedImgs = {R.drawable.catbed, R.drawable.catsleeping };
 		final int[] customImgs = {R.drawable.vcatnap_cardboard, R.drawable.v2catnap_cardboard};
 		final int[] catBootImgs = {R.drawable.vcatnap_boot, R.drawable.v2catnap_boot};
+		final int[] catLaptopImgs = {R.drawable.vcatnap_laptop, R.drawable.catsleeping};
+		final int[] catWindowImgs = {R.drawable.vcatnap_window, R.drawable.v2catnap_boot};
+		final int[] catLaundryImgs = {R.drawable.vcatnap_laundry, R.drawable.v2catnap_boot};
 		
-		catBedImgSw.setFactory(this);
-		catBedImgSw.setImageResource(catBedImgs[0]);
+		windowImgSw.setFactory(this);
+		windowImgSw.setImageResource(catWindowImgs[0]);
 		customImgSw.setFactory(this);
 		customImgSw.setImageResource(customImgs[0]);
 		bootImgSw.setFactory(this);
 		bootImgSw.setImageResource(catBootImgs[0]);
+		laptopSw.setFactory(this);
+		laptopSw.setImageResource(catLaptopImgs[0]);
+		laundrySw.setFactory(this);
+		laundrySw.setImageResource(catLaundryImgs[0]);
+		
 		
 		sleepyCat.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
 			public boolean onTouch(View v, MotionEvent event) {
-				System.out.println("Long click works!");
 				String[] mimetypes = new String[]{ClipDescription.MIMETYPE_TEXT_PLAIN};
 				ClipData.Item item = new ClipData.Item((CharSequence) v.getTag()); 
 				ClipData dragData = new ClipData((CharSequence) v.getTag(), mimetypes, item);
 				View.DragShadowBuilder myShadow = new MyDragShadowBuilder(sleepyCat);
-//				Toast.makeText(NapActivity.this, "Drag started!", Toast.LENGTH_LONG).show();
-//				sleepyCat.setVisibility(4);  MAKES INVISIBLE
 				return v.startDrag(dragData, myShadow, null, 0);
 				
 			}
 		});
 		
 		sleepyCat.setTag("icon bitmap");
-//		sleepyCat.setOnLongClickListener(new OnLongClickListener() {
-//			@Override
-//			public boolean onLongClick(View v) {
-//
-//			}
-//		});
+
 		
-		catBedImgSw.setOnDragListener(new OnDragListener() {
+		windowImgSw.setOnDragListener(new OnDragListener() {
 			@Override
 			public boolean onDrag(View arg0, DragEvent event) {
 				final int action = event.getAction();
@@ -91,11 +93,179 @@ public class NapActivity extends Activity implements ViewFactory{
 					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
 					alpha.setDuration(500); // Make animation instant
 					alpha.setFillAfter(false); // Tell it to persist after the animation ends
-					catBedImgSw.setImageResource(catBedImgs[1]);
+					windowImgSw.setImageResource(catWindowImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
-					catBedImgSw.setImageResource(catBedImgs[0]);
+					windowImgSw.setImageResource(catWindowImgs[0]);
+					break;
+				case DragEvent.ACTION_DRAG_LOCATION:
+					break;
+				case DragEvent.ACTION_DRAG_STARTED:
+					System.out.println("actiondragSTARTED");
+					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
+					alpha3.setDuration(0); // Make animation instant
+					sleepyCat.startAnimation(alpha3);
+					return true;
+				case DragEvent.ACTION_DROP:
+					System.out.println("actionDROP");
+					final DateFormat df = new SimpleDateFormat("H");
+					final DateFormat df3 = new SimpleDateFormat("h");
+					final DateFormat df2 = new SimpleDateFormat("mm");
+					final Date date = new Date();
+					long currentDate = date.getTime();
+					long futureDate = currentDate + 2700000;
+					String futureHourTime = df3.format(futureDate);
+					String futureMinuteTime = df2.format(futureDate);
+					String currentHourTime = df.format(date);
+					String currentMinuteTime = df2.format(date);
+					
+					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
+					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
+					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
+					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
+					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
+;
+					ClipData clipData = event.getClipData();
+					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
+					dialog.setTitle("Confirm alarm");
+					dialog.setMessage("Your alarm will be set to\n " + futureAlarmTime);
+					dialog.setPositiveButton("OK", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							System.out.println("positive button");
+
+							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
+					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
+					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 46);
+					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+					        startActivity(openNewAlarmWindow);
+						}
+					});
+					
+					dialog.setNegativeButton("Cancel", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							 windowImgSw.setImageResource(catWindowImgs[0]);
+						}
+					});
+
+					dialog.setInverseBackgroundForced(true);
+					dialog.show();
+					return true;
+				default:
+					System.out.println("fail");
+					return false;
+				}
+				;
+				return false;
+			}
+		});
+		
+		bootImgSw.setOnDragListener(new OnDragListener() {
+			@Override
+			public boolean onDrag(View arg0, DragEvent event) {
+				final int action = event.getAction();
+				switch(action) {
+				case DragEvent.ACTION_DRAG_ENDED:
+					System.out.println("actiondragENDED");
+					break;
+				case DragEvent.ACTION_DRAG_ENTERED:
+					System.out.println("actiondragENTERED");
+					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
+					alpha.setDuration(500); // Make animation instant
+					alpha.setFillAfter(false); // Tell it to persist after the animation ends
+					bootImgSw.setImageResource(catBootImgs[1]);
+					break;
+				case DragEvent.ACTION_DRAG_EXITED:
+					System.out.println("actiondragEXITED");
+					bootImgSw.setImageResource(catBootImgs[0]);
+					break;
+				case DragEvent.ACTION_DRAG_LOCATION:
+					break;
+				case DragEvent.ACTION_DRAG_STARTED:
+					System.out.println("actiondragSTARTED");
+					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
+					alpha3.setDuration(0); // Make animation instant
+					sleepyCat.startAnimation(alpha3);
+					return true;
+				case DragEvent.ACTION_DROP:
+					System.out.println("actionDROP");
+					final DateFormat df = new SimpleDateFormat("H");
+					final DateFormat df3 = new SimpleDateFormat("h");
+					final DateFormat df2 = new SimpleDateFormat("mm");
+					final Date date = new Date();
+					long currentDate = date.getTime();
+					long futureDate = currentDate + 1200000;
+					String futureHourTime = df3.format(futureDate);
+					String futureMinuteTime = df2.format(futureDate);
+					String currentHourTime = df.format(date);
+					String currentMinuteTime = df2.format(date);
+					
+					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
+					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
+					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
+					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
+					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
+;
+					ClipData clipData = event.getClipData();
+					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
+					dialog.setTitle("Confirm alarm");
+					dialog.setMessage("Your alarm will be set to\n " + futureAlarmTime);
+					dialog.setPositiveButton("OK", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							System.out.println("positive button");
+
+							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 21);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+					        startActivity(openNewAlarm);
+						}
+					});
+					
+					dialog.setNegativeButton("Cancel", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							bootImgSw.setImageResource(catBootImgs[0]);
+						}
+					});
+
+					dialog.setInverseBackgroundForced(true);
+					dialog.show();
+					return true;
+				default:
+					System.out.println("fail");
+					return false;
+				}
+				;
+				return false;
+			}
+		});
+
+		laptopSw.setOnDragListener(new OnDragListener() {
+			@Override
+			public boolean onDrag(View arg0, DragEvent event) {
+				final int action = event.getAction();
+				switch(action) {
+				case DragEvent.ACTION_DRAG_ENDED:
+					System.out.println("actiondragENDED");
+					break;
+				case DragEvent.ACTION_DRAG_ENTERED:
+					System.out.println("actiondragENTERED");
+					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
+					alpha.setDuration(500); // Make animation instant
+					alpha.setFillAfter(false); // Tell it to persist after the animation ends
+					laptopSw.setImageResource(catLaptopImgs[1]);
+					break;
+				case DragEvent.ACTION_DRAG_EXITED:
+					System.out.println("actiondragEXITED");
+					laptopSw.setImageResource(catLaptopImgs[0]);
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
 					break;
@@ -146,7 +316,7 @@ public class NapActivity extends Activity implements ViewFactory{
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							 System.out.println("Cancel");
+							laptopSw.setImageResource(catLaptopImgs[0]);
 						}
 					});
 
@@ -160,9 +330,9 @@ public class NapActivity extends Activity implements ViewFactory{
 				;
 				return false;
 			}
-		});
-		
-		bootImgSw.setOnDragListener(new OnDragListener() {
+		});		
+
+		laundrySw.setOnDragListener(new OnDragListener() {
 			@Override
 			public boolean onDrag(View arg0, DragEvent event) {
 				final int action = event.getAction();
@@ -175,11 +345,11 @@ public class NapActivity extends Activity implements ViewFactory{
 					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
 					alpha.setDuration(500); // Make animation instant
 					alpha.setFillAfter(false); // Tell it to persist after the animation ends
-					bootImgSw.setImageResource(catBootImgs[1]);
+					laundrySw.setImageResource(catLaundryImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
-					bootImgSw.setImageResource(catBootImgs[0]);
+					laundrySw.setImageResource(catLaundryImgs[0]);
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
 					break;
@@ -196,7 +366,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					final Date date = new Date();
 					long currentDate = date.getTime();
-					long futureDate = currentDate + 1800000;
+					long futureDate = currentDate + 3600000;
 					String futureHourTime = df3.format(futureDate);
 					String futureMinuteTime = df2.format(futureDate);
 					String currentHourTime = df.format(date);
@@ -219,8 +389,8 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 
 							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 21);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum + 1);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
 					        startActivity(openNewAlarm);
 						}
@@ -230,7 +400,7 @@ public class NapActivity extends Activity implements ViewFactory{
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							 System.out.println("Cancel");
+							laundrySw.setImageResource(catLaundryImgs[0]);
 						}
 					});
 
@@ -245,7 +415,6 @@ public class NapActivity extends Activity implements ViewFactory{
 				return false;
 			}
 		});
-		
 		
 		customImgSw.setOnDragListener(new OnDragListener() {
 			@Override
@@ -309,12 +478,20 @@ public class NapActivity extends Activity implements ViewFactory{
 							
 						}
 					};
-//					TimePickerDialog.On
+
 					
 					TimePickerDialog tpDialog = new TimePickerDialog(NapActivity.this, tpListener, currentHourTimeNum, currentMinuteTimeNum, false);
 					tpDialog.setMessage("Set custom naptime!");
 					tpDialog.setCancelable(true);
-//					tpDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", );
+					
+					tpDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new OnClickListener() {
+						
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							System.out.println("Test");
+							
+						}
+					});
 					tpDialog.show();
 					
 					return true;
@@ -339,9 +516,7 @@ public class NapActivity extends Activity implements ViewFactory{
 	public View makeView() {
 		ImageView iView = new ImageView(this);
 		iView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-		iView.setLayoutParams(new ImageSwitcher.LayoutParams
-			(100,100));
-		
+		iView.setLayoutParams(new ImageSwitcher.LayoutParams(100,100));
 		return iView;
 	}
 

@@ -21,41 +21,17 @@
         android:scaleType="fitCenter"
         android:src="@drawable/vcatnap_cat" />
 
-        <ImageView
-            android:id="@+id/catIcon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignBottom="@+id/catBedimageSwitcher"
-            android:layout_toLeftOf="@+id/sleepingCat"
-            android:adjustViewBounds="true"
-            android:maxHeight="150dp"
-            android:maxWidth="100dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/catbed" />
-
         <ImageSwitcher
-            android:id="@+id/catBedimageSwitcher"
+            android:id="@+id/window"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_above="@+id/sleepingCat"
-            android:layout_alignLeft="@+id/happyCat"
+            android:layout_toRightOf="@+id/sleepingCat"
             android:adjustViewBounds="true"
             android:maxHeight="75dp"
             android:maxWidth="75dp"
             android:scaleType="fitCenter" >
         </ImageSwitcher>
-
-        <ImageView
-            android:id="@+id/happyCat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/sleepingCat"
-            android:layout_toRightOf="@+id/sleepingCat"
-            android:adjustViewBounds="true"
-            android:maxHeight="75dp"
-            android:maxWidth="75dp"
-            android:scaleType="fitCenter"
-            android:src="@drawable/catbed" />
 
         <ImageSwitcher
             android:id="@+id/customTimer"
@@ -71,8 +47,24 @@
             android:id="@+id/catBoot"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/happyCat"
+            android:layout_below="@+id/sleepingCat"
             android:layout_toLeftOf="@+id/sleepingCat" >
+        </ImageSwitcher>
+
+        <ImageSwitcher
+            android:id="@+id/laptop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/sleepingCat"
+            android:layout_toLeftOf="@+id/sleepingCat" >
+        </ImageSwitcher>
+
+        <ImageSwitcher
+            android:id="@+id/laundry"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/sleepingCat"
+            android:layout_toRightOf="@+id/sleepingCat" >
         </ImageSwitcher>
     
 </RelativeLayout>
