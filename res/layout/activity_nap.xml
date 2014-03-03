@@ -9,17 +9,7 @@
     android:background="#ABDDE0"
     tools:context=".NapActivity" >
 
-    <ImageView
-        android:id="@+id/sleepingCat"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:adjustViewBounds="true"
-        android:maxHeight="70dp"
-        android:maxWidth="70dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/vcatnap_cat" />
+
 
         <ImageSwitcher
             android:id="@+id/window"
@@ -31,16 +21,6 @@
             android:maxHeight="75dp"
             android:maxWidth="75dp"
             android:scaleType="fitCenter" >
-        </ImageSwitcher>
-
-        <ImageSwitcher
-            android:id="@+id/customTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="17dp"
-            android:layout_marginTop="22dp" >
         </ImageSwitcher>
 
         <ImageSwitcher
@@ -65,6 +45,22 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/sleepingCat"
             android:layout_toRightOf="@+id/sleepingCat" >
+        </ImageSwitcher>
+
+        <ImageSwitcher
+            android:id="@+id/customTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true" >
+        </ImageSwitcher>
+
+        <ImageSwitcher
+            android:id="@+id/sleepingCat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true" >
         </ImageSwitcher>
     
 </RelativeLayout>

@@ -22,7 +22,7 @@ public class Options extends Activity implements ViewFactory {
 		
 		final int imgs[] = {
 			R.drawable.catbed,
-			R.drawable.caticon
+			R.drawable.catsleeping
 		};
 		
 		Button switchViews = (Button)findViewById(R.id.switchViews);

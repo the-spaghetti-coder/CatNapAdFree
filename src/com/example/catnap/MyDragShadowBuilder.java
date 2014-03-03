@@ -2,18 +2,18 @@ package com.example.catnap;
 
 import android.graphics.Canvas;
 import android.graphics.Point;
-import android.graphics.drawable.BitmapDrawable;
 import android.view.View;
+import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 
 
 
 public class MyDragShadowBuilder extends View.DragShadowBuilder{
-	ImageView shadow;
+	ImageSwitcher shadow;
 	
 		public MyDragShadowBuilder(View v) {
 			super(v);
-			shadow = (ImageView) v;
+			shadow = (ImageSwitcher) v;
 			
 		}
 		

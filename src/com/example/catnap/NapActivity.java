@@ -14,17 +14,15 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.preference.DialogPreference;
 import android.provider.AlarmClock;
+import android.util.DisplayMetrics;
 import android.view.DragEvent;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
-import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.animation.AlphaAnimation;
-import android.widget.Button;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TimePicker;
@@ -37,21 +35,25 @@ public class NapActivity extends Activity implements ViewFactory{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nap);
 		
-		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
-
+//		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
+		
+		final ImageSwitcher sleepyCat = (ImageSwitcher)findViewById(R.id.sleepingCat);
 		final ImageSwitcher windowImgSw = (ImageSwitcher)findViewById(R.id.window);
 		final ImageSwitcher customImgSw = (ImageSwitcher)findViewById(R.id.customTimer);
 		final ImageSwitcher bootImgSw = (ImageSwitcher)findViewById(R.id.catBoot);
 		final ImageSwitcher laptopSw = (ImageSwitcher)findViewById(R.id.laptop);
 		final ImageSwitcher laundrySw = (ImageSwitcher)findViewById(R.id.laundry);
 		
+		final int[] sleepyCatImgs = {R.drawable.gimp_catnap_cat, R.drawable.gimp_emptybg, R.drawable.gimp_catnap_naptimesign};
 		final int[] catBedImgs = {R.drawable.catbed, R.drawable.catsleeping };
-		final int[] customImgs = {R.drawable.vcatnap_cardboard, R.drawable.v2catnap_cardboard};
-		final int[] catBootImgs = {R.drawable.vcatnap_boot, R.drawable.v2catnap_boot};
-		final int[] catLaptopImgs = {R.drawable.vcatnap_laptop, R.drawable.catsleeping};
-		final int[] catWindowImgs = {R.drawable.vcatnap_window, R.drawable.v2catnap_boot};
-		final int[] catLaundryImgs = {R.drawable.vcatnap_laundry, R.drawable.v2catnap_boot};
+		final int[] customImgs = {R.drawable.gimpcatnap_cardboardbox_pre, R.drawable.gimpcatnap_cardboardbox};
+		final int[] catBootImgs = {R.drawable.gimp_catnap_boot_pre, R.drawable.gimp_catnap_boot};
+		final int[] catLaptopImgs = {R.drawable.gimp_catnap_laptop_pre, R.drawable.gimp_catnap_laptop};
+		final int[] catWindowImgs = {R.drawable.gimp_catnap_windowsill_pre, R.drawable.gimp_catnap_windowsill};
+		final int[] catLaundryImgs = {R.drawable.gimp_catnap_laundry_pre, R.drawable.gimp_catnap_laundry};
 		
+		sleepyCat.setFactory(this);
+		sleepyCat.setImageResource(sleepyCatImgs[0]);
 		windowImgSw.setFactory(this);
 		windowImgSw.setImageResource(catWindowImgs[0]);
 		customImgSw.setFactory(this);
@@ -87,6 +89,7 @@ public class NapActivity extends Activity implements ViewFactory{
 				switch(action) {
 				case DragEvent.ACTION_DRAG_ENDED:
 					System.out.println("actiondragENDED");
+					sleepyCat.setImageResource(sleepyCatImgs[0]);
 					break;
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
@@ -103,9 +106,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_STARTED:
 					System.out.println("actiondragSTARTED");
-					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
-					alpha3.setDuration(0); // Make animation instant
-					sleepyCat.startAnimation(alpha3);
+					sleepyCat.setImageResource(sleepyCatImgs[1]);
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
@@ -119,6 +120,8 @@ public class NapActivity extends Activity implements ViewFactory{
 					String futureMinuteTime = df2.format(futureDate);
 					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
+					
+					
 					
 					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
 					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
@@ -135,7 +138,7 @@ public class NapActivity extends Activity implements ViewFactory{
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("positive button");
-
+							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
 					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
 					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 46);
@@ -219,7 +222,7 @@ public class NapActivity extends Activity implements ViewFactory{
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("positive button");
-
+							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 21);
@@ -303,7 +306,7 @@ public class NapActivity extends Activity implements ViewFactory{
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("positive button");
-
+							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 31);
@@ -387,7 +390,7 @@ public class NapActivity extends Activity implements ViewFactory{
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("positive button");
-
+							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum + 1);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum);
@@ -469,7 +472,7 @@ public class NapActivity extends Activity implements ViewFactory{
 						@Override
 						public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 							System.out.println("tpLister");
-							
+							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, hourOfDay);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, minute);
@@ -494,7 +497,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					});
 					tpDialog.show();
 					
-					return true;
+					return true; 
 				default:
 					System.out.println("fail");
 					return false;
@@ -514,9 +517,15 @@ public class NapActivity extends Activity implements ViewFactory{
 
 	@Override
 	public View makeView() {
+		DisplayMetrics display = new DisplayMetrics();
+	    getWindowManager().getDefaultDisplay().getMetrics(display);
+	    int screenWidth = display.widthPixels;
+	    int  screenHeight = display.heightPixels;
+	    int oneFourthWidth = screenWidth /4;
+	    int oneFourthHeight = screenWidth /4;
 		ImageView iView = new ImageView(this);
 		iView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-		iView.setLayoutParams(new ImageSwitcher.LayoutParams(100,100));
+		iView.setLayoutParams(new ImageSwitcher.LayoutParams(oneFourthWidth, oneFourthHeight));
 		return iView;
 	}
 

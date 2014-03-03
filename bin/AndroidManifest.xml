@@ -29,7 +29,8 @@
         <activity
             android:name="com.example.catnap.NapActivity"
             android:label="@string/title_activity_nap"
-            android:theme="@style/FULLSCREEN" >
+            android:theme="@style/FULLSCREEN"
+            android:screenOrientation="portrait" >
         </activity>
         <activity
             android:name="com.example.catnap.Options"

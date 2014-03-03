@@ -34,34 +34,39 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
     }
     public static final class drawable {
         public static final int catbed=0x7f020000;
-        public static final int caticon=0x7f020001;
-        public static final int catsleeping=0x7f020002;
-        public static final int happycat=0x7f020003;
-        public static final int ic_launcher=0x7f020004;
-        public static final int v2catnap_boot=0x7f020005;
-        public static final int v2catnap_cardboard=0x7f020006;
-        public static final int vcatnap_boot=0x7f020007;
-        public static final int vcatnap_cardboard=0x7f020008;
-        public static final int vcatnap_cat=0x7f020009;
-        public static final int vcatnap_laptop=0x7f02000a;
-        public static final int vcatnap_laundry=0x7f02000b;
-        public static final int vcatnap_window=0x7f02000c;
-        public static final int vchoosenaptime=0x7f02000d;
+        public static final int catsleeping=0x7f020001;
+        public static final int gimp_catnap_boot=0x7f020002;
+        public static final int gimp_catnap_boot_pre=0x7f020003;
+        public static final int gimp_catnap_cat=0x7f020004;
+        public static final int gimp_catnap_laptop=0x7f020005;
+        public static final int gimp_catnap_laptop_pre=0x7f020006;
+        public static final int gimp_catnap_laundry=0x7f020007;
+        public static final int gimp_catnap_laundry_pre=0x7f020008;
+        public static final int gimp_catnap_naptimesign=0x7f020009;
+        public static final int gimp_catnap_windowsill=0x7f02000a;
+        public static final int gimp_catnap_windowsill_pre=0x7f02000b;
+        public static final int gimp_emptybg=0x7f02000c;
+        public static final int gimpcatnap_cardboardbox=0x7f02000d;
+        public static final int gimpcatnap_cardboardbox_pre=0x7f02000e;
+        public static final int happycat=0x7f02000f;
+        public static final int ic_launcher=0x7f020010;
+        public static final int vcatnap_cat=0x7f020011;
+        public static final int vchoosenaptime=0x7f020012;
     }
     public static final class id {
         public static final int action_settings=0x7f09000c;
-        public static final int catBoot=0x7f090006;
+        public static final int catBoot=0x7f090005;
         public static final int chooseNaptime=0x7f090000;
-        public static final int customTimer=0x7f090005;
+        public static final int customTimer=0x7f090008;
         public static final int imageButton1=0x7f090002;
-        public static final int laptop=0x7f090007;
-        public static final int laundry=0x7f090008;
+        public static final int laptop=0x7f090006;
+        public static final int laundry=0x7f090007;
         public static final int options=0x7f090001;
-        public static final int sleepingCat=0x7f090003;
+        public static final int sleepingCat=0x7f090004;
         public static final int switchViews=0x7f090009;
         public static final int switchViewsAgain=0x7f09000a;
         public static final int textView1=0x7f09000b;
-        public static final int window=0x7f090004;
+        public static final int window=0x7f090003;
     }
     public static final class layout {
         public static final int activity_main=0x7f030000;
