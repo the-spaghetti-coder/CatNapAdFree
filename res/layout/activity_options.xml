@@ -9,35 +9,12 @@
     tools:context=".Options" >
 
     <Button
-        android:id="@+id/switchViews"
+        android:id="@+id/hour"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="96dp"
-        android:layout_marginTop="63dp"
-        android:text="Switch"
-        android:onClick="next" />
-
-    <ImageSwitcher
-        android:id="@+id/customTimer"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="142dp" >
-        
-
-            
-    </ImageSwitcher>
-
-    <Button
-        android:id="@+id/switchViewsAgain"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/switchViews"
-        android:layout_below="@+id/customTimer"
-        android:layout_marginTop="18dp"
-        android:text="Switch Again" />
+        android:layout_marginTop="89dp"
+        android:text="Button" />
 
 </RelativeLayout>

@@ -1,69 +1,42 @@
 package com.example.catnap;
 
+import java.util.Calendar;
+
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
-import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.widget.Button;
-import android.widget.ImageSwitcher;
-import android.widget.ImageView;
-import android.widget.ViewSwitcher.ViewFactory;
 
-public class Options extends Activity implements ViewFactory {
-	private ImageSwitcher imgsw;
+public class Options extends Activity {
+	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_options);
 		
-		final int imgs[] = {
-			R.drawable.catbed,
-			R.drawable.catsleeping
-		};
+		Calendar cal = Calendar.getInstance();
 		
-		Button switchViews = (Button)findViewById(R.id.switchViews);
-		Button switchViewsAgain = (Button)findViewById(R.id.switchViewsAgain);
+		int hourAhead = cal.get(Calendar.HOUR) + 1;
+		System.out.println(String.valueOf(hourAhead));
+		long currentTime = cal.getTimeInMillis();
+		long fourtyFiveFuture = cal.getTimeInMillis() + 2700000;
 		
-		imgsw = (ImageSwitcher)findViewById(R.id.customTimer);
+		Calendar future = Calendar.getInstance();
+		future.setTimeInMillis(fourtyFiveFuture);
+		int futureHour = future.get(Calendar.HOUR);
+		int futureMinute = future.get(Calendar.MINUTE);
 		
-		Animation slide_in_left = AnimationUtils.loadAnimation(this,
-				    android.R.anim.fade_in);
-		Animation slide_out_right = AnimationUtils.loadAnimation(this,
-				    android.R.anim.fade_out);
-//		imgsw.setInAnimation(slide_in_left);
-//		imgsw.setOutAnimation(slide_out_right);
-
-		imgsw.setFactory(this);
-		imgsw.setImageResource(imgs[0]);
-		switchViews.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View arg0) {
-				 imgsw.setImageResource(imgs[1]);
-				
-			}
-		});
+		System.out.println("Future hour: " + String.valueOf(futureHour) + "\nFuture minute: " + String.valueOf(futureMinute));
 		
-		switchViewsAgain.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				 imgsw.setImageResource(imgs[0]);
-				
-			}
-		});
-		imgsw.setOnClickListener(new OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				 System.out.println("imgswitcher clicked");
-				
-			}
-		});
+		Intent intent = new Intent(this, Options.class);
+		PendingIntent pt = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+		
+		am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 60000, pt);
+		
 	}
 
 		
@@ -75,14 +48,6 @@ public class Options extends Activity implements ViewFactory {
 		return true;
 	}
 
-@Override
-public View makeView() {
-	ImageView iView = new ImageView(this);
-//	iView.setScaleType(ImageView.ScaleType.FIT_CENTER);
-	iView.setLayoutParams(new ImageSwitcher.LayoutParams
-		(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-	
-	return iView;
-}
+
 
 }

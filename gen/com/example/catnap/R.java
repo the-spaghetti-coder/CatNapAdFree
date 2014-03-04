@@ -54,18 +54,17 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int vchoosenaptime=0x7f020012;
     }
     public static final class id {
-        public static final int action_settings=0x7f09000c;
+        public static final int action_settings=0x7f09000b;
         public static final int catBoot=0x7f090005;
         public static final int chooseNaptime=0x7f090000;
         public static final int customTimer=0x7f090008;
+        public static final int hour=0x7f090009;
         public static final int imageButton1=0x7f090002;
         public static final int laptop=0x7f090006;
         public static final int laundry=0x7f090007;
         public static final int options=0x7f090001;
         public static final int sleepingCat=0x7f090004;
-        public static final int switchViews=0x7f090009;
-        public static final int switchViewsAgain=0x7f09000a;
-        public static final int textView1=0x7f09000b;
+        public static final int textView1=0x7f09000a;
         public static final int window=0x7f090003;
     }
     public static final class layout {

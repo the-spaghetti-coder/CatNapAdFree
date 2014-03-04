@@ -2,6 +2,7 @@ package com.example.catnap;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
@@ -113,6 +114,16 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
+					
+					//
+					final Calendar cal = Calendar.getInstance();
+					long calCurrentTime = cal.getTimeInMillis();
+					long fourtyFiveFuture = cal.getTimeInMillis() + 2700000;
+					Calendar future = Calendar.getInstance();
+					future.setTimeInMillis(fourtyFiveFuture);
+					final int futureHour = future.get(Calendar.HOUR_OF_DAY);
+					final int futureMinute = future.get(Calendar.MINUTE);
+					
 					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 2700000;
@@ -120,7 +131,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					String futureMinuteTime = df2.format(futureDate);
 					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
-					
+					//
 					
 					
 					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
@@ -132,7 +143,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					ClipData clipData = event.getClipData();
 					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
 					dialog.setTitle("Confirm alarm");
-					dialog.setMessage("Your alarm will be set to\n " + futureAlarmTime);
+					dialog.setMessage("Your alarm will be set to\n\t " + futureAlarmTime);
 					dialog.setPositiveButton("OK", new OnClickListener() {
 						
 						@Override
@@ -140,8 +151,9 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
-					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 46);
+							openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MESSAGE, "CatNapp 45 min alarm");
+					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
+					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
 					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
 					        startActivity(openNewAlarmWindow);
 						}
@@ -177,9 +189,6 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
-					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
-					alpha.setDuration(500); // Make animation instant
-					alpha.setFillAfter(false); // Tell it to persist after the animation ends
 					bootImgSw.setImageResource(catBootImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
@@ -190,15 +199,21 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_STARTED:
 					System.out.println("actiondragSTARTED");
-					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
-					alpha3.setDuration(0); // Make animation instant
-					sleepyCat.startAnimation(alpha3);
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
+					
+					final Calendar cal = Calendar.getInstance();
+					long calCurrentTime = cal.getTimeInMillis();
+					long fourtyFiveFuture = cal.getTimeInMillis() + 1200000;
+					Calendar future = Calendar.getInstance();
+					future.setTimeInMillis(fourtyFiveFuture);
+					final int futureHour = future.get(Calendar.HOUR_OF_DAY);
+					final int futureMinute = future.get(Calendar.MINUTE);
+					
 					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 1200000;
@@ -224,8 +239,8 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 21);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
 					        startActivity(openNewAlarm);
 						}
@@ -261,9 +276,6 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
-					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
-					alpha.setDuration(500); // Make animation instant
-					alpha.setFillAfter(false); // Tell it to persist after the animation ends
 					laptopSw.setImageResource(catLaptopImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
@@ -274,15 +286,21 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_STARTED:
 					System.out.println("actiondragSTARTED");
-					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
-					alpha3.setDuration(0); // Make animation instant
-					sleepyCat.startAnimation(alpha3);
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
+					
+					final Calendar cal = Calendar.getInstance();
+					long calCurrentTime = cal.getTimeInMillis();
+					long fourtyFiveFuture = cal.getTimeInMillis() + 1800000;
+					Calendar future = Calendar.getInstance();
+					future.setTimeInMillis(fourtyFiveFuture);
+					final int futureHour = future.get(Calendar.HOUR_OF_DAY);
+					final int futureMinute = future.get(Calendar.MINUTE);
+					
 					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 1800000;
@@ -308,8 +326,8 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum + 31);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
 					        startActivity(openNewAlarm);
 						}
@@ -345,9 +363,6 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
-					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
-					alpha.setDuration(500); // Make animation instant
-					alpha.setFillAfter(false); // Tell it to persist after the animation ends
 					laundrySw.setImageResource(catLaundryImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
@@ -358,15 +373,21 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_STARTED:
 					System.out.println("actiondragSTARTED");
-					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
-					alpha3.setDuration(0); // Make animation instant
-					sleepyCat.startAnimation(alpha3);
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
+					
+					final Calendar cal = Calendar.getInstance();
+					long calCurrentTime = cal.getTimeInMillis();
+					long fourtyFiveFuture = cal.getTimeInMillis() + 3600000;
+					Calendar future = Calendar.getInstance();
+					future.setTimeInMillis(fourtyFiveFuture);
+					final int futureHour = future.get(Calendar.HOUR_OF_DAY);
+					final int futureMinute = future.get(Calendar.MINUTE);
+					
 					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 3600000;
@@ -392,8 +413,8 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, currentHourTimeNum + 1);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, currentMinuteTimeNum);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
+					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
 					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
 					        startActivity(openNewAlarm);
 						}
@@ -429,9 +450,6 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
-					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
-					alpha.setDuration(500); // Make animation instant
-					alpha.setFillAfter(false); // Tell it to persist after the animation ends
 					customImgSw.setImageResource(customImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
@@ -442,9 +460,6 @@ public class NapActivity extends Activity implements ViewFactory{
 					break;
 				case DragEvent.ACTION_DRAG_STARTED:
 					System.out.println("actiondragSTARTED");
-					AlphaAnimation alpha3 = new AlphaAnimation(0.0F, 0.0F); // change values as you want
-					alpha3.setDuration(0); // Make animation instant
-					sleepyCat.startAnimation(alpha3);
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
@@ -501,8 +516,7 @@ public class NapActivity extends Activity implements ViewFactory{
 				default:
 					System.out.println("fail");
 					return false;
-				}
-				;
+				};
 				return false;
 			}
 		});
@@ -520,9 +534,9 @@ public class NapActivity extends Activity implements ViewFactory{
 		DisplayMetrics display = new DisplayMetrics();
 	    getWindowManager().getDefaultDisplay().getMetrics(display);
 	    int screenWidth = display.widthPixels;
-	    int  screenHeight = display.heightPixels;
-	    int oneFourthWidth = screenWidth /4;
-	    int oneFourthHeight = screenWidth /4;
+	    int screenHeight = display.heightPixels;
+	    int oneFourthWidth = screenWidth /3;
+	    int oneFourthHeight = screenWidth /3;
 		ImageView iView = new ImageView(this);
 		iView.setScaleType(ImageView.ScaleType.FIT_CENTER);
 		iView.setLayoutParams(new ImageSwitcher.LayoutParams(oneFourthWidth, oneFourthHeight));
