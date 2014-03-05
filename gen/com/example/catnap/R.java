@@ -49,9 +49,11 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int gimpcatnap_cardboardbox=0x7f02000d;
         public static final int gimpcatnap_cardboardbox_pre=0x7f02000e;
         public static final int happycat=0x7f02000f;
-        public static final int ic_launcher=0x7f020010;
-        public static final int vcatnap_cat=0x7f020011;
-        public static final int vchoosenaptime=0x7f020012;
+        public static final int ic_catnapp_hdpi=0x7f020010;
+        public static final int ic_catnapp_mhdpi=0x7f020011;
+        public static final int ic_launcher=0x7f020012;
+        public static final int vcatnap_cat=0x7f020013;
+        public static final int vchoosenaptime=0x7f020014;
     }
     public static final class id {
         public static final int action_settings=0x7f09000b;
