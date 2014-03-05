@@ -9,6 +9,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 public class Options extends Activity {
 	
@@ -26,16 +29,20 @@ public class Options extends Activity {
 		
 		Calendar future = Calendar.getInstance();
 		future.setTimeInMillis(fourtyFiveFuture);
-		int futureHour = future.get(Calendar.HOUR);
-		int futureMinute = future.get(Calendar.MINUTE);
+		final int futureHour = future.get(Calendar.HOUR);
+		final int futureMinute = future.get(Calendar.MINUTE);
 		
-		System.out.println("Future hour: " + String.valueOf(futureHour) + "\nFuture minute: " + String.valueOf(futureMinute));
-		
-		Intent intent = new Intent(this, Options.class);
-		PendingIntent pt = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-		
-		am.set(AlarmManager.ELAPSED_REALTIME_WAKEUP, 60000, pt);
+		Button btn = (Button)findViewById(R.id.hour);
+
+				System.out.println("Future hour: " + String.valueOf(futureHour) + "\nFuture minute: " + String.valueOf(futureMinute));
+				
+				Intent intent = new Intent(this, AlarmReceiver.class);
+				PendingIntent pt = PendingIntent.getBroadcast(Options.this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+				AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+				
+				am.set(AlarmManager.RTC_WAKEUP, 1000, pt);
+
+
 		
 	}
 
