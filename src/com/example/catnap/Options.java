@@ -37,12 +37,20 @@ public class Options extends Activity {
 				System.out.println("Future hour: " + String.valueOf(futureHour) + "\nFuture minute: " + String.valueOf(futureMinute));
 				
 				Intent intent = new Intent(this, AlarmReceiver.class);
-				PendingIntent pt = PendingIntent.getBroadcast(Options.this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-				AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+				final PendingIntent pt = PendingIntent.getBroadcast(Options.this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+				final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 				
 				am.set(AlarmManager.RTC_WAKEUP, 1000, pt);
-
-
+//				Options.this.getAlarmManager().cancel(pt);
+				btn.setOnClickListener(new OnClickListener() {
+					
+					@Override
+					public void onClick(View v) {
+						// TODO Auto-generated method stub
+						am.cancel(pt);
+						System.out.println("button");
+					}
+				});
 		
 	}
 
