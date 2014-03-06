@@ -37,11 +37,24 @@ public class Options extends Activity {
 				System.out.println("Future hour: " + String.valueOf(futureHour) + "\nFuture minute: " + String.valueOf(futureMinute));
 				
 				Intent intent = new Intent(this, AlarmReceiver.class);
-				final PendingIntent pt = PendingIntent.getBroadcast(Options.this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+				final PendingIntent pt = PendingIntent.getBroadcast(Options.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 				final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 				
 				am.set(AlarmManager.RTC_WAKEUP, 1000, pt);
 //				Options.this.getAlarmManager().cancel(pt);
+				
+				PendingIntent mAlarmPendingIntent = PendingIntent.getActivity(Options.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//				am.cancel(mAlarmPendingIntent);
+				
+				String ptOne = pt.toString();
+				String ptTwo = mAlarmPendingIntent.toString();
+				int hashCode = pt.hashCode();
+				int hashCode2 = mAlarmPendingIntent.hashCode();
+				String hashString = String.valueOf(hashCode);
+				String hashString2 = String.valueOf(hashCode2);
+				
+				System.out.println(">>>1: " + ptOne + " \n>>>2: " + ptTwo + " \n>>>hashcode1: " + hashString + " \n>>>hashcode2: " + hashString2);
+				
 				btn.setOnClickListener(new OnClickListener() {
 					
 					@Override
