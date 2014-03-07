@@ -2,10 +2,12 @@ package com.example.catnap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.example.catnap.util.SystemUiHider;
 
@@ -17,7 +19,7 @@ import com.example.catnap.util.SystemUiHider;
  * @see SystemUiHider
  */
 public class MainActivity extends Activity {
-
+AnimationDrawable bgAnim;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -26,6 +28,9 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.activity_main);
 		Button chooseNaptime = (Button)findViewById(R.id.chooseNaptime);
 		Button options = (Button)findViewById(R.id.options);
+		final ImageView catBoot = (ImageView)findViewById(R.id.imageView1);
+		catBoot.setBackgroundResource(R.drawable.mainactivity_bg_anim);
+		bgAnim = (AnimationDrawable)catBoot.getBackground();
 		
 		options.setOnClickListener(new OnClickListener() {
 			
@@ -50,6 +55,9 @@ public class MainActivity extends Activity {
 		
 	}
 
+	public void onWindowFocusChanged() { 
+		bgAnim.start();
+	}
 
 
 	/**
