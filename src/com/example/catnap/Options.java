@@ -7,6 +7,9 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.media.Ringtone;
+import android.media.RingtoneManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -36,14 +39,14 @@ public class Options extends Activity {
 
 				System.out.println("Future hour: " + String.valueOf(futureHour) + "\nFuture minute: " + String.valueOf(futureMinute));
 				
-				Intent intent = new Intent(this, AlarmReceiver.class);
+				final Intent intent = new Intent(this, AlarmReceiver.class);
 				final PendingIntent pt = PendingIntent.getBroadcast(Options.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 				final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 				
-				am.set(AlarmManager.RTC_WAKEUP, 1000, pt);
+				am.set(AlarmManager.RTC_WAKEUP, currentTime + 5000, pt);
 //				Options.this.getAlarmManager().cancel(pt);
-				
-				PendingIntent mAlarmPendingIntent = PendingIntent.getActivity(Options.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//				am.cancel(pt);
+				PendingIntent mAlarmPendingIntent = PendingIntent.getActivity(Options.this, 0, intent, 0);
 //				am.cancel(mAlarmPendingIntent);
 				
 				String ptOne = pt.toString();
@@ -60,8 +63,18 @@ public class Options extends Activity {
 					@Override
 					public void onClick(View v) {
 						// TODO Auto-generated method stub
-						am.cancel(pt);
-						System.out.println("button");
+							AlarmManager am2 = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+							Intent i = new Intent(Options.this, AlarmReceiver.class);
+							boolean intentTest = i.filterEquals(intent);
+							if (intentTest) { 
+								System.out.println("the intents are equal");
+								
+							} else {
+								System.out.println("the intents are NOT EQUAL");
+							}
+							PendingIntent pt2 = PendingIntent.getBroadcast(getBaseContext(), 0, i, 0);
+							am2.cancel(pt2);
+							System.out.println("Options Buttonpress");
 					}
 				});
 		

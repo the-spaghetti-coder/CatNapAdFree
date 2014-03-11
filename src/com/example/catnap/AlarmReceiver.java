@@ -15,7 +15,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 	@Override
 	public void onReceive(Context arg0, Intent arg1) {
 		
-		System.out.println("receiver works?");
+		System.out.println("receiver works");
 		Toast.makeText(arg0, "Alarm triggered", Toast.LENGTH_LONG).show();
 		
 		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
