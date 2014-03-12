@@ -37,6 +37,13 @@
             android:label="@string/title_activity_options"
             android:theme="@style/FULLSCREEN">
         </activity>
+        <activity
+            android:name="com.example.catnap.AlarmDialog"
+            android:label="alarmdialog"
+            android:theme="@style/FULLSCREEN"
+            >
+            
+        </activity>
         <receiver android:name=".AlarmReceiver" android:enabled="true"/>
     </application>
 

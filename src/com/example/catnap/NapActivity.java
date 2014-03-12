@@ -6,11 +6,14 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ClipData;
 import android.content.ClipDescription;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
@@ -117,7 +120,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					
 					//
 					final Calendar cal = Calendar.getInstance();
-					long calCurrentTime = cal.getTimeInMillis();
+					final long calCurrentTime = cal.getTimeInMillis();
 					long fourtyFiveFuture = cal.getTimeInMillis() + 2700000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
@@ -150,12 +153,19 @@ public class NapActivity extends Activity implements ViewFactory{
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
-							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
-							openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MESSAGE, "CatNapp 45 min alarm");
-					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
-					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
-					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-					        startActivity(openNewAlarmWindow);
+							
+							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+							
+							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 3000, pt);
+							
+//							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
+//							openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MESSAGE, "CatNapp 45 min alarm");
+//					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
+//					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
+//					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+//					        startActivity(openNewAlarmWindow);
 						}
 					});
 					
