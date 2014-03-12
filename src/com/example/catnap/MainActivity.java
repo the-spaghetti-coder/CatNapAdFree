@@ -29,7 +29,7 @@ AnimationDrawable bgAnim;
 		Button chooseNaptime = (Button)findViewById(R.id.chooseNaptime);
 		Button options = (Button)findViewById(R.id.options);
 		final ImageView catBoot = (ImageView)findViewById(R.id.imageView1);
-		catBoot.setBackgroundResource(R.drawable.mainactivity_bg_anim);
+//		catBoot.setBackgroundResource(R.drawable.mainactivity_bg_anim);
 		bgAnim = (AnimationDrawable)catBoot.getBackground();
 		
 		options.setOnClickListener(new OnClickListener() {

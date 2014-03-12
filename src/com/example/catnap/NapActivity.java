@@ -30,6 +30,7 @@ import android.view.animation.AlphaAnimation;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
 
 public class NapActivity extends Activity implements ViewFactory{
@@ -51,7 +52,7 @@ public class NapActivity extends Activity implements ViewFactory{
 		final int[] sleepyCatImgs = {R.drawable.gimp_catnap_cat, R.drawable.gimp_emptybg, R.drawable.gimp_catnap_naptimesign};
 		final int[] catBedImgs = {R.drawable.catbed, R.drawable.catsleeping };
 		final int[] customImgs = {R.drawable.gimpcatnap_cardboardbox_pre, R.drawable.gimpcatnap_cardboardbox};
-		final int[] catBootImgs = {R.drawable.gimp_catnap_boot_pre, R.drawable.gimp_catnap_boot};
+		final int[] catBootImgs = {R.drawable.hdpi_boot_empty, R.drawable.hdpi_boot};
 		final int[] catLaptopImgs = {R.drawable.gimp_catnap_laptop_pre, R.drawable.gimp_catnap_laptop};
 		final int[] catWindowImgs = {R.drawable.gimp_catnap_windowsill_pre, R.drawable.gimp_catnap_windowsill};
 		final int[] catLaundryImgs = {R.drawable.gimp_catnap_laundry_pre, R.drawable.gimp_catnap_laundry};
@@ -158,7 +159,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							
-							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 3000, pt);
+							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 2700000, pt);
 							
 //							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
 //							openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MESSAGE, "CatNapp 45 min alarm");
@@ -217,7 +218,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					
 					final Calendar cal = Calendar.getInstance();
-					long calCurrentTime = cal.getTimeInMillis();
+					final long calCurrentTime = cal.getTimeInMillis();
 					long fourtyFiveFuture = cal.getTimeInMillis() + 1200000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
@@ -248,11 +249,18 @@ public class NapActivity extends Activity implements ViewFactory{
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
-							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-					        startActivity(openNewAlarm);
+							
+							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+							
+							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1200000, pt);
+							
+//							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+//					        startActivity(openNewAlarm);
 						}
 					});
 					
@@ -304,7 +312,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					
 					final Calendar cal = Calendar.getInstance();
-					long calCurrentTime = cal.getTimeInMillis();
+					final long calCurrentTime = cal.getTimeInMillis();
 					long fourtyFiveFuture = cal.getTimeInMillis() + 1800000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
@@ -335,11 +343,18 @@ public class NapActivity extends Activity implements ViewFactory{
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
-							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-					        startActivity(openNewAlarm);
+							
+							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+							
+							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1800000, pt);
+							
+//							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+//					        startActivity(openNewAlarm);
 						}
 					});
 					
@@ -391,7 +406,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					
 					final Calendar cal = Calendar.getInstance();
-					long calCurrentTime = cal.getTimeInMillis();
+					final long calCurrentTime = cal.getTimeInMillis();
 					long fourtyFiveFuture = cal.getTimeInMillis() + 3600000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
@@ -422,11 +437,18 @@ public class NapActivity extends Activity implements ViewFactory{
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
-							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-					        startActivity(openNewAlarm);
+							
+							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+							
+							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 3600000, pt);
+							
+//							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+//					        startActivity(openNewAlarm);
 						}
 					});
 					
@@ -498,11 +520,28 @@ public class NapActivity extends Activity implements ViewFactory{
 						public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
 							System.out.println("tpLister");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
-							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, hourOfDay);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, minute);
-					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-					        startActivity(openNewAlarm);
+							
+							Calendar cal = Calendar.getInstance();
+							Calendar calCurrent = Calendar.getInstance();
+							long currentTime = calCurrent.getTimeInMillis();
+							cal.set(Calendar.HOUR, hourOfDay);
+							cal.set(Calendar.MINUTE, minute);
+							long setTime = cal.getTimeInMillis();
+							long difference = setTime - currentTime;
+							String differenceToast = String.valueOf(difference/60000);
+							System.out.println("current time: " + currentTime + " \nsetTime: " + setTime + " \ndifference:" + difference);
+							
+							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+							
+							am.set(AlarmManager.RTC_WAKEUP, currentTime + difference, pt);
+							Toast.makeText(NapActivity.this, "Alarm set for " + differenceToast + " minutes from now", Toast.LENGTH_LONG).show();
+//							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, hourOfDay);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, minute);
+//					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
+//					        startActivity(openNewAlarm);
 							
 						}
 					};

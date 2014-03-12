@@ -16,7 +16,7 @@ public class AlarmDialog extends Activity{
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_alarmdialog);
-		Button stopRingtone = (Button)findViewById(R.id.stopRingtone);
+		Button stopRingtone = (Button)findViewById(R.id.endAlarm);
 		
 		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
