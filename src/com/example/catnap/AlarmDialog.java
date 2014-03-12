@@ -1,6 +1,11 @@
 package com.example.catnap;
 
+import java.util.Calendar;
+
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -9,6 +14,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.Toast;
 
 public class AlarmDialog extends Activity{
 
@@ -16,13 +22,14 @@ public class AlarmDialog extends Activity{
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_alarmdialog);
-		Button stopRingtone = (Button)findViewById(R.id.endAlarm);
-		
+		Button endAlarm = (Button)findViewById(R.id.endAlarm);
+		Button snooze = (Button)findViewById(R.id.snooze);
 		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
+
 		r.play();
 		
-		stopRingtone.setOnClickListener(new OnClickListener() {
+		endAlarm.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
@@ -32,9 +39,37 @@ public class AlarmDialog extends Activity{
 				
 			}
 		});
+		
+		snooze.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View v) {
+				r.stop();
+				Calendar cal = Calendar.getInstance();
+				long currentTime = cal.getTimeInMillis();
+				final Intent intent = new Intent(AlarmDialog.this, AlarmReceiver.class);
+				final PendingIntent pt = PendingIntent.getBroadcast(AlarmDialog.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+				final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+				
+				Toast.makeText(AlarmDialog.this, "Snoozing for 10 minutes", Toast.LENGTH_LONG).show();
+				am.set(AlarmManager.RTC_WAKEUP, currentTime + 600000, pt);
+				Intent backToCats = new Intent(AlarmDialog.this, NapActivity.class);
+				startActivity(backToCats);
+				
+				
+			}
+		});
+		
 //		displayAlert();
 		
 	}
+	
+public void onBackPressed() {
+	Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+	final Ringtone r = RingtoneManager.getRingtone(this, alarm);
+	System.out.println("back pressed");
+	r.stop();
+}
 	
 //	public void displayAlert()
 //    {

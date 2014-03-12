@@ -18,7 +18,6 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
-import android.provider.AlarmClock;
 import android.util.DisplayMetrics;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -26,9 +25,9 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnDragListener;
 import android.view.View.OnTouchListener;
-import android.view.animation.AlphaAnimation;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;
@@ -42,6 +41,7 @@ public class NapActivity extends Activity implements ViewFactory{
 		
 //		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
 		
+		final ImageSwitcher topText = (ImageSwitcher)findViewById(R.id.napTopText);
 		final ImageSwitcher sleepyCat = (ImageSwitcher)findViewById(R.id.sleepingCat);
 		final ImageSwitcher windowImgSw = (ImageSwitcher)findViewById(R.id.window);
 		final ImageSwitcher customImgSw = (ImageSwitcher)findViewById(R.id.customTimer);
@@ -49,6 +49,7 @@ public class NapActivity extends Activity implements ViewFactory{
 		final ImageSwitcher laptopSw = (ImageSwitcher)findViewById(R.id.laptop);
 		final ImageSwitcher laundrySw = (ImageSwitcher)findViewById(R.id.laundry);
 		
+		final int[] topTextImgs = {R.drawable.hdpi_dragcat, R.drawable.hdpi_20min, R.drawable.hdpi_30min, R.drawable.hdpi_45min, R.drawable.hdpi_1hour, R.drawable.hdpi_customnap, R.drawable.gimp_emptybg};
 		final int[] sleepyCatImgs = {R.drawable.gimp_catnap_cat, R.drawable.gimp_emptybg, R.drawable.gimp_catnap_naptimesign};
 		final int[] catBedImgs = {R.drawable.catbed, R.drawable.catsleeping };
 		final int[] customImgs = {R.drawable.gimpcatnap_cardboardbox_pre, R.drawable.gimpcatnap_cardboardbox};
@@ -57,6 +58,8 @@ public class NapActivity extends Activity implements ViewFactory{
 		final int[] catWindowImgs = {R.drawable.gimp_catnap_windowsill_pre, R.drawable.gimp_catnap_windowsill};
 		final int[] catLaundryImgs = {R.drawable.gimp_catnap_laundry_pre, R.drawable.gimp_catnap_laundry};
 		
+		topText.setFactory(this);
+		topText.setImageResource(topTextImgs[0]);
 		sleepyCat.setFactory(this);
 		sleepyCat.setImageResource(sleepyCatImgs[0]);
 		windowImgSw.setFactory(this);
@@ -95,23 +98,25 @@ public class NapActivity extends Activity implements ViewFactory{
 				case DragEvent.ACTION_DRAG_ENDED:
 					System.out.println("actiondragENDED");
 					sleepyCat.setImageResource(sleepyCatImgs[0]);
+					topText.setImageResource(topTextImgs[0]);
 					break;
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
-					AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F); // change values as you want
-					alpha.setDuration(500); // Make animation instant
-					alpha.setFillAfter(false); // Tell it to persist after the animation ends
+					topText.setImageResource(topTextImgs[3]);
 					windowImgSw.setImageResource(catWindowImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
 					windowImgSw.setImageResource(catWindowImgs[0]);
+					topText.setImageResource(topTextImgs[6]);
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
 					break;
 				case DragEvent.ACTION_DRAG_STARTED:
 					System.out.println("actiondragSTARTED");
+					topText.setImageResource(topTextImgs[6]);
 					sleepyCat.setImageResource(sleepyCatImgs[1]);
+					
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
@@ -158,7 +163,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-							
+							Toast.makeText(NapActivity.this, "Alarm set for 45 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 2700000, pt);
 							
 //							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
@@ -201,10 +206,12 @@ public class NapActivity extends Activity implements ViewFactory{
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
 					bootImgSw.setImageResource(catBootImgs[1]);
+					topText.setImageResource(topTextImgs[1]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
 					bootImgSw.setImageResource(catBootImgs[0]);
+					topText.setImageResource(topTextImgs[6]);
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
 					break;
@@ -253,7 +260,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-							
+							Toast.makeText(NapActivity.this, "Alarm set for 20 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1200000, pt);
 							
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
@@ -295,10 +302,12 @@ public class NapActivity extends Activity implements ViewFactory{
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
 					laptopSw.setImageResource(catLaptopImgs[1]);
+					topText.setImageResource(topTextImgs[2]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
 					laptopSw.setImageResource(catLaptopImgs[0]);
+					topText.setImageResource(topTextImgs[6]);
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
 					break;
@@ -347,7 +356,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-							
+							Toast.makeText(NapActivity.this, "Alarm set for 30 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1800000, pt);
 							
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
@@ -389,10 +398,12 @@ public class NapActivity extends Activity implements ViewFactory{
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
 					laundrySw.setImageResource(catLaundryImgs[1]);
+					topText.setImageResource(topTextImgs[4]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
 					laundrySw.setImageResource(catLaundryImgs[0]);
+					topText.setImageResource(topTextImgs[6]);
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
 					break;
@@ -441,7 +452,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-							
+							Toast.makeText(NapActivity.this, "Alarm set for 1 hour nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 3600000, pt);
 							
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
@@ -483,10 +494,12 @@ public class NapActivity extends Activity implements ViewFactory{
 				case DragEvent.ACTION_DRAG_ENTERED:
 					System.out.println("actiondragENTERED");
 					customImgSw.setImageResource(customImgs[1]);
+					topText.setImageResource(topTextImgs[5]);
 					break;
 				case DragEvent.ACTION_DRAG_EXITED:
 					System.out.println("actiondragEXITED");
 					customImgSw.setImageResource(customImgs[0]);
+					topText.setImageResource(topTextImgs[6]);
 					break;
 				case DragEvent.ACTION_DRAG_LOCATION:
 					break;
@@ -524,7 +537,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							Calendar cal = Calendar.getInstance();
 							Calendar calCurrent = Calendar.getInstance();
 							long currentTime = calCurrent.getTimeInMillis();
-							cal.set(Calendar.HOUR, hourOfDay);
+							cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
 							cal.set(Calendar.MINUTE, minute);
 							long setTime = cal.getTimeInMillis();
 							long difference = setTime - currentTime;
@@ -536,7 +549,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							
 							am.set(AlarmManager.RTC_WAKEUP, currentTime + difference, pt);
-							Toast.makeText(NapActivity.this, "Alarm set for " + differenceToast + " minutes from now", Toast.LENGTH_LONG).show();
+							Toast.makeText(NapActivity.this, "Alarm set for a " + differenceToast + " minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 //					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, hourOfDay);
 //					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, minute);

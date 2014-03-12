@@ -4,28 +4,31 @@
     android:layout_height="match_parent"
     android:background="#000000" >
 
-    <ImageView
-        android:id="@+id/imageView1"
+    <Button
+        android:id="@+id/endAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
+        android:layout_alignRight="@+id/wakeUp"
+        android:layout_below="@+id/wakeUp"
+        android:text="End Alarm" />
+
+    <ImageView
+        android:id="@+id/wakeUp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        
         android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
         android:src="@drawable/wakeup_hdpi" />
 
     <Button
         android:id="@+id/snooze"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_below="@+id/imageView1"
+        
+        
+        android:layout_alignLeft="@+id/wakeUp"
+        android:layout_below="@+id/wakeUp"
         android:text="Snooze" />
-
-    <Button
-        android:id="@+id/endAlarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_below="@+id/imageView1"
-        android:text="End Alarm" />
 
 </RelativeLayout>
