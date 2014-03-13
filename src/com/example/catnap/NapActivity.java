@@ -50,11 +50,11 @@ public class NapActivity extends Activity implements ViewFactory{
 		final ImageSwitcher laundrySw = (ImageSwitcher)findViewById(R.id.laundry);
 		
 		final int[] topTextImgs = {R.drawable.hdpi_dragcat, R.drawable.hdpi_20min, R.drawable.hdpi_30min, R.drawable.hdpi_45min, R.drawable.hdpi_1hour, R.drawable.hdpi_customnap, R.drawable.gimp_emptybg};
-		final int[] sleepyCatImgs = {R.drawable.gimp_catnap_cat, R.drawable.gimp_emptybg, R.drawable.gimp_catnap_naptimesign};
+		final int[] sleepyCatImgs = {R.drawable.hdpi_cat, R.drawable.gimp_emptybg, R.drawable.hdpi_naptimesign};
 		final int[] catBedImgs = {R.drawable.catbed, R.drawable.catsleeping };
-		final int[] customImgs = {R.drawable.gimpcatnap_cardboardbox_pre, R.drawable.gimpcatnap_cardboardbox};
+		final int[] customImgs = {R.drawable.hdpi_boot_empty, R.drawable.hdpi_box};
 		final int[] catBootImgs = {R.drawable.hdpi_boot_empty, R.drawable.hdpi_boot};
-		final int[] catLaptopImgs = {R.drawable.gimp_catnap_laptop_pre, R.drawable.gimp_catnap_laptop};
+		final int[] catLaptopImgs = {R.drawable.hdpi_laptop_empty, R.drawable.hdpi_laptop};
 		final int[] catWindowImgs = {R.drawable.gimp_catnap_windowsill_pre, R.drawable.gimp_catnap_windowsill};
 		final int[] catLaundryImgs = {R.drawable.gimp_catnap_laundry_pre, R.drawable.gimp_catnap_laundry};
 		
