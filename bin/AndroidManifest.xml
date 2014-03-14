@@ -41,7 +41,7 @@
         <activity
             android:name="com.example.catnap.AlarmDialog"
             android:label="alarmdialog"
-            android:theme="@style/FULLSCREEN"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:noHistory="true"
             >
             

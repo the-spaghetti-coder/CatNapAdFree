@@ -1,17 +1,11 @@
 package com.example.catnap;
 
-import android.app.AlertDialog;
-import android.app.Dialog;
-import android.app.AlertDialog.Builder;
+import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.Ringtone;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.widget.Toast;
+import android.view.Window;
+import android.view.WindowManager.LayoutParams;
 
 public class AlarmReceiver extends BroadcastReceiver{
 
@@ -24,7 +18,8 @@ public class AlarmReceiver extends BroadcastReceiver{
 //		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 //		Ringtone r = RingtoneManager.getRingtone(context, alarm);
 //		r.play();
-		
+
+
 		Intent i = new Intent(context, AlarmDialog.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
