@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 public class AlarmDialog extends Activity{
@@ -29,8 +30,8 @@ public class AlarmDialog extends Activity{
                 WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON |
                 WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON);
 		
-	    Button endAlarm = (Button)findViewById(R.id.endAlarm);
-		Button snooze = (Button)findViewById(R.id.snooze);
+	    ImageView endAlarm = (ImageView)findViewById(R.id.dismissbutton);
+	    ImageView snooze = (ImageView)findViewById(R.id.snoozebutton);
 		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
 

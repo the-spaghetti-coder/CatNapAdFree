@@ -4,14 +4,6 @@
     android:layout_height="match_parent"
     android:background="#000000" >
 
-    <Button
-        android:id="@+id/endAlarm"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignRight="@+id/wakeUp"
-        android:layout_below="@+id/wakeUp"
-        android:text="End Alarm" />
-
     <ImageView
         android:id="@+id/wakeUp"
         android:layout_width="wrap_content"
@@ -21,14 +13,26 @@
         android:layout_centerHorizontal="true"
         android:src="@drawable/wakeup_hdpi" />
 
-    <Button
-        android:id="@+id/snooze"
+    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        
-        
-        android:layout_alignLeft="@+id/wakeUp"
-        android:layout_below="@+id/wakeUp"
-        android:text="Snooze" />
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="20dp" >
+        <ImageView
+        android:id="@+id/snoozebutton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/snoozebutton"
+        android:layout_weight="1" />
+
+        <ImageView
+            android:id="@+id/dismissbutton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:src="@drawable/dismissbutton" />
+
+    </LinearLayout>
 
 </RelativeLayout>
