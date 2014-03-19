@@ -11,10 +11,10 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -24,6 +24,7 @@ public class AlarmDialog extends Activity{
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_alarmdialog);
+		final Vibrator vibe = (Vibrator)getSystemService(AlarmDialog.this.VIBRATOR_SERVICE);
 		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
@@ -34,7 +35,14 @@ public class AlarmDialog extends Activity{
 	    ImageView snooze = (ImageView)findViewById(R.id.snoozebutton);
 		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
-
+		
+		boolean hasVibe = vibe.hasVibrator();
+		long[] vibePattern = {0, 1000, 500, 250,250};
+		if (hasVibe) {
+			vibe.vibrate(vibePattern, 4);
+		}
+		
+		
 		r.play();
 		
 		endAlarm.setOnClickListener(new OnClickListener() {
@@ -42,9 +50,9 @@ public class AlarmDialog extends Activity{
 			@Override
 			public void onClick(View arg0) {
 				 r.stop();
-				 Intent backToCats = new Intent(AlarmDialog.this, NapActivity.class);
-				 startActivity(backToCats);
-				
+				 Intent backToMain = new Intent(AlarmDialog.this, MainActivity.class);
+				 startActivity(backToMain);
+				 vibe.cancel();
 			}
 		});
 		
@@ -52,6 +60,7 @@ public class AlarmDialog extends Activity{
 			
 			@Override
 			public void onClick(View v) {
+				vibe.cancel();
 				r.stop();
 				Calendar cal = Calendar.getInstance();
 				long currentTime = cal.getTimeInMillis();
@@ -61,8 +70,8 @@ public class AlarmDialog extends Activity{
 				
 				Toast.makeText(AlarmDialog.this, "Snoozing for 10 minutes", Toast.LENGTH_LONG).show();
 				am.set(AlarmManager.RTC_WAKEUP, currentTime + 600000, pt);
-				Intent backToCats = new Intent(AlarmDialog.this, NapActivity.class);
-				startActivity(backToCats);
+				Intent backToMain = new Intent(AlarmDialog.this, MainActivity.class);
+				 startActivity(backToMain);
 				
 				
 			}

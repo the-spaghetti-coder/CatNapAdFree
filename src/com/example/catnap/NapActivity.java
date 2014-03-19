@@ -166,6 +166,9 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 45 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 2700000, pt);
 							
+							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
+							 startActivity(backToMain);
+							
 //							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
 //							openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MESSAGE, "CatNapp 45 min alarm");
 //					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
@@ -263,6 +266,9 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 20 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1200000, pt);
 							
+							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
+							 startActivity(backToMain);
+							
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 //					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
 //					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
@@ -358,6 +364,9 @@ public class NapActivity extends Activity implements ViewFactory{
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							Toast.makeText(NapActivity.this, "Alarm set for 30 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1800000, pt);
+							
+							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
+							 startActivity(backToMain);
 							
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 //					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
@@ -455,6 +464,9 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 1 hour nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 3600000, pt);
 							
+							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
+							 startActivity(backToMain);
+							
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 //					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
 //					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
@@ -549,6 +561,10 @@ public class NapActivity extends Activity implements ViewFactory{
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							
 							am.set(AlarmManager.RTC_WAKEUP, currentTime + difference, pt);
+							
+							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
+							 startActivity(backToMain);
+							
 							Toast.makeText(NapActivity.this, "Alarm set for a " + differenceToast + " minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
 //					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, hourOfDay);

@@ -43,4 +43,13 @@
         android:layout_marginBottom="89dp"
         android:src="@drawable/catnap_banner_hdpi" />
 
+    <ImageView
+        android:id="@+id/choosenaptime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:background="@drawable/choosenaptimebutton"
+        android:src="@drawable/choosenaptime" />
+
 </RelativeLayout>
