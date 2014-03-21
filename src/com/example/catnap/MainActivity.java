@@ -2,8 +2,10 @@ package com.example.catnap;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
+import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -20,12 +22,24 @@ import com.example.catnap.util.SystemUiHider;
  */
 public class MainActivity extends Activity {
 AnimationDrawable bgAnim;
+private AdView mAdView;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
+        mAdView = new AdView(this);
+        mAdView.setAdSize(AdSize.SMART_BANNER);
+        mAdView.setAdUnitId("myAdUnitId");
+		
 		setContentView(R.layout.activity_main);
+		
+		Display display = getWindowManager().getDefaultDisplay();
+		Point size = new Point();
+		display.getSize(size);
+		int width = size.x;
+		int height = size.y;
+		
 		Button chooseNaptime = (Button)findViewById(R.id.chooseNaptime);
 		Button options = (Button)findViewById(R.id.options);
 		final ImageView catBoot = (ImageView)findViewById(R.id.imageView1);
@@ -52,6 +66,8 @@ AnimationDrawable bgAnim;
 				
 			}
 		});
+		
+		
 		
 	}
 

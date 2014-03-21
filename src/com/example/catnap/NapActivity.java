@@ -27,7 +27,6 @@ import android.view.View.OnDragListener;
 import android.view.View.OnTouchListener;
 import android.widget.ImageSwitcher;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import android.widget.ViewSwitcher.ViewFactory;

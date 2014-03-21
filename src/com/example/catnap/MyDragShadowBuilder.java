@@ -4,7 +4,6 @@ import android.graphics.Canvas;
 import android.graphics.Point;
 import android.view.View;
 import android.widget.ImageSwitcher;
-import android.widget.ImageView;
 
 
 
