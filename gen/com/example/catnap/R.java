@@ -68,15 +68,20 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
         public static final int hdpi_dragcat=0x7f020020;
         public static final int hdpi_laptop=0x7f020021;
         public static final int hdpi_laptop_empty=0x7f020022;
-        public static final int hdpi_naptimesign=0x7f020023;
-        public static final int ic_catnapp_hdpi=0x7f020024;
-        public static final int ic_catnapp_mhdpi=0x7f020025;
-        public static final int ic_launcher=0x7f020026;
-        public static final int mainactivity_bg_anim=0x7f020027;
-        public static final int snoozebutton=0x7f020028;
-        public static final int vcatnap_cat=0x7f020029;
-        public static final int vchoosenaptime=0x7f02002a;
-        public static final int wakeup_hdpi=0x7f02002b;
+        public static final int hdpi_laundry=0x7f020023;
+        public static final int hdpi_laundry_pre=0x7f020024;
+        public static final int hdpi_naptimesign=0x7f020025;
+        public static final int hdpi_windowsill=0x7f020026;
+        public static final int hdpi_windowsill_pre=0x7f020027;
+        public static final int ic_catnapp_hdpi=0x7f020028;
+        public static final int ic_catnapp_mhdpi=0x7f020029;
+        public static final int ic_launcher=0x7f02002a;
+        public static final int mainactivity_bg_anim=0x7f02002b;
+        public static final int patch_choosenaptime=0x7f02002c;
+        public static final int snoozebutton=0x7f02002d;
+        public static final int vcatnap_cat=0x7f02002e;
+        public static final int vchoosenaptime=0x7f02002f;
+        public static final int wakeup_hdpi=0x7f020030;
     }
     public static final class id {
         public static final int action_settings=0x7f09000e;

@@ -12,7 +12,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.catnap.util.SystemUiHider;
-
+import com.google.android.gms.ads.AdSize;
+import 	com.google.android.gms.ads.AdView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -43,7 +44,7 @@ private AdView mAdView;
 		Button chooseNaptime = (Button)findViewById(R.id.chooseNaptime);
 		Button options = (Button)findViewById(R.id.options);
 		final ImageView catBoot = (ImageView)findViewById(R.id.imageView1);
-//		catBoot.setBackgroundResource(R.drawable.mainactivity_bg_anim);
+
 		bgAnim = (AnimationDrawable)catBoot.getBackground();
 		
 		options.setOnClickListener(new OnClickListener() {
