@@ -10,11 +10,15 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.LinearLayout.LayoutParams;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.example.catnap.util.SystemUiHider;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
-import 	com.google.android.gms.ads.AdView;
+import com.google.android.gms.ads.AdView;
 
 /**
  * An example full-screen activity that shows and hides the system UI (i.e.
@@ -29,19 +33,39 @@ private AdView mAdView;
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-        mAdView = new AdView(this);
+		setContentView(R.layout.activity_main);
+		RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.mainRelativeLayout);
+//		mainLayout.setBackgroundColor(0x0000FF00); THIS PART ACTUALLY WORKS LOL WTF
+		TextView button = new TextView(this);
+		button.setText("test");
+		button.setTextSize(100);
+	    LayoutParams params = 
+	            new LinearLayout.LayoutParams(
+	                    LayoutParams.WRAP_CONTENT,
+	                    LayoutParams.WRAP_CONTENT);
+	    
+		LinearLayout mainLinear = new LinearLayout(this);
+		mainLinear.setBackgroundColor(000000);
+		mainLinear.setLayoutParams(params);
+		mainLinear.setOrientation(LinearLayout.HORIZONTAL);
+	    button.setLayoutParams(params);
+	    
+		mAdView = new AdView(this);
         mAdView.setAdSize(AdSize.SMART_BANNER);
         mAdView.setAdUnitId("myAdUnitId");
+//        03-26 12:05:31.507: I/Ads(16261): Use AdRequest.Builder.addTestDevice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
+//        03-26 15:32:03.437: I/Ads(17764): Use AdRequest.Builder.addTestDevice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
+        mainLayout.setBackgroundColor(0x0000FF01);
+        mainLayout.addView(mAdView);
         
         AdRequest adRequest = new AdRequest.Builder()
         .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-        .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
+        .addTestDevice("25943A650A9B6C01FB89029F724F4A03")
         .build();
         
 		mAdView.loadAd(adRequest);
         
-		setContentView(R.layout.activity_main);
+	
 		
 		Display display = getWindowManager().getDefaultDisplay();
 		Point size = new Point();

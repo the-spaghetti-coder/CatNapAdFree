@@ -3,7 +3,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ABDDE0"
-    tools:context=".MainActivity" >
+    tools:context=".MainActivity"
+    android:id="@+id/mainRelativeLayout" >
 
     <!--
          The primary full-screen view. This can be replaced with whatever view
@@ -25,7 +26,8 @@
        
                 android:background="@drawable/choosenaptimebutton"
         style="@drawable/choosenaptimebutton"
-        android:textColor="#ffffff" />
+        android:textColor="#ffffff"
+         />
 
     <Button
         android:id="@+id/options"
@@ -43,6 +45,17 @@
         android:layout_above="@+id/chooseNaptime"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="89dp"
-        android:src="@drawable/catnap_banner_hdpi" />
+        android:src="@drawable/catnap_banner_hdpi"
+         />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="16dp"
+        android:orientation="vertical"
+        android:id="@+id/mainLinear" >
+    </LinearLayout>
 
 </RelativeLayout>

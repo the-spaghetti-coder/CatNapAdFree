@@ -54,8 +54,8 @@ public class NapActivity extends Activity implements ViewFactory{
 		final int[] customImgs = {R.drawable.hdpi_box_empty, R.drawable.hdpi_box};
 		final int[] catBootImgs = {R.drawable.hdpi_boot_empty, R.drawable.hdpi_boot};
 		final int[] catLaptopImgs = {R.drawable.hdpi_laptop_empty, R.drawable.hdpi_laptop};
-		final int[] catWindowImgs = {R.drawable.gimp_catnap_windowsill_pre, R.drawable.gimp_catnap_windowsill};
-		final int[] catLaundryImgs = {R.drawable.gimp_catnap_laundry_pre, R.drawable.gimp_catnap_laundry};
+		final int[] catWindowImgs = {R.drawable.hdpi_windowsill_pre, R.drawable.hdpi_windowsill};
+		final int[] catLaundryImgs = {R.drawable.hdpi_laundry_pre, R.drawable.hdpi_laundry};
 		
 		topText.setFactory(this);
 		topText.setImageResource(topTextImgs[0]);
