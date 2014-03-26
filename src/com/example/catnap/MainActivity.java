@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.example.catnap.util.SystemUiHider;
+import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import 	com.google.android.gms.ads.AdView;
 
@@ -32,7 +33,14 @@ private AdView mAdView;
         mAdView = new AdView(this);
         mAdView.setAdSize(AdSize.SMART_BANNER);
         mAdView.setAdUnitId("myAdUnitId");
-		
+        
+        AdRequest adRequest = new AdRequest.Builder()
+        .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
+        .addTestDevice("INSERT_YOUR_HASHED_DEVICE_ID_HERE")
+        .build();
+        
+		mAdView.loadAd(adRequest);
+        
 		setContentView(R.layout.activity_main);
 		
 		Display display = getWindowManager().getDefaultDisplay();
