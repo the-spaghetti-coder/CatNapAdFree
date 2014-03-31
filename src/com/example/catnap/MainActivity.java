@@ -45,22 +45,25 @@ private AdView mAdView;
 	                    LayoutParams.WRAP_CONTENT);
 	    
 		LinearLayout mainLinear = new LinearLayout(this);
-		mainLinear.setBackgroundColor(000000);
+//		mainLinear.setBackgroundColor(000000);
 		mainLinear.setLayoutParams(params);
 		mainLinear.setOrientation(LinearLayout.HORIZONTAL);
 	    button.setLayoutParams(params);
 	    
 		mAdView = new AdView(this);
         mAdView.setAdSize(AdSize.SMART_BANNER);
-        mAdView.setAdUnitId("myAdUnitId");
+        mAdView.setAdUnitId(R);
 //        03-26 12:05:31.507: I/Ads(16261): Use AdRequest.Builder.addTestDevice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
 //        03-26 15:32:03.437: I/Ads(17764): Use AdRequest.Builder.addTestDevice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
-        mainLayout.setBackgroundColor(0x0000FF01);
+//        mainLayout.setBackgroundColor(0x0000FF01);
+//        03-30 18:46:21.981: I/Ads(4302): Use AdRequest.Builder.addTestDevice("349FB8DFC6F794A652E37F23F525A880") to get test ads on this device.
+//        03-30 18:46:23.181: W/GooglePlayServicesUtil(4302): Google Play services out of date.  Requires 4323000 but found 4243032
+
         mainLayout.addView(mAdView);
         
         AdRequest adRequest = new AdRequest.Builder()
         .addTestDevice(AdRequest.DEVICE_ID_EMULATOR)
-        .addTestDevice("25943A650A9B6C01FB89029F724F4A03")
+        .addTestDevice("349FB8DFC6F794A652E37F23F525A880")
         .build();
         
 		mAdView.loadAd(adRequest);
