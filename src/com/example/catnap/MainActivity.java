@@ -52,10 +52,10 @@ private AdView mAdView;
 	    
 		mAdView = new AdView(this);
         mAdView.setAdSize(AdSize.SMART_BANNER);
-        mAdView.setAdUnitId("myAdUnitId");
+        mAdView.setAdUnitId(getResources().getString(R.string.adunitid));
 //        03-26 12:05:31.507: I/Ads(16261): Use AdRequest.Builder.addTestDevice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
 //        03-26 15:32:03.437: I/Ads(17764): Use AdRequest.Builder.addTestDevice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
-        mainLayout.setBackgroundColor(0x0000FF01);
+//        mainLayout.setBackgroundColor(0x0000FF01);
         mainLayout.addView(mAdView);
         
         AdRequest adRequest = new AdRequest.Builder()
