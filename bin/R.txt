@@ -113,7 +113,7 @@ int drawable wakeup_hdpi 0x7f02004c
 int id action_settings 0x7f050015
 int id catBoot 0x7f05000f
 int id chooseNaptime 0x7f050009
-int id customTimer 0x7f050012
+int id customTimer 0x7f050013
 int id dismissbutton 0x7f050007
 int id hour 0x7f050014
 int id hybrid 0x7f050004
@@ -122,7 +122,7 @@ int id laptop 0x7f050010
 int id laundry 0x7f050011
 int id mainLinear 0x7f05000c
 int id mainRelativeLayout 0x7f050008
-int id napTopText 0x7f050013
+int id napTopText 0x7f050012
 int id none 0x7f050000
 int id normal 0x7f050001
 int id options 0x7f05000a

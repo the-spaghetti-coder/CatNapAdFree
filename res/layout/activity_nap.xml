@@ -48,14 +48,6 @@
         </ImageSwitcher>
 
         <ImageSwitcher
-            android:id="@+id/customTimer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true" >
-        </ImageSwitcher>
-
-        <ImageSwitcher
             android:id="@+id/sleepingCat"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -69,6 +61,14 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true" >
+        </ImageSwitcher>
+
+        <ImageSwitcher
+            android:id="@+id/customTimer"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/laundry" >
         </ImageSwitcher>
     
 </RelativeLayout>
