@@ -19,7 +19,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
             <meta-data android:name="com.google.android.gms.version"
-               android:value="4242000"/>
+               android:value="@integer/google_play_services_version"/>
         
 <!--         <meta-data android:name="com.google.android.gms.ads.AdActivity"/> -->
         <activity
@@ -56,8 +56,13 @@
         </activity>
         <activity android:name="com.google.android.gms.ads.AdActivity"
              android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"/>
+<<<<<<< HEAD
         <receiver android:name="com.cedideas.catnap.AlarmReceiver" android:enabled="true"/>
         
+=======
+        <receiver android:name=".AlarmReceiver" android:enabled="true"/>
+>>>>>>> 536dac1d360c9a426707af44c9cf7c1c7444e5b8
     </application>
-
+	  <uses-permission android:name="android.permission.INTERNET"/>
+  	<uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 </manifest>
