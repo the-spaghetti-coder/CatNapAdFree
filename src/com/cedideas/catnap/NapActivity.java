@@ -564,7 +564,8 @@ public class NapActivity extends Activity implements ViewFactory{
 							am.set(AlarmManager.RTC_WAKEUP, currentTime + difference, pt);
 							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
-							 startActivity(backToMain);
+							backToMain.putExtra("customAlarmSet", "Custom alarm set for a " + differenceToast + " minute nap.");
+							startActivity(backToMain);
 							
 							Toast.makeText(NapActivity.this, "Alarm set for a " + differenceToast + " minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 //							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);

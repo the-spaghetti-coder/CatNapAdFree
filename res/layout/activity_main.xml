@@ -59,4 +59,13 @@
         android:id="@+id/mainLinear" >
     </LinearLayout>
 
+    <TextView
+        android:id="@+id/alarmAmountNotification"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/mainLinear"
+        android:layout_centerHorizontal="true"
+        android:text=""
+        android:textColor="@color/black_overlay" />
+
 </RelativeLayout>

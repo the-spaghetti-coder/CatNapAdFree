@@ -38,6 +38,10 @@ private AdView mAdView;
 		RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.mainRelativeLayout);
 //		mainLayout.setBackgroundColor(0x0000FF00); THIS PART ACTUALLY WORKS LOL WTF
 		TextView button = new TextView(this);
+		
+		
+
+		
 		button.setText("test");
 		button.setTextSize(100);
 	    LayoutParams params = 
@@ -105,6 +109,30 @@ private AdView mAdView;
 		
 	}
 
+	protected void onRestart() {
+		super.onRestart();
+		System.out.println("activity restarted");
+	}
+	
+	protected void onResume() {
+		super.onResume();
+		System.out.println("activity RESUMED");
+		Intent intent;
+//		if ((intent=getIntent())!=null){
+//			TextView alarmMessage = (TextView)findViewById(R.id.alarmAmountNotification);
+//			String alarmMessageFromIntent = intent.getExtras().getString("customAlarmSet");
+//			alarmMessage.setText(alarmMessageFromIntent);
+//			
+//		} else {
+//			System.out.println("no intent yet");
+//		}
+	}
+	
+	protected void onStart() {
+		super.onStart();
+		System.out.println("activity STARTED");
+	}
+	
 	public void onWindowFocusChanged() { 
 		bgAnim.start();
 	}

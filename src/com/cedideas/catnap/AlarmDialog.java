@@ -39,7 +39,7 @@ public class AlarmDialog extends Activity{
 		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
 		
 		boolean hasVibe = vibe.hasVibrator();
-		long[] vibePattern = {0, 1000, 500, 250,250};
+		long[] vibePattern = {0, 1000, 500, 250, 250};
 		if (hasVibe) {
 			vibe.vibrate(vibePattern, 4);
 		}

@@ -279,28 +279,29 @@ containing a value of this type.
         public static final int wakeup_hdpi=0x7f02004c;
     }
     public static final class id {
-        public static final int action_settings=0x7f050015;
-        public static final int catBoot=0x7f05000f;
+        public static final int action_settings=0x7f050016;
+        public static final int alarmAmountNotification=0x7f05000d;
+        public static final int catBoot=0x7f050010;
         public static final int chooseNaptime=0x7f050009;
-        public static final int customTimer=0x7f050013;
+        public static final int customTimer=0x7f050014;
         public static final int dismissbutton=0x7f050007;
-        public static final int hour=0x7f050014;
+        public static final int hour=0x7f050015;
         public static final int hybrid=0x7f050004;
         public static final int imageView1=0x7f05000b;
-        public static final int laptop=0x7f050010;
-        public static final int laundry=0x7f050011;
+        public static final int laptop=0x7f050011;
+        public static final int laundry=0x7f050012;
         public static final int mainLinear=0x7f05000c;
         public static final int mainRelativeLayout=0x7f050008;
-        public static final int napTopText=0x7f050012;
+        public static final int napTopText=0x7f050013;
         public static final int none=0x7f050000;
         public static final int normal=0x7f050001;
         public static final int options=0x7f05000a;
         public static final int satellite=0x7f050002;
-        public static final int sleepingCat=0x7f05000e;
+        public static final int sleepingCat=0x7f05000f;
         public static final int snoozebutton=0x7f050006;
         public static final int terrain=0x7f050003;
         public static final int wakeUp=0x7f050005;
-        public static final int window=0x7f05000d;
+        public static final int window=0x7f05000e;
     }
     public static final class integer {
         public static final int google_play_services_version=0x7f070000;
