@@ -1,10 +1,17 @@
 package com.cedideas.catnap;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.app.TaskStackBuilder;
+import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -15,7 +22,6 @@ import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.cedideas.catnap.R;
 import com.example.catnap.util.SystemUiHider;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -31,6 +37,7 @@ public class MainActivity extends Activity {
 AnimationDrawable bgAnim;
 private AdView mAdView;
 
+	@TargetApi(Build.VERSION_CODES.JELLY_BEAN)
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,7 +46,33 @@ private AdView mAdView;
 //		mainLayout.setBackgroundColor(0x0000FF00); THIS PART ACTUALLY WORKS LOL WTF
 		TextView button = new TextView(this);
 		
-		
+		NotificationCompat.Builder mBuilder =
+		        new NotificationCompat.Builder(this)
+		        .setSmallIcon(R.drawable.notification_catnap)
+		        .setContentTitle("My notification")
+		        .setContentText("Hello World!");
+		// Creates an explicit intent for an Activity in your app
+//		Intent resultIntent = new Intent(this, NapActivity.class);
+//
+//		// The stack builder object will contain an artificial back stack for the
+//		// started Activity.
+//		// This ensures that navigating backward from the Activity leads out of
+//		// your application to the Home screen.
+//		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//		// Adds the back stack for the Intent (but not the Intent itself)
+//		stackBuilder.addParentStack(NapActivity.class);
+//		// Adds the Intent that starts the Activity to the top of the stack
+//		stackBuilder.addNextIntent(resultIntent);
+//		PendingIntent resultPendingIntent =
+//		        stackBuilder.getPendingIntent(
+//		            0,
+//		            PendingIntent.FLAG_UPDATE_CURRENT
+//		        );
+//		mBuilder.setContentIntent(resultPendingIntent);
+		NotificationManager mNotificationManager =
+		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//		// mId allows you to update the notification later on.
+		mNotificationManager.notify(1, mBuilder.build());
 
 		
 		button.setText("test");
@@ -57,8 +90,8 @@ private AdView mAdView;
 	    
 		mAdView = new AdView(this);
         mAdView.setAdSize(AdSize.SMART_BANNER);
-        mAdView.setAdUnitId(getResources().getString(R.string.adunitid));
-//        03-26 12:05:31.507: I/Ads(16261): Use AdRequest.Builder.addTestDevice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
+        mAdView.setAdUnitId("ca-app-pub-7330416502826862/5930895606");
+//        03-26 12:05:31.507: I/Ads(16261): Use AdRequest.Builder.addTestDev	ice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
 //        03-26 15:32:03.437: I/Ads(17764): Use AdRequest.Builder.addTestDevice("25943A650A9B6C01FB89029F724F4A03") to get test ads on this device.
 //        mainLayout.setBackgroundColor(0x0000FF01);
         mainLayout.addView(mAdView);
