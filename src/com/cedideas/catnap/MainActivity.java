@@ -4,7 +4,6 @@ import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TaskStackBuilder;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Point;
@@ -12,6 +11,7 @@ import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.view.Display;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+import android.widget.RemoteViews;
 import android.widget.TextView;
 
 import com.example.catnap.util.SystemUiHider;
@@ -45,35 +46,45 @@ private AdView mAdView;
 		RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.mainRelativeLayout);
 //		mainLayout.setBackgroundColor(0x0000FF00); THIS PART ACTUALLY WORKS LOL WTF
 		TextView button = new TextView(this);
-		
+		long when = 0;
 		NotificationCompat.Builder mBuilder =
 		        new NotificationCompat.Builder(this)
 		        .setSmallIcon(R.drawable.notification_catnap)
-		        .setContentTitle("My notification")
-		        .setContentText("Hello World!");
+		        .setContentTitle("You have CatNap alarms pending!")
+		        .setContentText("Tap to view more details.")
+		        .setWhen(when).setUsesChronometer(true);
 		// Creates an explicit intent for an Activity in your app
-//		Intent resultIntent = new Intent(this, NapActivity.class);
+		Intent resultIntent = new Intent(this, AlarmControlActivity.class);
 //
 //		// The stack builder object will contain an artificial back stack for the
 //		// started Activity.
 //		// This ensures that navigating backward from the Activity leads out of
 //		// your application to the Home screen.
-//		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-//		// Adds the back stack for the Intent (but not the Intent itself)
-//		stackBuilder.addParentStack(NapActivity.class);
-//		// Adds the Intent that starts the Activity to the top of the stack
-//		stackBuilder.addNextIntent(resultIntent);
-//		PendingIntent resultPendingIntent =
-//		        stackBuilder.getPendingIntent(
-//		            0,
-//		            PendingIntent.FLAG_UPDATE_CURRENT
-//		        );
-//		mBuilder.setContentIntent(resultPendingIntent);
+		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+		// Adds the back stack for the Intent (but not the Intent itself)
+		stackBuilder.addParentStack(AlarmControlActivity.class);
+		// Adds the Intent that starts the Activity to the top of the stack
+		stackBuilder.addNextIntent(resultIntent);
+		PendingIntent resultPendingIntent =
+		        stackBuilder.getPendingIntent(
+		            0,
+		            PendingIntent.FLAG_UPDATE_CURRENT
+		        );
+		mBuilder.setContentIntent(resultPendingIntent);
 		NotificationManager mNotificationManager =
 		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 //		// mId allows you to update the notification later on.
-		mNotificationManager.notify(1, mBuilder.build());
+		int mId = 1;
+		mNotificationManager.notify(mId, mBuilder.build());
+	    
+		
+		
+		RemoteViews contentView=new RemoteViews(this.getPackageName(), R.layout.notificationlayout);
 
+	    
+
+	    mBuilder.setContent(contentView);
+	    
 		
 		button.setText("test");
 		button.setTextSize(100);

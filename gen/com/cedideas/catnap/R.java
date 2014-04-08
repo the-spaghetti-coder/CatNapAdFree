@@ -281,8 +281,10 @@ containing a value of this type.
         public static final int wakeup_hdpi=0x7f02004e;
     }
     public static final class id {
-        public static final int action_settings=0x7f050016;
+        public static final int action_settings=0x7f050018;
         public static final int alarmAmountNotification=0x7f05000d;
+        public static final int alarmList=0x7f050016;
+        public static final int button1=0x7f050017;
         public static final int catBoot=0x7f050010;
         public static final int chooseNaptime=0x7f050009;
         public static final int customTimer=0x7f050014;
@@ -313,10 +315,14 @@ containing a value of this type.
         public static final int activity_main=0x7f030001;
         public static final int activity_nap=0x7f030002;
         public static final int activity_options=0x7f030003;
+        public static final int alarm_control=0x7f030004;
+        public static final int alarmcontrol_listview=0x7f030005;
+        public static final int notificationlayout=0x7f030006;
     }
     public static final class menu {
-        public static final int nap=0x7f0a0000;
-        public static final int options=0x7f0a0001;
+        public static final int alarm_control=0x7f0a0000;
+        public static final int nap=0x7f0a0001;
+        public static final int options=0x7f0a0002;
     }
     public static final class string {
         public static final int action_settings=0x7f06001e;
@@ -419,6 +425,7 @@ containing a value of this type.
         public static final int dummy_button=0x7f06001b;
         public static final int dummy_content=0x7f06001c;
         public static final int hello_world=0x7f06001f;
+        public static final int title_activity_alarm_control=0x7f060022;
         public static final int title_activity_nap=0x7f06001d;
         public static final int title_activity_options=0x7f060020;
     }

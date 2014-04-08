@@ -9,5 +9,6 @@
     <string name="hello_world">Hello world!</string>
     <string name="title_activity_options">Options</string>
     <string name="adunitid">test</string>
+    <string name="title_activity_alarm_control">AlarmControl</string>
 
 </resources>
