@@ -35,6 +35,10 @@ import android.widget.ViewSwitcher.ViewFactory;
 
 public class NapActivity extends Activity implements ViewFactory{
 
+
+
+
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);

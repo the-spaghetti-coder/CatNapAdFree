@@ -271,20 +271,24 @@ containing a value of this type.
         public static final int ic_plusone_small_off_client=0x7f020044;
         public static final int ic_plusone_standard_off_client=0x7f020045;
         public static final int ic_plusone_tall_off_client=0x7f020046;
-        public static final int mainactivity_bg_anim=0x7f020047;
-        public static final int notification_catnap=0x7f020048;
-        public static final int patch_choosenaptime=0x7f020049;
-        public static final int path3037=0x7f02004a;
-        public static final int snoozebutton=0x7f02004b;
-        public static final int vcatnap_cat=0x7f02004c;
-        public static final int vchoosenaptime=0x7f02004d;
-        public static final int wakeup_hdpi=0x7f02004e;
+        public static final int listviewx=0x7f020047;
+        public static final int mainactivity_bg_anim=0x7f020048;
+        public static final int notification_catnap=0x7f020049;
+        public static final int patch_choosenaptime=0x7f02004a;
+        public static final int path3037=0x7f02004b;
+        public static final int snoozebutton=0x7f02004c;
+        public static final int vcatnap_cat=0x7f02004d;
+        public static final int vchoosenaptime=0x7f02004e;
+        public static final int wakeup_hdpi=0x7f02004f;
     }
     public static final class id {
-        public static final int action_settings=0x7f050018;
+        public static final int action_settings=0x7f05001d;
         public static final int alarmAmountNotification=0x7f05000d;
+        public static final int alarmControl=0x7f050018;
         public static final int alarmList=0x7f050016;
-        public static final int button1=0x7f050017;
+        public static final int alarmName=0x7f05001b;
+        public static final int alarmcontrolcustom=0x7f05001a;
+        public static final int button1=0x7f05001c;
         public static final int catBoot=0x7f050010;
         public static final int chooseNaptime=0x7f050009;
         public static final int customTimer=0x7f050014;
@@ -303,7 +307,9 @@ containing a value of this type.
         public static final int satellite=0x7f050002;
         public static final int sleepingCat=0x7f05000f;
         public static final int snoozebutton=0x7f050006;
+        public static final int stopAlarm=0x7f050019;
         public static final int terrain=0x7f050003;
+        public static final int textView1=0x7f050017;
         public static final int wakeUp=0x7f050005;
         public static final int window=0x7f05000e;
     }
@@ -316,8 +322,9 @@ containing a value of this type.
         public static final int activity_nap=0x7f030002;
         public static final int activity_options=0x7f030003;
         public static final int alarm_control=0x7f030004;
-        public static final int alarmcontrol_listview=0x7f030005;
-        public static final int notificationlayout=0x7f030006;
+        public static final int alarm_control_custom_list_entry=0x7f030005;
+        public static final int alarmcontrol_listview=0x7f030006;
+        public static final int notificationlayout=0x7f030007;
     }
     public static final class menu {
         public static final int alarm_control=0x7f0a0000;

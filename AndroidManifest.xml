@@ -69,6 +69,14 @@
             android:screenOrientation="portrait"
             android:theme="@style/FULLSCREEN" >
         </activity>
+        
+        <service
+		  android:name="com.cedideas.catnap.RingtonePlayingService"
+		  android:icon="@drawable/catbed"
+		  android:label="service name"
+		  >
+		</service> 
+        
     </application>
 
 </manifest>

@@ -26,7 +26,7 @@ public class AlarmDialog extends Activity{
 	protected void onCreate(Bundle bundle) {
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_alarmdialog);
-		final Vibrator vibe = (Vibrator)getSystemService(AlarmDialog.this.VIBRATOR_SERVICE);
+		
 		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
@@ -38,23 +38,24 @@ public class AlarmDialog extends Activity{
 		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
 		
-		boolean hasVibe = vibe.hasVibrator();
-		long[] vibePattern = {0, 1000, 500, 250, 250};
-		if (hasVibe) {
-			vibe.vibrate(vibePattern, 4);
-		}
+
 		
+		Intent serviceIntent = new Intent(this, RingtonePlayingService.class);
+//		serviceIntent.putExtra(alarm, "ringtone-uri");
+		startService(serviceIntent);
 		
-		r.play();
+//		r.play();
 		
 		endAlarm.setOnClickListener(new OnClickListener() {
 			
 			@Override
 			public void onClick(View arg0) {
-				 r.stop();
+//				 r.stop();
+				Intent stopIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
+				getApplicationContext().stopService(stopIntent);
 				 Intent backToMain = new Intent(AlarmDialog.this, MainActivity.class);
 				 startActivity(backToMain);
-				 vibe.cancel();
+//				 vibe.cancel();
 			}
 		});
 		
@@ -62,8 +63,9 @@ public class AlarmDialog extends Activity{
 			
 			@Override
 			public void onClick(View v) {
-				vibe.cancel();
-				r.stop();
+//				vibe.cancel();
+				Intent stopIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
+				getApplicationContext().stopService(stopIntent);
 				Calendar cal = Calendar.getInstance();
 				long currentTime = cal.getTimeInMillis();
 				final Intent intent = new Intent(AlarmDialog.this, AlarmReceiver.class);

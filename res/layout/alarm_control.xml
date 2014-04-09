@@ -12,8 +12,26 @@
         android:id="@+id/alarmList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_below="@+id/textView1"
         android:layout_centerHorizontal="true" >
+
     </ListView>
+
+    <TextView
+        android:id="@+id/alarmControl"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignLeft="@+id/alarmList"
+        android:layout_alignParentTop="true"
+        android:text="Alarm Control" />
+
+    <Button
+        android:id="@+id/stopAlarm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="46dp"
+        android:layout_toRightOf="@+id/alarmControl"
+        android:text="Stop Alarm" />
 
 </RelativeLayout>

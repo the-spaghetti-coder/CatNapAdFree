@@ -43,6 +43,10 @@ private AdView mAdView;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+//		Intent serviceIntent = new Intent(this, RingtonePlayingService.class);
+//		startService(serviceIntent);
+		
 		RelativeLayout mainLayout = (RelativeLayout)findViewById(R.id.mainRelativeLayout);
 //		mainLayout.setBackgroundColor(0x0000FF00); THIS PART ACTUALLY WORKS LOL WTF
 		TextView button = new TextView(this);
