@@ -23,8 +23,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-       
-                android:background="@drawable/choosenaptimebutton"
+        android:background="@drawable/choosenaptimebutton"
         style="@drawable/choosenaptimebutton"
         android:textColor="#ffffff"
          />
@@ -36,8 +35,8 @@
         android:layout_below="@+id/chooseNaptime"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="32dp"
-        android:text="Options"
-        android:visibility="invisible" />
+        
+        android:background="@drawable/alarmcontrolbutton" />
 
     <ImageView
         android:id="@+id/imageView1"

@@ -136,7 +136,7 @@ private AdView mAdView;
 			
 			@Override
 			public void onClick(View arg0) {
-				Intent i = new Intent(MainActivity.this, Options.class);
+				Intent i = new Intent(MainActivity.this, AlarmControlActivity.class);
 				startActivity(i);
 				
 			}
