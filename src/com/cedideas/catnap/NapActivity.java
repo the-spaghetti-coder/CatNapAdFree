@@ -44,6 +44,8 @@ public class NapActivity extends Activity implements ViewFactory{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nap);
 		
+		final DBHelper db = new DBHelper(this);
+//		db.insertEntry(1030, 1050, "testalarm");
 //		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
 		
 		final ImageSwitcher topText = (ImageSwitcher)findViewById(R.id.napTopText);
@@ -129,6 +131,8 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					
+					
+					
 					//
 					final Calendar cal = Calendar.getInstance();
 					final long calCurrentTime = cal.getTimeInMillis();
@@ -144,6 +148,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					String futureHourTime = df3.format(futureDate);
 					String futureMinuteTime = df2.format(futureDate);
 					String currentHourTime = df.format(date);
+					String currentHourTimeTwo = df3.format(date);
 					String currentMinuteTime = df2.format(date);
 					//
 					
@@ -152,8 +157,11 @@ public class NapActivity extends Activity implements ViewFactory{
 					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
 					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
 					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
-					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
-;
+					
+					final String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
+					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
+					final String alarmName = "45 minute nap";
+					
 					ClipData clipData = event.getClipData();
 					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
 					dialog.setTitle("Confirm alarm");
@@ -171,15 +179,13 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 45 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 2700000, pt);
 							
-							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
-							 startActivity(backToMain);
+							db.insertEntry(currentAlarmTime, futureAlarmTime, alarmName);
 							
-//							Intent openNewAlarmWindow = new Intent(AlarmClock.ACTION_SET_ALARM);
-//							openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MESSAGE, "CatNapp 45 min alarm");
-//					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
-//					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
-//					        openNewAlarmWindow.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-//					        startActivity(openNewAlarmWindow);
+							
+							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
+							startActivity(backToMain);
+							
+
 						}
 					});
 					

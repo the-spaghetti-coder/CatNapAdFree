@@ -166,14 +166,7 @@ private AdView mAdView;
 		super.onResume();
 		System.out.println("activity RESUMED");
 		Intent intent;
-//		if ((intent=getIntent())!=null){
-//			TextView alarmMessage = (TextView)findViewById(R.id.alarmAmountNotification);
-//			String alarmMessageFromIntent = intent.getExtras().getString("customAlarmSet");
-//			alarmMessage.setText(alarmMessageFromIntent);
-//			
-//		} else {
-//			System.out.println("no intent yet");
-//		}
+
 	}
 	
 	protected void onStart() {

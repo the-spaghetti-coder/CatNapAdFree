@@ -14,7 +14,7 @@ public class AlarmReceiver extends BroadcastReceiver{
 		Intent i = new Intent(context, AlarmDialog.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
-
+        //add pendingintents to database. clear database everytime the app is closed, therefore temporary database.
 	}
 
 	public void stopAlarm() {

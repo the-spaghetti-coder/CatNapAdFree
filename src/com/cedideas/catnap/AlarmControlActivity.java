@@ -23,6 +23,10 @@ public class AlarmControlActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarm_control);
 		
+		DBHelper db = new DBHelper(this);
+		
+		String lastEntry = db.getLastEntry();
+		
 		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
 		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
 //		RingtoneManager.
@@ -45,7 +49,7 @@ public class AlarmControlActivity extends Activity {
 		ListView listview = (ListView)findViewById(R.id.alarmList);
 		List<String> alarmList = new ArrayList<String>();
 		String yes = "yes";
-		alarmList.add(yes);
+		alarmList.add(lastEntry);
 		ArrayAdapter aa = new ArrayAdapter<String>(this, R.layout.alarm_control_custom_list_entry, R.id.alarmName, alarmList);
 		
 		listview.setAdapter(aa);
