@@ -65,6 +65,8 @@ public class NapActivity extends Activity implements ViewFactory{
 		final int[] catWindowImgs = {R.drawable.hdpi_windowsill_pre, R.drawable.hdpi_windowsill};
 		final int[] catLaundryImgs = {R.drawable.hdpi_laundry_pre, R.drawable.hdpi_laundry};
 		
+		
+		
 		topText.setFactory(this);
 		topText.setImageResource(topTextImgs[0]);
 		sleepyCat.setFactory(this);
@@ -130,8 +132,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
-					
-					
+					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");					
 					
 					//
 					final Calendar cal = Calendar.getInstance();
@@ -541,6 +542,10 @@ public class NapActivity extends Activity implements ViewFactory{
 					String futureMinuteTime = df2.format(futureDate);
 					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
+					String currentHourTimeTwo = df3.format(date);
+					
+					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
+					
 					
 					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
 					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
@@ -560,15 +565,28 @@ public class NapActivity extends Activity implements ViewFactory{
 							Calendar cal = Calendar.getInstance();
 							Calendar calCurrent = Calendar.getInstance();
 							long currentTime = calCurrent.getTimeInMillis();
+							
 							cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
 							cal.set(Calendar.MINUTE, minute);
 							long setTime = cal.getTimeInMillis();
 							long difference = setTime - currentTime;
+							
+							
+							Date futureCalTime = cal.getTime();
+							
+							String futureSetHour = df3.format(futureCalTime);
+							String futureSetMinute = df2.format(futureCalTime);
+							String setAlarmEnd = futureSetHour + ":" + futureSetMinute;
+							String alarmname = "custom alarm";
+							System.out.println("set hour: " + futureSetHour + "set minute: " + futureSetMinute + "complete: " + setAlarmEnd);
+							
 							String differenceToast = String.valueOf(difference/60000);
 							System.out.println("current time: " + currentTime + " \nsetTime: " + setTime + " \ndifference:" + difference);
 							
+							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname);
+							int lastIdRequestCode = db.getLastEntryId();
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
-							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							
 							am.set(AlarmManager.RTC_WAKEUP, currentTime + difference, pt);
@@ -578,11 +596,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							startActivity(backToMain);
 							
 							Toast.makeText(NapActivity.this, "Alarm set for a " + differenceToast + " minute nap. Enjoy!", Toast.LENGTH_LONG).show();
-//							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, hourOfDay);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, minute);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-//					        startActivity(openNewAlarm);
+							
 							
 						}
 					};

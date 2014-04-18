@@ -2,10 +2,12 @@ package com.cedideas.catnap;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
@@ -43,6 +45,23 @@ private AdView mAdView;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		
+		///////////////////////////TEST ENVIRONMENT/////////////////////////////
+		
+		DBHelper db = new DBHelper(this);
+		db.getLastEntryId();
+		
+		int lastIdRequestCode = db.getLastEntryId();
+		final Intent intent = new Intent(this, AlarmReceiver.class);
+		final PendingIntent pt = PendingIntent.getBroadcast(this, 5, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+		System.out.println("^mainactivity cancel");
+		am.cancel(pt);
+		
+		
+		
+		///////////////////////////TEST ENVIRONMENT/////////////////////////////
+		
 		
 //		Intent serviceIntent = new Intent(this, RingtonePlayingService.class);
 //		startService(serviceIntent);

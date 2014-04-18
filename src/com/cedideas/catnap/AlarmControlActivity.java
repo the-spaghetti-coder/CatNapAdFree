@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.PendingIntent;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -24,6 +25,8 @@ public class AlarmControlActivity extends Activity {
 		setContentView(R.layout.alarm_control);
 		
 		DBHelper db = new DBHelper(this);
+		
+//		final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.class, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 		
 		String lastEntry = db.getLastEntry();
 		
