@@ -64,9 +64,11 @@ public class DBHelper extends SQLiteOpenHelper{
 				String strAlarmEnd = c.getString(2).toString();
 				String strAlarmName = c.getString(3).toString();
 				String strCurrentDate = c.getString(4).toString();
-				int alarmActive = c.getInt(4);
+				int alarmActive = c.getInt(5);
 				String strAlarmActive = String.valueOf(alarmActive);
-				System.out.println("Last entry\n=====\n " + "alarm start : " + strAlarmStart + " alarm end: " + strAlarmEnd + " alarm name: " + strAlarmName + " current date: " + strCurrentDate + "alarmActive: " + strAlarmActive);
+				System.out.println("Last entry\n=====\n " + 
+					"alarm start : " + strAlarmStart + " alarm end: " + strAlarmEnd + " alarm name: " + strAlarmName + 
+					" current date: " + strCurrentDate + " alarmActive: " + strAlarmActive);
 
 			} else {
 				Context context = null;
@@ -114,8 +116,9 @@ public class DBHelper extends SQLiteOpenHelper{
 		int lastEntryId = 0;
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery("select * from alarmevents;", null);
+		int cursorCount = c.getCount();
 		try {
-			if (c!=null){
+			if (cursorCount!=0){
 				c.moveToLast();
 				int lastRowId  = c.getInt(0);
 				String strLastRowId = String.valueOf(lastRowId);
@@ -134,6 +137,30 @@ public class DBHelper extends SQLiteOpenHelper{
 		
 		return fullList;
 		
+	}
+	
+	public List<String> getActiveAlarmList() {
+		List<String> activeList = new ArrayList<String>();
+		SQLiteDatabase db = this.getWritableDatabase();
+		Cursor c = db.rawQuery("select * from eventlog2 where alarmactiveornot = 1" + ";", null);
+		int cursorCount = c.getCount();
+		try {
+			if (cursorCount!=0){
+				for(int i=0;i<cursorCount;i++){
+					String strAlarmStart = c.getString(1).toString();
+					String strAlarmEnd = c.getString(2).toString();
+					String strAlarmName = c.getString(3).toString();
+					String strCurrentDate = c.getString(4).toString();
+					int alarmActive = c.getInt(5);
+					String strAlarmActive = String.valueOf(alarmActive);
+					String completeEntry = "Alarm started at " + strAlarmStart + ", ends at " + strAlarmEnd + ". \n" + strAlarmName + " " + strCurrentDate;
+					activeList.add(completeEntry);
+				}
+			}
+		} catch (SQLiteException e ){
+			Log.e("getlastentryFAILED", e.toString(), e);
+		}
+		return activeList;
 	}
 	
 	public void findAlarmMillisRequestCode() {

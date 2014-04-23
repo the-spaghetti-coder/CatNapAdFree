@@ -180,7 +180,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 45 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 2700000, pt);
 							
-							db.insertEntry(currentAlarmTime, futureAlarmTime, alarmName);
+//							db.insertEntry(currentAlarmTime, futureAlarmTime, alarmName);
 							
 							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
@@ -535,6 +535,8 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
+					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
+					
 					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 1800000;
@@ -543,6 +545,8 @@ public class NapActivity extends Activity implements ViewFactory{
 					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
 					String currentHourTimeTwo = df3.format(date);
+					final String currentFormattedDate = df4.format(date);
+					
 					
 					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
 					
@@ -583,7 +587,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							String differenceToast = String.valueOf(difference/60000);
 							System.out.println("current time: " + currentTime + " \nsetTime: " + setTime + " \ndifference:" + difference);
 							
-							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname);
+							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
 							int lastIdRequestCode = db.getLastEntryId();
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
