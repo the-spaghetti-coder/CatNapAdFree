@@ -51,9 +51,10 @@ public class AlarmControlActivity extends Activity {
 		
 		ListView listview = (ListView)findViewById(R.id.alarmList);
 		List<String> alarmList = new ArrayList<String>();
+		alarmList = db.getActiveAlarmList();
 		String yes = "yes";
-		alarmList.add(lastEntry);
-		ArrayAdapter aa = new ArrayAdapter<String>(this, R.layout.alarm_control_custom_list_entry, R.id.alarmName, alarmList);
+//		alarmList.add(lastEntry);
+		ArrayAdapter<String> aa = new ArrayAdapter<String>(this, R.layout.alarm_control_custom_list_entry, R.id.alarmName, alarmList);
 		
 		listview.setAdapter(aa);
 	}

@@ -49,14 +49,15 @@ private AdView mAdView;
 		///////////////////////////TEST ENVIRONMENT/////////////////////////////
 		
 		DBHelper db = new DBHelper(this);
-		db.getLastEntryId();
+//		db.getLastEntryId();
 		
-		int lastIdRequestCode = db.getLastEntryId();
-		final Intent intent = new Intent(this, AlarmReceiver.class);
-		final PendingIntent pt = PendingIntent.getBroadcast(this, 5, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-		final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-		System.out.println("^mainactivity cancel");
-		am.cancel(pt);
+		db.updateSpecificAlarmStatus(2, 0);
+//		int lastIdRequestCode = db.getLastEntryId();
+//		final Intent intent = new Intent(this, AlarmReceiver.class);
+//		final PendingIntent pt = PendingIntent.getBroadcast(this, 5, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//		final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//		System.out.println("^mainactivity cancel");
+//		am.cancel(pt);
 		
 		
 		

@@ -142,29 +142,76 @@ public class DBHelper extends SQLiteOpenHelper{
 	public List<String> getActiveAlarmList() {
 		List<String> activeList = new ArrayList<String>();
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("select * from eventlog2 where alarmactiveornot = 1" + ";", null);
+		Cursor c = db.rawQuery("select * from alarmevents where alarmactiveornot = 1;", null);
 		int cursorCount = c.getCount();
+		
+//		activeList.add("hello");
+		c.moveToFirst();
+//		int rowId = c.getInt(0);
+//		String strRowId = String.valueOf(rowId);
+//		String strAlarmStart = c.getString(1).toString();
+//		String strAlarmEnd = c.getString(2).toString();
+//		String strAlarmName = c.getString(3).toString();
+//		String strCurrentDate = c.getString(4).toString();
+//		int alarmActive = c.getInt(5);
 		try {
 			if (cursorCount!=0){
 				for(int i=0;i<cursorCount;i++){
+					int rowId = c.getInt(0);
+					String strRowId = String.valueOf(rowId);
 					String strAlarmStart = c.getString(1).toString();
 					String strAlarmEnd = c.getString(2).toString();
 					String strAlarmName = c.getString(3).toString();
 					String strCurrentDate = c.getString(4).toString();
 					int alarmActive = c.getInt(5);
 					String strAlarmActive = String.valueOf(alarmActive);
-					String completeEntry = "Alarm started at " + strAlarmStart + ", ends at " + strAlarmEnd + ". \n" + strAlarmName + " " + strCurrentDate;
+					String completeEntry = strRowId + " - Alarm started at " + strAlarmStart + ", ends at " + strAlarmEnd + ". \n" + strAlarmName + " " + strCurrentDate;
+					c.moveToNext();
 					activeList.add(completeEntry);
+					System.out.println(completeEntry);
 				}
-			}
+			} else {System.out.println("shit is fucked up");}
 		} catch (SQLiteException e ){
 			Log.e("getlastentryFAILED", e.toString(), e);
 		}
+		c.close();
+		db.close();
 		return activeList;
 	}
 	
 	public void findAlarmMillisRequestCode() {
 		
+	}
+	
+	public void updateSpecificAlarmStatus(int rowId, int alarmActiveStatus) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(COLUMN_ALARMACTIVEORNOT, alarmActiveStatus);
+		db.update(TABLE_ALARMEVENTS, values, KEY_ID + " = " + rowId, null);
+		Cursor c = db.rawQuery("select * from " + TABLE_ALARMEVENTS + " where " + KEY_ID + " = " + rowId + ";", null);
+		c.moveToFirst();
+		int rowIdTwo = c.getInt(0);
+		String strRowId = String.valueOf(rowIdTwo);
+		String strAlarmStart = c.getString(1).toString();
+		String strAlarmEnd = c.getString(2).toString();
+		String strAlarmName = c.getString(3).toString();
+		String strCurrentDate = c.getString(4).toString();
+		int alarmActive = c.getInt(5);
+		String strAlarmActive = String.valueOf(alarmActive);
+		String completeEntry = strRowId + " - Alarm started at " + strAlarmStart + ", ends at " + strAlarmEnd + ". \n" + strAlarmName + " " + strCurrentDate + " alarm status: " + strAlarmActive;
+		System.out.println(completeEntry);
+		c.close();
+		db.close();
+	}
+	
+	public void updateLastAlarmStatus(int rowId, int alarmActiveStatus){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		Cursor c = db.rawQuery("select * from " + TABLE_ALARMEVENTS + ";", null);
+		c.moveToLast();
+		db.update(TABLE_ALARMEVENTS, values, KEY_ID + " = " + rowId, null);
+		c.close();
+		db.close();
 	}
 	
 	@Override

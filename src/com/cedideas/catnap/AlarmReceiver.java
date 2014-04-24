@@ -10,7 +10,8 @@ public class AlarmReceiver extends BroadcastReceiver{
 	public void onReceive(Context context, Intent arg1) {
 		
 		System.out.println("receiver works");
-
+		Intent intent = new Intent();
+		Bundle bundle = intent.getExtras();
 		Intent i = new Intent(context, AlarmDialog.class);
         i.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         context.startActivity(i);
