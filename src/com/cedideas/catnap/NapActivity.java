@@ -590,6 +590,11 @@ public class NapActivity extends Activity implements ViewFactory{
 							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
 							int lastIdRequestCode = db.getLastEntryId();
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
+//							intent.setAction("test action");
+							intent.putExtra("testvalue", "hello");
+							System.out.println("last id: " + String.valueOf(lastIdRequestCode));
+							
+							intent.putExtra("requestCode", lastIdRequestCode);
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							

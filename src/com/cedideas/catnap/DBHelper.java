@@ -117,16 +117,16 @@ public class DBHelper extends SQLiteOpenHelper{
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery("select * from alarmevents;", null);
 		int cursorCount = c.getCount();
-		try {
+		
 			if (cursorCount!=0){
 				c.moveToLast();
 				int lastRowId  = c.getInt(0);
+				lastRowId = lastEntryId;
 				String strLastRowId = String.valueOf(lastRowId);
 				System.out.println("Last row id: " + strLastRowId);
 			}
-		} catch (SQLiteException e ){
-			Log.e("getlastentryFAILED", e.toString(), e);
-		}
+		
+		lastEntryId = c.getInt(0);
 		db.close();
 		return lastEntryId;
 	}
