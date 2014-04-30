@@ -4,7 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlarmManager;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.media.Ringtone;
 import android.media.RingtoneManager;
@@ -16,22 +19,52 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 public class AlarmControlActivity extends Activity {
+	
+
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarm_control);
-		
 		DBHelper db = new DBHelper(this);
+		List<String> checkAlarmAmount = db.getActiveAlarmList();
 		
-//		final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.class, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		TextView noAlarms = (TextView)findViewById(R.id.noAlarms);
+		Button stopAlarms = (Button)findViewById(R.id.stopAlarm);
 		
-		String lastEntry = db.getLastEntry();
+		if (checkAlarmAmount.isEmpty()) {
+			noAlarms.setVisibility(View.VISIBLE);
+			
+			NotificationManager mNotificationManager =
+				    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			mNotificationManager.cancel(1);
+		} else {
+			stopAlarms.setVisibility(View.VISIBLE);
+		}
 		
-		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
+		
+		
+		
+		
+//		RelativeLayout rl = (RelativeLayout)findViewById(R.id.alarmControlRL);
+//		int childCount = listview.getChildCount();
+//		System.out.println("child count: " + String.valueOf(childCount));
+		
+//		if (childCount!=0){
+//			System.out.println("child count is not 0 therefore you are here");
+//			
+//		}
+		
+		//		final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.class, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		
+//		String lastEntry = db.getLastEntry();
+		
+//		Uri alarm = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+//		final Ringtone r = RingtoneManager.getRingtone(this, alarm);
 //		RingtoneManager.
 		Button stopAlarm = (Button)findViewById(R.id.stopAlarm);
 
@@ -52,13 +85,53 @@ public class AlarmControlActivity extends Activity {
 		ListView listview = (ListView)findViewById(R.id.alarmList);
 		List<String> alarmList = new ArrayList<String>();
 		alarmList = db.getActiveAlarmList();
-		String yes = "yes";
-//		alarmList.add(lastEntry);
-		ArrayAdapter<String> aa = new ArrayAdapter<String>(this, R.layout.alarm_control_custom_list_entry, R.id.alarmName, alarmList);
 		
+		ArrayAdapter<String> aa = new ArrayAdapter<String>(this, R.layout.alarm_control_custom_list_entry, R.id.alarmName, alarmList);
 		listview.setAdapter(aa);
+		
+		
+		
 	}
 
+	public void xButtonClicked(View v){
+		DBHelper db = new DBHelper(this);
+		System.out.println("X Button was clicked!");
+		RelativeLayout RL = (RelativeLayout)v.getParent();
+		int rlChildCount = RL.getChildCount();
+		System.out.println("RL child count: " + String.valueOf(rlChildCount));
+		TextView alarmDescription = (TextView)RL.getChildAt(0);
+		String strAlarmDesc = (String) alarmDescription.getText();
+		
+		String[] split = strAlarmDesc.split(" ");
+		String firstSplit = split[0];
+		System.out.println("first split is: " + firstSplit);
+		
+		
+		char requestCode = strAlarmDesc.charAt(0);
+		String strReq = String.valueOf(requestCode);
+		int intRequestCode =  Integer.valueOf(firstSplit);
+		
+		
+		System.out.println("request code: " + requestCode);
+		db.updateSpecificAlarmStatus(intRequestCode, 0);
+		final Intent intent = new Intent(this, AlarmReceiver.class);
+		final PendingIntent pt = PendingIntent.getBroadcast(this, intRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+		final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+		am.cancel(pt);
+		
+		ListView listview = (ListView)findViewById(R.id.alarmList);
+		List<String> alarmList = new ArrayList<String>();
+		alarmList = db.getActiveAlarmList();
+		ArrayAdapter<String> aa = new ArrayAdapter<String>(this, R.layout.alarm_control_custom_list_entry, R.id.alarmName, alarmList);
+		listview.setAdapter(aa);
+//		alarmList = db.getActiveAlarmList();
+//		listview.setAdapter(adapter)
+//		System.out.println("alarm description: " + strAlarmDesc);
+		
+		
+		
+	}
+	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// Inflate the menu; this adds items to the action bar if it is present.

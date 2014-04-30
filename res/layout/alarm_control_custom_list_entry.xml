@@ -13,6 +13,7 @@
             android:id="@+id/alarmName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/imageView1"
             android:text="Alarm Name"
             android:textSize="22sp" />
 
@@ -23,7 +24,8 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginRight="15dp"
-            android:src="@drawable/listviewx" />
+            android:background="@drawable/listviewxbutton"
+            android:onClick="xButtonClicked" />
 
     </RelativeLayout>
 

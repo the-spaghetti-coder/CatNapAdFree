@@ -58,7 +58,6 @@ public class NapActivity extends Activity implements ViewFactory{
 		
 		final int[] topTextImgs = {R.drawable.hdpi_dragcat, R.drawable.hdpi_20min, R.drawable.hdpi_30min, R.drawable.hdpi_45min, R.drawable.hdpi_1hour, R.drawable.hdpi_customnap, R.drawable.gimp_emptybg};
 		final int[] sleepyCatImgs = {R.drawable.hdpi_cat, R.drawable.gimp_emptybg, R.drawable.hdpi_naptimesign};
-		final int[] catBedImgs = {R.drawable.catbed, R.drawable.catsleeping };
 		final int[] customImgs = {R.drawable.hdpi_box_empty, R.drawable.hdpi_box};
 		final int[] catBootImgs = {R.drawable.hdpi_boot_empty, R.drawable.hdpi_boot};
 		final int[] catLaptopImgs = {R.drawable.hdpi_laptop_empty, R.drawable.hdpi_laptop};
@@ -140,30 +139,15 @@ public class NapActivity extends Activity implements ViewFactory{
 					long fourtyFiveFuture = cal.getTimeInMillis() + 2700000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
-					final int futureHour = future.get(Calendar.HOUR_OF_DAY);
-					final int futureMinute = future.get(Calendar.MINUTE);
-					
+
 					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 2700000;
 					String futureHourTime = df3.format(futureDate);
 					String futureMinuteTime = df2.format(futureDate);
-					String currentHourTime = df.format(date);
-					String currentHourTimeTwo = df3.format(date);
-					String currentMinuteTime = df2.format(date);
-					//
-					
-					
-					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
-					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
-					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
-					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
-					
+
 					final String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
-					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
-					final String alarmName = "45 minute nap";
-					
-					ClipData clipData = event.getClipData();
+
 					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
 					dialog.setTitle("Confirm alarm");
 					dialog.setMessage("Your alarm will be set to\n\t " + futureAlarmTime);
@@ -180,12 +164,8 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 45 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 2700000, pt);
 							
-//							db.insertEntry(currentAlarmTime, futureAlarmTime, alarmName);
-							
-							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							startActivity(backToMain);
-							
 
 						}
 					});
@@ -244,24 +224,15 @@ public class NapActivity extends Activity implements ViewFactory{
 					long fourtyFiveFuture = cal.getTimeInMillis() + 1200000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
-					final int futureHour = future.get(Calendar.HOUR_OF_DAY);
-					final int futureMinute = future.get(Calendar.MINUTE);
 					
 					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 1200000;
 					String futureHourTime = df3.format(futureDate);
 					String futureMinuteTime = df2.format(futureDate);
-					String currentHourTime = df.format(date);
-					String currentMinuteTime = df2.format(date);
-					
-					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
-					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
-					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
-					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
 					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
 ;
-					ClipData clipData = event.getClipData();
+
 					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
 					dialog.setTitle("Confirm alarm");
 					dialog.setMessage("Your alarm will be set to\n " + futureAlarmTime);
@@ -280,12 +251,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							 startActivity(backToMain);
-							
-//							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-//					        startActivity(openNewAlarm);
+
 						}
 					});
 					
@@ -343,24 +309,15 @@ public class NapActivity extends Activity implements ViewFactory{
 					long fourtyFiveFuture = cal.getTimeInMillis() + 1800000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
-					final int futureHour = future.get(Calendar.HOUR_OF_DAY);
-					final int futureMinute = future.get(Calendar.MINUTE);
+
 					
 					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 1800000;
 					String futureHourTime = df3.format(futureDate);
 					String futureMinuteTime = df2.format(futureDate);
-					String currentHourTime = df.format(date);
-					String currentMinuteTime = df2.format(date);
-					
-					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
-					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
-					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
-					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
 					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
 ;
-					ClipData clipData = event.getClipData();
 					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
 					dialog.setTitle("Confirm alarm");
 					dialog.setMessage("Your alarm will be set to\n " + futureAlarmTime);
@@ -379,12 +336,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							 startActivity(backToMain);
-							
-//							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-//					        startActivity(openNewAlarm);
+
 						}
 					});
 					
@@ -436,30 +388,32 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
-					
+					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
+					final Date date = new Date();
 					final Calendar cal = Calendar.getInstance();
 					final long calCurrentTime = cal.getTimeInMillis();
 					long fourtyFiveFuture = cal.getTimeInMillis() + 3600000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
-					final int futureHour = future.get(Calendar.HOUR_OF_DAY);
-					final int futureMinute = future.get(Calendar.MINUTE);
+
+					String currentHourTime = df.format(date);
+					String currentMinuteTime = df2.format(date);
+					String currentHourTimeTwo = df3.format(date);
+					final String currentFormattedDate = df4.format(date);
+					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
+					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
+					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
 					
-					final Date date = new Date();
+					
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 3600000;
 					String futureHourTime = df3.format(futureDate);
 					String futureMinuteTime = df2.format(futureDate);
-					String currentHourTime = df.format(date);
-					String currentMinuteTime = df2.format(date);
+
 					
-					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
-					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
-					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
-					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
 					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
 ;
-					ClipData clipData = event.getClipData();
+
 					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
 					dialog.setTitle("Confirm alarm");
 					dialog.setMessage("Your alarm will be set to\n " + futureAlarmTime);
@@ -474,8 +428,19 @@ public class NapActivity extends Activity implements ViewFactory{
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							Toast.makeText(NapActivity.this, "Alarm set for 1 hour nap. Enjoy!", Toast.LENGTH_LONG).show();
-							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 3600000, pt);
+							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime + 3600000, pt);
+							String alarmname = "1 hr alarm";
 							
+							cal.setTimeInMillis(calCurrentTime+3600000);
+							Date futureCalTime = cal.getTime();
+							
+							String futureSetHour = df3.format(futureCalTime);
+							String futureSetMinute = df2.format(futureCalTime);
+							String setAlarmEnd = futureSetHour + ":" + futureSetMinute;
+							
+							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
+							int lastIdRequestCode = db.getLastEntryId();
+							intent.putExtra("requestCode", lastIdRequestCode);
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							 startActivity(backToMain);
 							
@@ -536,28 +501,15 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
-					
 					final Date date = new Date();
-					long currentDate = date.getTime();
-					long futureDate = currentDate + 1800000;
-					String futureHourTime = df3.format(futureDate);
-					String futureMinuteTime = df2.format(futureDate);
+					
 					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
 					String currentHourTimeTwo = df3.format(date);
 					final String currentFormattedDate = df4.format(date);
-					
-					
 					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
-					
-					
 					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
 					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
-					final int futureHourTimeNum = Integer.parseInt(futureHourTime);
-					final int futureMinuteTimeNum = Integer.parseInt(futureMinuteTime);
-					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
-;
-					ClipData clipData = event.getClipData();
 					
 					TimePickerDialog.OnTimeSetListener tpListener = new OnTimeSetListener() {
 						
@@ -574,8 +526,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							cal.set(Calendar.MINUTE, minute);
 							long setTime = cal.getTimeInMillis();
 							long difference = setTime - currentTime;
-							
-							
+
 							Date futureCalTime = cal.getTime();
 							
 							String futureSetHour = df3.format(futureCalTime);
@@ -590,8 +541,8 @@ public class NapActivity extends Activity implements ViewFactory{
 							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
 							int lastIdRequestCode = db.getLastEntryId();
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
-//							intent.setAction("test action");
-							intent.putExtra("testvalue", "hello");
+
+//							intent.putExtra("testvalue", "hello");
 							System.out.println("last id: " + String.valueOf(lastIdRequestCode));
 							
 							intent.putExtra("requestCode", lastIdRequestCode);
@@ -647,7 +598,7 @@ public class NapActivity extends Activity implements ViewFactory{
 		DisplayMetrics display = new DisplayMetrics();
 	    getWindowManager().getDefaultDisplay().getMetrics(display);
 	    int screenWidth = display.widthPixels;
-	    int screenHeight = display.heightPixels;
+
 	    int oneFourthWidth = screenWidth /3;
 	    int oneFourthHeight = screenWidth /3;
 		ImageView iView = new ImageView(this);

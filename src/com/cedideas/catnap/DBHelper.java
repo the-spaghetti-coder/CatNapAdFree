@@ -82,17 +82,6 @@ public class DBHelper extends SQLiteOpenHelper{
 		
 	}
 	
-	public void deleteEntry(){
-		SQLiteDatabase db = this.getWritableDatabase();
-//		db.delete(TABLE_USERS, COLUMN_FIRSTNAME + "= ?", new String[]{username});
-//		System.out.println("User deleted: " + username);
-//		db.close();
-	}
-	
-	public void updateEntry(){
-		
-	}
-	
 	public String getLastEntry(){
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery("select * from alarmevents;", null);
@@ -131,20 +120,13 @@ public class DBHelper extends SQLiteOpenHelper{
 		return lastEntryId;
 	}
 	
-	public List<String> getFullList(){
-		List<String> fullList = new ArrayList<String>();
-		SQLiteDatabase db = this.getWritableDatabase();
-		
-		return fullList;
-		
-	}
-	
 	public List<String> getActiveAlarmList() {
 		List<String> activeList = new ArrayList<String>();
 		SQLiteDatabase db = this.getWritableDatabase();
-		Cursor c = db.rawQuery("select * from alarmevents where alarmactiveornot = 1;", null);
+		Cursor c = db.rawQuery("select * from alarmevents where alarmactiveornot >= 1;", null);
 		int cursorCount = c.getCount();
-		
+		String strCursorC = String.valueOf(cursorCount);
+		System.out.println("GETACTIVEALARMLIST STARTED! and cursor count is : " + strCursorC);
 //		activeList.add("hello");
 		c.moveToFirst();
 //		int rowId = c.getInt(0);
@@ -157,6 +139,7 @@ public class DBHelper extends SQLiteOpenHelper{
 		try {
 			if (cursorCount!=0){
 				for(int i=0;i<cursorCount;i++){
+					System.out.println("you're in the if statement for loop now");
 					int rowId = c.getInt(0);
 					String strRowId = String.valueOf(rowId);
 					String strAlarmStart = c.getString(1).toString();
@@ -168,9 +151,9 @@ public class DBHelper extends SQLiteOpenHelper{
 					String completeEntry = strRowId + " - Alarm started at " + strAlarmStart + ", ends at " + strAlarmEnd + ". \n" + strAlarmName + " " + strCurrentDate;
 					c.moveToNext();
 					activeList.add(completeEntry);
-					System.out.println(completeEntry);
+					System.out.println("alarm status: " + strAlarmActive + "///" + completeEntry);
 				}
-			} else {System.out.println("shit is fucked up");}
+			} else {System.out.println("shit is fucked up, you ain't got no alarm list son");}
 		} catch (SQLiteException e ){
 			Log.e("getlastentryFAILED", e.toString(), e);
 		}
@@ -179,9 +162,6 @@ public class DBHelper extends SQLiteOpenHelper{
 		return activeList;
 	}
 	
-	public void findAlarmMillisRequestCode() {
-		
-	}
 	
 	public void updateSpecificAlarmStatus(int rowId, int alarmActiveStatus) {
 		SQLiteDatabase db = this.getWritableDatabase();

@@ -27,6 +27,11 @@ public class AlarmDialog extends Activity{
 		super.onCreate(bundle);
 		setContentView(R.layout.activity_alarmdialog);
 		
+		final DBHelper db = new DBHelper(this);
+		
+		Intent intent = getIntent();
+		final int requestCode = intent.getExtras().getInt("requestCode");
+		System.out.println("alarm dialog request code is: " + requestCode);
 		
 		getWindow().addFlags(WindowManager.LayoutParams.FLAG_DISMISS_KEYGUARD |
                 WindowManager.LayoutParams.FLAG_SHOW_WHEN_LOCKED |
@@ -51,6 +56,7 @@ public class AlarmDialog extends Activity{
 			@Override
 			public void onClick(View arg0) {
 //				 r.stop();
+				db.updateSpecificAlarmStatus(requestCode, 0);
 				Intent stopIntent = new Intent(getApplicationContext(), RingtonePlayingService.class);
 				getApplicationContext().stopService(stopIntent);
 				 Intent backToMain = new Intent(AlarmDialog.this, MainActivity.class);

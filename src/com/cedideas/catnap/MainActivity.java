@@ -48,10 +48,10 @@ private AdView mAdView;
 		
 		///////////////////////////TEST ENVIRONMENT/////////////////////////////
 		
-		DBHelper db = new DBHelper(this);
+//		DBHelper db = new DBHelper(this);
 //		db.getLastEntryId();
 		
-		db.updateSpecificAlarmStatus(2, 0);
+//		db.updateSpecificAlarmStatus(2, 0);
 //		int lastIdRequestCode = db.getLastEntryId();
 //		final Intent intent = new Intent(this, AlarmReceiver.class);
 //		final PendingIntent pt = PendingIntent.getBroadcast(this, 5, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -77,6 +77,8 @@ private AdView mAdView;
 		        .setContentTitle("You have CatNap alarms pending!")
 		        .setContentText("Tap to view more details.")
 		        .setWhen(when).setUsesChronometer(true);
+		
+		
 		// Creates an explicit intent for an Activity in your app
 		Intent resultIntent = new Intent(this, AlarmControlActivity.class);
 //
