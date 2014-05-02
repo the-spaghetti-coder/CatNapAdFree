@@ -10,6 +10,7 @@ import com.cedideas.catnap.R;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
+import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
@@ -20,6 +21,7 @@ import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.util.DisplayMetrics;
 import android.view.DragEvent;
 import android.view.Menu;
@@ -44,8 +46,9 @@ public class NapActivity extends Activity implements ViewFactory{
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_nap);
 		
+		final NotificationHelper nh = new NotificationHelper(this);
 		final DBHelper db = new DBHelper(this);
-//		db.insertEntry(1030, 1050, "testalarm");
+
 //		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
 		
 		final ImageSwitcher topText = (ImageSwitcher)findViewById(R.id.napTopText);
@@ -131,7 +134,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
-					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");					
+//					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");					
 					
 					//
 					final Calendar cal = Calendar.getInstance();
@@ -140,7 +143,15 @@ public class NapActivity extends Activity implements ViewFactory{
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
 
+					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
 					final Date date = new Date();
+					String currentHourTime = df.format(date);
+					String currentMinuteTime = df2.format(date);
+					String currentHourTimeTwo = df3.format(date);
+					final String currentFormattedDate = df4.format(date);
+					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
+					
+//					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 2700000;
 					String futureHourTime = df3.format(futureDate);
@@ -158,11 +169,32 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							
+							String alarmname = "45 min alarm";
+							cal.setTimeInMillis(calCurrentTime+2700000);
+							Date futureCalTime = cal.getTime();
+							
+							String futureSetHour = df3.format(futureCalTime);
+							String futureSetMinute = df2.format(futureCalTime);
+							String setAlarmEnd = futureSetHour + ":" + futureSetMinute;
+							
+							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
+							
+							NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
+							NotificationManager mNotificationManager =
+								    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+							int mId = 1;
+							mNotificationManager.notify(mId, mBuilder.build());
+							
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
-							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							int lastIdRequestCode = db.getLastEntryId();
+							intent.putExtra("requestCode", lastIdRequestCode);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							Toast.makeText(NapActivity.this, "Alarm set for 45 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 2700000, pt);
+							System.out.println("45 min nap int test: " + String.valueOf(lastIdRequestCode));
+							
+							
 							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							startActivity(backToMain);
@@ -231,7 +263,14 @@ public class NapActivity extends Activity implements ViewFactory{
 					String futureHourTime = df3.format(futureDate);
 					String futureMinuteTime = df2.format(futureDate);
 					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
-;
+
+					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
+//					final Date date = new Date();
+					String currentHourTime = df.format(date);
+					String currentMinuteTime = df2.format(date);
+					String currentHourTimeTwo = df3.format(date);
+					final String currentFormattedDate = df4.format(date);
+					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
 
 					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
 					dialog.setTitle("Confirm alarm");
@@ -243,11 +282,33 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							
+							NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
+							NotificationManager mNotificationManager =
+								    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+							int mId = 1;
+							mNotificationManager.notify(mId, mBuilder.build());
+							
+							String alarmname = "20 min alarm";
+							cal.setTimeInMillis(calCurrentTime+1200000);
+							Date futureCalTime = cal.getTime();
+							
+							String futureSetHour = df3.format(futureCalTime);
+							String futureSetMinute = df2.format(futureCalTime);
+							String setAlarmEnd = futureSetHour + ":" + futureSetMinute;
+							
+							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
+							
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
-							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							int lastIdRequestCode = db.getLastEntryId();
+							intent.putExtra("requestCode", lastIdRequestCode);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							Toast.makeText(NapActivity.this, "Alarm set for 20 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1200000, pt);
+							System.out.println("20 min nap int test: " + String.valueOf(lastIdRequestCode));
+							
+							
+							
 							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							 startActivity(backToMain);
@@ -310,8 +371,15 @@ public class NapActivity extends Activity implements ViewFactory{
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
 
-					
+					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
 					final Date date = new Date();
+					String currentHourTime = df.format(date);
+					String currentMinuteTime = df2.format(date);
+					String currentHourTimeTwo = df3.format(date);
+					final String currentFormattedDate = df4.format(date);
+					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
+					
+//					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 1800000;
 					String futureHourTime = df3.format(futureDate);
@@ -328,11 +396,32 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							
+							String alarmname = "30 min alarm";
+							cal.setTimeInMillis(calCurrentTime+1800000);
+							Date futureCalTime = cal.getTime();
+							
+							String futureSetHour = df3.format(futureCalTime);
+							String futureSetMinute = df2.format(futureCalTime);
+							String setAlarmEnd = futureSetHour + ":" + futureSetMinute;
+							
+							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
+							
+							NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
+							NotificationManager mNotificationManager =
+								    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+							int mId = 1;
+							mNotificationManager.notify(mId, mBuilder.build());
+							
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
-							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							int lastIdRequestCode = db.getLastEntryId();
+							intent.putExtra("requestCode", lastIdRequestCode);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							Toast.makeText(NapActivity.this, "Alarm set for 30 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1800000, pt);
+							System.out.println("30 min nap int test: " + String.valueOf(lastIdRequestCode));
+							
+							
 							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							 startActivity(backToMain);
@@ -388,21 +477,21 @@ public class NapActivity extends Activity implements ViewFactory{
 					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
-					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
-					final Date date = new Date();
+					
 					final Calendar cal = Calendar.getInstance();
 					final long calCurrentTime = cal.getTimeInMillis();
 					long fourtyFiveFuture = cal.getTimeInMillis() + 3600000;
 					Calendar future = Calendar.getInstance();
 					future.setTimeInMillis(fourtyFiveFuture);
 
+					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
+					final Date date = new Date();
 					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
 					String currentHourTimeTwo = df3.format(date);
 					final String currentFormattedDate = df4.format(date);
 					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
-					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
-					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
+					
 					
 					
 					long currentDate = date.getTime();
@@ -424,13 +513,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("positive button");
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
 							
-							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
-							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-							Toast.makeText(NapActivity.this, "Alarm set for 1 hour nap. Enjoy!", Toast.LENGTH_LONG).show();
-							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime + 3600000, pt);
 							String alarmname = "1 hr alarm";
-							
 							cal.setTimeInMillis(calCurrentTime+3600000);
 							Date futureCalTime = cal.getTime();
 							
@@ -439,16 +522,28 @@ public class NapActivity extends Activity implements ViewFactory{
 							String setAlarmEnd = futureSetHour + ":" + futureSetMinute;
 							
 							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
+							
+							NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
+							NotificationManager mNotificationManager =
+								    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+							int mId = 1;
+							mNotificationManager.notify(mId, mBuilder.build());
+							
+							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
 							int lastIdRequestCode = db.getLastEntryId();
 							intent.putExtra("requestCode", lastIdRequestCode);
+							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+							Toast.makeText(NapActivity.this, "Alarm set for 1 hour nap. Enjoy!", Toast.LENGTH_LONG).show();
+							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime + 3600000, pt);
+							System.out.println("1 hr min nap int test: " + String.valueOf(lastIdRequestCode));
+							
+							
+							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							 startActivity(backToMain);
 							
-//							Intent openNewAlarm = new Intent(AlarmClock.ACTION_SET_ALARM);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_HOUR, futureHour);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_MINUTES, futureMinute);
-//					        openNewAlarm.putExtra(AlarmClock.EXTRA_SKIP_UI, true);
-//					        startActivity(openNewAlarm);
+
 						}
 					});
 					
@@ -515,8 +610,14 @@ public class NapActivity extends Activity implements ViewFactory{
 						
 						@Override
 						public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-							System.out.println("tpLister");
+							
 							sleepyCat.setImageResource(sleepyCatImgs[2]);
+							
+							NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
+							NotificationManager mNotificationManager =
+								    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+							int mId = 1;
+							mNotificationManager.notify(mId, mBuilder.build());
 							
 							Calendar cal = Calendar.getInstance();
 							Calendar calCurrent = Calendar.getInstance();
@@ -539,16 +640,18 @@ public class NapActivity extends Activity implements ViewFactory{
 							System.out.println("current time: " + currentTime + " \nsetTime: " + setTime + " \ndifference:" + difference);
 							
 							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
-							int lastIdRequestCode = db.getLastEntryId();
 							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
+							int lastIdRequestCode = db.getLastEntryId();
+							
+							intent.putExtra("requestCode", lastIdRequestCode);
 
 //							intent.putExtra("testvalue", "hello");
 							System.out.println("last id: " + String.valueOf(lastIdRequestCode));
 							
-							intent.putExtra("requestCode", lastIdRequestCode);
+							
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-							
+							System.out.println("20 min nap int test after pt declaration: " + String.valueOf(lastIdRequestCode));
 							am.set(AlarmManager.RTC_WAKEUP, currentTime + difference, pt);
 							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);

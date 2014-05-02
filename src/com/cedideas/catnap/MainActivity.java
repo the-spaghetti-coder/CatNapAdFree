@@ -1,5 +1,7 @@
 package com.cedideas.catnap;
 
+import java.util.List;
+
 import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.AlarmManager;
@@ -45,14 +47,24 @@ private AdView mAdView;
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
-		
+		DBHelper db = new DBHelper(this);
+		NotificationHelper nh = new NotificationHelper(this);
+		List<String> checkAlarmAmount = db.getActiveAlarmList();
+		if (checkAlarmAmount.isEmpty()) {
+			
+			
+			NotificationManager aNotificationManager =
+				    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+			aNotificationManager.cancel(1);
+		}
 		///////////////////////////TEST ENVIRONMENT/////////////////////////////
 		
-//		DBHelper db = new DBHelper(this);
+		int lastIdRequestCode = db.getLastEntryId();
+		System.out.println(String.valueOf("main activity int test: " + lastIdRequestCode));
 //		db.getLastEntryId();
 		
 //		db.updateSpecificAlarmStatus(2, 0);
-//		int lastIdRequestCode = db.getLastEntryId();
+
 //		final Intent intent = new Intent(this, AlarmReceiver.class);
 //		final PendingIntent pt = PendingIntent.getBroadcast(this, 5, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 //		final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
@@ -71,45 +83,45 @@ private AdView mAdView;
 //		mainLayout.setBackgroundColor(0x0000FF00); THIS PART ACTUALLY WORKS LOL WTF
 		TextView button = new TextView(this);
 		long when = 0;
-		NotificationCompat.Builder mBuilder =
-		        new NotificationCompat.Builder(this)
-		        .setSmallIcon(R.drawable.notification_catnap)
-		        .setContentTitle("You have CatNap alarms pending!")
-		        .setContentText("Tap to view more details.")
-		        .setWhen(when).setUsesChronometer(true);
-		
-		
-		// Creates an explicit intent for an Activity in your app
-		Intent resultIntent = new Intent(this, AlarmControlActivity.class);
+//		NotificationCompat.Builder mBuilder =
+//		        new NotificationCompat.Builder(this)
+//		        .setSmallIcon(R.drawable.notification_catnap)
+//		        .setContentTitle("You have CatNap alarms pending!")
+//		        .setContentText("Tap to view more details.")
+//		        .setWhen(when).setUsesChronometer(true);
+//		
+//		
+//		// Creates an explicit intent for an Activity in your app
+//		Intent resultIntent = new Intent(this, AlarmControlActivity.class);
+////
+////		// The stack builder object will contain an artificial back stack for the
+////		// started Activity.
+////		// This ensures that navigating backward from the Activity leads out of
+////		// your application to the Home screen.
+//		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+//		// Adds the back stack for the Intent (but not the Intent itself)
+//		stackBuilder.addParentStack(AlarmControlActivity.class);
+//		// Adds the Intent that starts the Activity to the top of the stack
+//		stackBuilder.addNextIntent(resultIntent);
+//		PendingIntent resultPendingIntent =
+//		        stackBuilder.getPendingIntent(
+//		            0,
+//		            PendingIntent.FLAG_UPDATE_CURRENT
+//		        );
+//		mBuilder.setContentIntent(resultPendingIntent);
+//		NotificationManager mNotificationManager =
+//		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+////		// mId allows you to update the notification later on.
+//		int mId = 1;
+//		mNotificationManager.notify(mId, mBuilder.build());
+//	    
+//		
+//		
+//		RemoteViews contentView=new RemoteViews(this.getPackageName(), R.layout.notificationlayout);
 //
-//		// The stack builder object will contain an artificial back stack for the
-//		// started Activity.
-//		// This ensures that navigating backward from the Activity leads out of
-//		// your application to the Home screen.
-		TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
-		// Adds the back stack for the Intent (but not the Intent itself)
-		stackBuilder.addParentStack(AlarmControlActivity.class);
-		// Adds the Intent that starts the Activity to the top of the stack
-		stackBuilder.addNextIntent(resultIntent);
-		PendingIntent resultPendingIntent =
-		        stackBuilder.getPendingIntent(
-		            0,
-		            PendingIntent.FLAG_UPDATE_CURRENT
-		        );
-		mBuilder.setContentIntent(resultPendingIntent);
-		NotificationManager mNotificationManager =
-		    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//		// mId allows you to update the notification later on.
-		int mId = 1;
-		mNotificationManager.notify(mId, mBuilder.build());
-	    
-		
-		
-		RemoteViews contentView=new RemoteViews(this.getPackageName(), R.layout.notificationlayout);
-
-	    
-
-	    mBuilder.setContent(contentView);
+//	    
+//
+//	    mBuilder.setContent(contentView);
 	    
 		
 		button.setText("test");

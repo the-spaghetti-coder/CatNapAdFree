@@ -89,6 +89,7 @@ public class DBHelper extends SQLiteOpenHelper{
 		try {
 			if (c!=null){
 				c.moveToLast();
+				int test = c.getInt(0);
 				String strAlarmStart = c.getString(1).toString();
 				String strAlarmEnd = c.getString(2).toString();
 				String strAlarmName = c.getString(3).toString();
@@ -102,20 +103,25 @@ public class DBHelper extends SQLiteOpenHelper{
 	}
 	
 	public int getLastEntryId(){
-		int lastEntryId = 0;
+		
 		SQLiteDatabase db = this.getWritableDatabase();
 		Cursor c = db.rawQuery("select * from alarmevents;", null);
 		int cursorCount = c.getCount();
+		int lastEntryId = 0;
 		
 			if (cursorCount!=0){
 				c.moveToLast();
+				lastEntryId = c.getInt(0);
 				int lastRowId  = c.getInt(0);
 				lastRowId = lastEntryId;
 				String strLastRowId = String.valueOf(lastRowId);
-				System.out.println("Last row id: " + strLastRowId);
+				String nextRow = c.getString(1);
+				System.out.println("METHOD getLastEntryId() Last row id: " + strLastRowId + " " + nextRow);
 			}
 		
-		lastEntryId = c.getInt(0);
+		
+		System.out.println(String.valueOf(lastEntryId));
+		c.close();
 		db.close();
 		return lastEntryId;
 	}

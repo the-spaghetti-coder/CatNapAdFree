@@ -13,6 +13,7 @@ import android.media.Ringtone;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.NotificationCompat;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -30,20 +31,31 @@ public class AlarmControlActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.alarm_control);
+		
 		DBHelper db = new DBHelper(this);
+		NotificationHelper nh = new NotificationHelper(this);
+		
 		List<String> checkAlarmAmount = db.getActiveAlarmList();
+		
+		
+//		NotificationCompat.Builder mBuilder = nh.createNotification(this);
+//		NotificationManager mNotificationManager =
+//			    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//		int mId = 1;
+//		mNotificationManager.notify(mId, mBuilder.build());
+		
 		
 		TextView noAlarms = (TextView)findViewById(R.id.noAlarms);
 		Button stopAlarms = (Button)findViewById(R.id.stopAlarm);
-		
+		stopAlarms.setVisibility(View.VISIBLE);
 		if (checkAlarmAmount.isEmpty()) {
 			noAlarms.setVisibility(View.VISIBLE);
 			
-			NotificationManager mNotificationManager =
+			NotificationManager aNotificationManager =
 				    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-			mNotificationManager.cancel(1);
+			aNotificationManager.cancel(1);
 		} else {
-			stopAlarms.setVisibility(View.VISIBLE);
+			
 		}
 		
 		
@@ -95,24 +107,24 @@ public class AlarmControlActivity extends Activity {
 
 	public void xButtonClicked(View v){
 		DBHelper db = new DBHelper(this);
-		System.out.println("X Button was clicked!");
+		System.out.println("X Button was clicked!!");
 		RelativeLayout RL = (RelativeLayout)v.getParent();
 		int rlChildCount = RL.getChildCount();
-		System.out.println("RL child count: " + String.valueOf(rlChildCount));
+//		System.out.println("RL child count: " + String.valueOf(rlChildCount));
 		TextView alarmDescription = (TextView)RL.getChildAt(0);
 		String strAlarmDesc = (String) alarmDescription.getText();
 		
 		String[] split = strAlarmDesc.split(" ");
 		String firstSplit = split[0];
-		System.out.println("first split is: " + firstSplit);
+		System.out.println("first split is: >" + firstSplit+"<");
 		
 		
-		char requestCode = strAlarmDesc.charAt(0);
-		String strReq = String.valueOf(requestCode);
+//		char requestCode = strAlarmDesc.charAt(0);
+//		String strReq = String.valueOf(requestCode);
 		int intRequestCode =  Integer.valueOf(firstSplit);
 		
 		
-		System.out.println("request code: " + requestCode);
+//		System.out.println("request code: " + requestCode);
 		db.updateSpecificAlarmStatus(intRequestCode, 0);
 		final Intent intent = new Intent(this, AlarmReceiver.class);
 		final PendingIntent pt = PendingIntent.getBroadcast(this, intRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
