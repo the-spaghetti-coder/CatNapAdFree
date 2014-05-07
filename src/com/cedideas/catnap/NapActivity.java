@@ -5,8 +5,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import com.cedideas.catnap.R;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
@@ -19,6 +17,7 @@ import android.content.ClipDescription;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -669,12 +668,13 @@ public class NapActivity extends Activity implements ViewFactory{
 					tpDialog.setMessage("Set custom naptime!");
 					tpDialog.setCancelable(true);
 					
-					tpDialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Cancel", new OnClickListener() {
+//					tpDialog.set
+					tpDialog.setOnDismissListener(new OnDismissListener() {
 						
 						@Override
-						public void onClick(DialogInterface dialog, int which) {
-							System.out.println("Test");
-							
+						public void onDismiss(DialogInterface dialog) {
+							// TODO Auto-generated method stub
+							System.out.println("this has been dismissed, please no alarmarino");
 						}
 					});
 					tpDialog.show();
@@ -693,7 +693,7 @@ public class NapActivity extends Activity implements ViewFactory{
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		getMenuInflater().inflate(R.menu.nap, menu);
-		return true;
+		return false;
 	}
 
 	@Override

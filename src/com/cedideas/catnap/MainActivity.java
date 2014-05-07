@@ -17,6 +17,7 @@ import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.view.Display;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -59,8 +60,8 @@ private AdView mAdView;
 		}
 		///////////////////////////TEST ENVIRONMENT/////////////////////////////
 		
-		int lastIdRequestCode = db.getLastEntryId();
-		System.out.println(String.valueOf("main activity int test: " + lastIdRequestCode));
+//		int lastIdRequestCode = db.getLastEntryId();
+//		System.out.println(String.valueOf("main activity int test: " + lastIdRequestCode));
 //		db.getLastEntryId();
 		
 //		db.updateSpecificAlarmStatus(2, 0);
@@ -191,32 +192,16 @@ private AdView mAdView;
 		
 	}
 
-	protected void onRestart() {
-		super.onRestart();
-		System.out.println("activity restarted");
-	}
-	
-	protected void onResume() {
-		super.onResume();
-		System.out.println("activity RESUMED");
-		Intent intent;
 
-	}
-	
-	protected void onStart() {
-		super.onStart();
-		System.out.println("activity STARTED");
-	}
-	
-	public void onWindowFocusChanged() { 
-		bgAnim.start();
+	 public void onBackPressed() {
+	     super.onBackPressed();
+		 Intent startMain = new Intent(Intent.ACTION_MAIN);
+	        startMain.addCategory(Intent.CATEGORY_HOME);
+	        startMain.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+	        startActivity(startMain);
+
 	}
 
 
-	/**
-	 * Touch listener to use for in-layout UI controls to delay hiding the
-	 * system UI. This is to prevent the jarring behavior of controls going away
-	 * while interacting with activity UI.
-	 */
 
 }
