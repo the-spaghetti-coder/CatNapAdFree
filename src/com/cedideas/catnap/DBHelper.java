@@ -89,7 +89,7 @@ public class DBHelper extends SQLiteOpenHelper{
 		try {
 			if (c!=null){
 				c.moveToLast();
-				int test = c.getInt(0);
+				
 				String strAlarmStart = c.getString(1).toString();
 				String strAlarmEnd = c.getString(2).toString();
 				String strAlarmName = c.getString(3).toString();
@@ -118,8 +118,6 @@ public class DBHelper extends SQLiteOpenHelper{
 				String nextRow = c.getString(1);
 				System.out.println("METHOD getLastEntryId() Last row id: " + strLastRowId + " " + nextRow);
 			}
-		
-		
 		System.out.println(String.valueOf(lastEntryId));
 		c.close();
 		db.close();
@@ -133,15 +131,8 @@ public class DBHelper extends SQLiteOpenHelper{
 		int cursorCount = c.getCount();
 		String strCursorC = String.valueOf(cursorCount);
 		System.out.println("GETACTIVEALARMLIST STARTED! and cursor count is : " + strCursorC);
-//		activeList.add("hello");
 		c.moveToFirst();
-//		int rowId = c.getInt(0);
-//		String strRowId = String.valueOf(rowId);
-//		String strAlarmStart = c.getString(1).toString();
-//		String strAlarmEnd = c.getString(2).toString();
-//		String strAlarmName = c.getString(3).toString();
-//		String strCurrentDate = c.getString(4).toString();
-//		int alarmActive = c.getInt(5);
+
 		try {
 			if (cursorCount!=0){
 				for(int i=0;i<cursorCount;i++){

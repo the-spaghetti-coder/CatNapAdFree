@@ -4,20 +4,16 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
-import android.app.TimePickerDialog;
-import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.ClipData;
 import android.content.ClipDescription;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
-import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.NotificationCompat;
@@ -36,10 +32,6 @@ import android.widget.ViewSwitcher.ViewFactory;
 
 public class NapActivity extends Activity implements ViewFactory{
 
-
-
-
-
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -48,8 +40,6 @@ public class NapActivity extends Activity implements ViewFactory{
 		final NotificationHelper nh = new NotificationHelper(this);
 		final DBHelper db = new DBHelper(this);
 
-//		final ImageView sleepyCat = (ImageView)findViewById(R.id.sleepingCat);
-		
 		final ImageSwitcher topText = (ImageSwitcher)findViewById(R.id.napTopText);
 		final ImageSwitcher sleepyCat = (ImageSwitcher)findViewById(R.id.sleepingCat);
 		final ImageSwitcher windowImgSw = (ImageSwitcher)findViewById(R.id.window);
@@ -66,8 +56,6 @@ public class NapActivity extends Activity implements ViewFactory{
 		final int[] catWindowImgs = {R.drawable.hdpi_windowsill_pre, R.drawable.hdpi_windowsill};
 		final int[] catLaundryImgs = {R.drawable.hdpi_laundry_pre, R.drawable.hdpi_laundry};
 		
-		
-		
 		topText.setFactory(this);
 		topText.setImageResource(topTextImgs[0]);
 		sleepyCat.setFactory(this);
@@ -83,7 +71,6 @@ public class NapActivity extends Activity implements ViewFactory{
 		laundrySw.setFactory(this);
 		laundrySw.setImageResource(catLaundryImgs[0]);
 		
-		
 		sleepyCat.setOnTouchListener(new OnTouchListener() {
 			
 			@Override
@@ -98,8 +85,6 @@ public class NapActivity extends Activity implements ViewFactory{
 		});
 		
 		sleepyCat.setTag("icon bitmap");
-
-		
 		windowImgSw.setOnDragListener(new OnDragListener() {
 			@Override
 			public boolean onDrag(View arg0, DragEvent event) {
@@ -130,12 +115,9 @@ public class NapActivity extends Activity implements ViewFactory{
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
-					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
-//					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");					
-					
-					//
+
 					final Calendar cal = Calendar.getInstance();
 					final long calCurrentTime = cal.getTimeInMillis();
 					long fourtyFiveFuture = cal.getTimeInMillis() + 2700000;
@@ -144,13 +126,12 @@ public class NapActivity extends Activity implements ViewFactory{
 
 					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
 					final Date date = new Date();
-					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
 					String currentHourTimeTwo = df3.format(date);
 					final String currentFormattedDate = df4.format(date);
 					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
 					
-//					final Date date = new Date();
+
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 2700000;
 					String futureHourTime = df3.format(futureDate);
@@ -192,9 +173,6 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 45 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 2700000, pt);
 							System.out.println("45 min nap int test: " + String.valueOf(lastIdRequestCode));
-							
-							
-							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
 							startActivity(backToMain);
 
@@ -246,7 +224,6 @@ public class NapActivity extends Activity implements ViewFactory{
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
-					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					
@@ -264,8 +241,6 @@ public class NapActivity extends Activity implements ViewFactory{
 					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
 
 					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
-//					final Date date = new Date();
-					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
 					String currentHourTimeTwo = df3.format(date);
 					final String currentFormattedDate = df4.format(date);
@@ -305,18 +280,12 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 20 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1200000, pt);
 							System.out.println("20 min nap int test: " + String.valueOf(lastIdRequestCode));
-							
-							
-							
-							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
-							 startActivity(backToMain);
-
+							startActivity(backToMain);
 						}
 					});
 					
 					dialog.setNegativeButton("Cancel", new OnClickListener() {
-						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							bootImgSw.setImageResource(catBootImgs[0]);
@@ -360,7 +329,6 @@ public class NapActivity extends Activity implements ViewFactory{
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
-					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					
@@ -372,13 +340,10 @@ public class NapActivity extends Activity implements ViewFactory{
 
 					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
 					final Date date = new Date();
-					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
 					String currentHourTimeTwo = df3.format(date);
 					final String currentFormattedDate = df4.format(date);
 					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
-					
-//					final Date date = new Date();
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 1800000;
 					String futureHourTime = df3.format(futureDate);
@@ -419,17 +384,13 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 30 minute nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime+ 1800000, pt);
 							System.out.println("30 min nap int test: " + String.valueOf(lastIdRequestCode));
-							
-							
-							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
-							 startActivity(backToMain);
+							startActivity(backToMain);
 
 						}
 					});
 					
 					dialog.setNegativeButton("Cancel", new OnClickListener() {
-						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							laptopSw.setImageResource(catLaptopImgs[0]);
@@ -473,7 +434,7 @@ public class NapActivity extends Activity implements ViewFactory{
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
-					final DateFormat df = new SimpleDateFormat("H");
+
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					
@@ -485,23 +446,15 @@ public class NapActivity extends Activity implements ViewFactory{
 
 					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
 					final Date date = new Date();
-					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
 					String currentHourTimeTwo = df3.format(date);
 					final String currentFormattedDate = df4.format(date);
 					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
-					
-					
-					
 					long currentDate = date.getTime();
 					long futureDate = currentDate + 3600000;
 					String futureHourTime = df3.format(futureDate);
 					String futureMinuteTime = df2.format(futureDate);
-
-					
 					String futureAlarmTime = futureHourTime + ":" +  futureMinuteTime; 
-;
-
 					AlertDialog.Builder dialog = new AlertDialog.Builder(NapActivity.this);
 					dialog.setTitle("Confirm alarm");
 					dialog.setMessage("Your alarm will be set to\n " + futureAlarmTime);
@@ -536,18 +489,12 @@ public class NapActivity extends Activity implements ViewFactory{
 							Toast.makeText(NapActivity.this, "Alarm set for 1 hour nap. Enjoy!", Toast.LENGTH_LONG).show();
 							am.set(AlarmManager.RTC_WAKEUP, calCurrentTime + 3600000, pt);
 							System.out.println("1 hr min nap int test: " + String.valueOf(lastIdRequestCode));
-							
-							
-							
 							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
-							 startActivity(backToMain);
-							
-
+							startActivity(backToMain);
 						}
 					});
 					
 					dialog.setNegativeButton("Cancel", new OnClickListener() {
-						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							laundrySw.setImageResource(catLaundryImgs[0]);
@@ -591,25 +538,17 @@ public class NapActivity extends Activity implements ViewFactory{
 					return true;
 				case DragEvent.ACTION_DROP:
 					System.out.println("actionDROP");
-					final DateFormat df = new SimpleDateFormat("H");
 					final DateFormat df3 = new SimpleDateFormat("h");
 					final DateFormat df2 = new SimpleDateFormat("mm");
 					final DateFormat df4 = new SimpleDateFormat("M/d/yyyy");
 					final Date date = new Date();
 					
-					String currentHourTime = df.format(date);
 					String currentMinuteTime = df2.format(date);
 					String currentHourTimeTwo = df3.format(date);
 					final String currentFormattedDate = df4.format(date);
 					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
-					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
-					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
-					//=============================================================
-					
 					final TimePicker timePicker = new TimePicker(NapActivity.this);
 				    timePicker.setIs24HourView(false);
-				    
-
 
 				    AlertDialog.Builder ad = new AlertDialog.Builder(NapActivity.this);
 				    ad.setView(timePicker);
@@ -618,7 +557,7 @@ public class NapActivity extends Activity implements ViewFactory{
 				    ad.setNeutralButton("Set", new DialogInterface.OnClickListener() {
 				    	  @Override
 				    	  public void onClick(DialogInterface dialog, int which) {
-				    	// TODO Auto-generated method stub
+
 				          int currentHour = timePicker.getCurrentHour();
 				    	  int currentMinute = timePicker.getCurrentMinute();
 				    	  
@@ -653,11 +592,7 @@ public class NapActivity extends Activity implements ViewFactory{
 							int lastIdRequestCode = db.getLastEntryId();
 							
 							intent.putExtra("requestCode", lastIdRequestCode);
-
-//							intent.putExtra("testvalue", "hello");
 							System.out.println("last id: " + String.valueOf(lastIdRequestCode));
-							
-							
 							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
 							System.out.println("20 min nap int test after pt declaration: " + String.valueOf(lastIdRequestCode));
@@ -668,99 +603,17 @@ public class NapActivity extends Activity implements ViewFactory{
 							startActivity(backToMain);
 							
 							Toast.makeText(NapActivity.this, "Alarm set for a " + differenceToast + " minute nap. Enjoy!", Toast.LENGTH_LONG).show();
-				    	  
-				    	  
-				    	  
-				    	  
-				    	  
 				    	  }
 				    	  });
 				    ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 						
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
-							// TODO Auto-generated method stub
 							System.out.println("cancel was clicked");
 							
 						}
 					});
 				    ad.show();
-					
-					//==============================================================
-					
-//					TimePickerDialog.OnTimeSetListener tpListener = new OnTimeSetListener() {
-//						
-//						@Override
-//						public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-//							
-//							
-//							
-//							NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
-//							NotificationManager mNotificationManager =
-//								    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
-//							int mId = 1;
-//							mNotificationManager.notify(mId, mBuilder.build());
-//							
-//							Calendar cal = Calendar.getInstance();
-//							Calendar calCurrent = Calendar.getInstance();
-//							long currentTime = calCurrent.getTimeInMillis();
-//							
-//							cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-//							cal.set(Calendar.MINUTE, minute);
-//							long setTime = cal.getTimeInMillis();
-//							long difference = setTime - currentTime;
-//
-//							Date futureCalTime = cal.getTime();
-//							
-//							String futureSetHour = df3.format(futureCalTime);
-//							String futureSetMinute = df2.format(futureCalTime);
-//							String setAlarmEnd = futureSetHour + ":" + futureSetMinute;
-//							String alarmname = "custom alarm";
-//							System.out.println("set hour: " + futureSetHour + "set minute: " + futureSetMinute + "complete: " + setAlarmEnd);
-//							
-//							String differenceToast = String.valueOf(difference/60000);
-//							System.out.println("current time: " + currentTime + " \nsetTime: " + setTime + " \ndifference:" + difference);
-//							
-//							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
-//							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
-//							int lastIdRequestCode = db.getLastEntryId();
-//							
-//							intent.putExtra("requestCode", lastIdRequestCode);
-//
-////							intent.putExtra("testvalue", "hello");
-//							System.out.println("last id: " + String.valueOf(lastIdRequestCode));
-//							
-//							
-//							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
-//							System.out.println("20 min nap int test after pt declaration: " + String.valueOf(lastIdRequestCode));
-//							am.set(AlarmManager.RTC_WAKEUP, currentTime + difference, pt);
-//							
-//							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
-//							backToMain.putExtra("customAlarmSet", "Custom alarm set for a " + differenceToast + " minute nap.");
-//							startActivity(backToMain);
-//							
-//							Toast.makeText(NapActivity.this, "Alarm set for a " + differenceToast + " minute nap. Enjoy!", Toast.LENGTH_LONG).show();
-//							
-//							
-//						}
-//					};
-//
-//					
-//					TimePickerDialog tpDialog = new TimePickerDialog(NapActivity.this, tpListener, currentHourTimeNum, currentMinuteTimeNum, false);
-//					tpDialog.setMessage("Set custom naptime!");
-//					tpDialog.setCancelable(true);
-//					
-////					tpDialog.set
-//					tpDialog.setOnDismissListener(new OnDismissListener() {
-//						
-//						@Override
-//						public void onDismiss(DialogInterface dialog) {
-//							// TODO Auto-generated method stub
-//							System.out.println("this has been dismissed, please no alarmarino");
-//						}
-//					});
-//					tpDialog.show();
 					
 					return true; 
 				default:
@@ -770,7 +623,6 @@ public class NapActivity extends Activity implements ViewFactory{
 				return false;
 			}
 		});
-		
 	}
 
 	@Override
@@ -784,7 +636,6 @@ public class NapActivity extends Activity implements ViewFactory{
 		DisplayMetrics display = new DisplayMetrics();
 	    getWindowManager().getDefaultDisplay().getMetrics(display);
 	    int screenWidth = display.widthPixels;
-
 	    int oneFourthWidth = screenWidth /3;
 	    int oneFourthHeight = screenWidth /3;
 		ImageView iView = new ImageView(this);
