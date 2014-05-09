@@ -4,20 +4,16 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.NotificationManager;
-import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
 import android.view.Display;
-import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -25,8 +21,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
-import android.widget.RemoteViews;
 import android.widget.TextView;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.example.catnap.util.SystemUiHider;
 import com.google.android.gms.ads.AdRequest;
@@ -59,6 +56,35 @@ private AdView mAdView;
 			aNotificationManager.cancel(1);
 		}
 		///////////////////////////TEST ENVIRONMENT/////////////////////////////
+//		
+//		  final TimePicker timePicker = new TimePicker(this);
+//		    timePicker.setIs24HourView(false);
+//		    
+//
+//
+//		    AlertDialog.Builder ad = new AlertDialog.Builder(this);
+//		    ad.setView(timePicker);
+//		    ad.setCancelable(true);
+//		    ad.setMessage("Choose custom naptime!");
+//		    ad.setNeutralButton("Set", new DialogInterface.OnClickListener() {
+//		    	  @Override
+//		    	  public void onClick(DialogInterface dialog, int which) {
+//		    	// TODO Auto-generated method stub
+//		          int currentHour = timePicker.getCurrentHour();
+//		    	  Toast.makeText(getApplicationContext(), "Current hour is: " + String.valueOf(currentHour), Toast.LENGTH_LONG).show();
+//		    	  }
+//		    	  });
+//		    ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+//				
+//				@Override
+//				public void onClick(DialogInterface dialog, int which) {
+//					// TODO Auto-generated method stub
+//					
+//				}
+//			});
+//		    ad.show();
+		            
+		
 		
 //		int lastIdRequestCode = db.getLastEntryId();
 //		System.out.println(String.valueOf("main activity int test: " + lastIdRequestCode));

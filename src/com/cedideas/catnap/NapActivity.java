@@ -604,15 +604,25 @@ public class NapActivity extends Activity implements ViewFactory{
 					final String currentAlarmTime = currentHourTimeTwo + ":" + currentMinuteTime;
 					final int currentHourTimeNum = Integer.parseInt(currentHourTime);
 					final int currentMinuteTimeNum = Integer.parseInt(currentMinuteTime);
+					//=============================================================
 					
-					TimePickerDialog.OnTimeSetListener tpListener = new OnTimeSetListener() {
-						
-						@Override
-						public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-							
-							sleepyCat.setImageResource(sleepyCatImgs[2]);
-							
-							NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
+					final TimePicker timePicker = new TimePicker(NapActivity.this);
+				    timePicker.setIs24HourView(false);
+				    
+
+
+				    AlertDialog.Builder ad = new AlertDialog.Builder(NapActivity.this);
+				    ad.setView(timePicker);
+				    ad.setCancelable(true);
+				    ad.setMessage("Choose custom naptime!");
+				    ad.setNeutralButton("Set", new DialogInterface.OnClickListener() {
+				    	  @Override
+				    	  public void onClick(DialogInterface dialog, int which) {
+				    	// TODO Auto-generated method stub
+				          int currentHour = timePicker.getCurrentHour();
+				    	  int currentMinute = timePicker.getCurrentMinute();
+				    	  
+				    	  NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
 							NotificationManager mNotificationManager =
 								    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 							int mId = 1;
@@ -622,8 +632,8 @@ public class NapActivity extends Activity implements ViewFactory{
 							Calendar calCurrent = Calendar.getInstance();
 							long currentTime = calCurrent.getTimeInMillis();
 							
-							cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
-							cal.set(Calendar.MINUTE, minute);
+							cal.set(Calendar.HOUR_OF_DAY, currentHour);
+							cal.set(Calendar.MINUTE, currentMinute);
 							long setTime = cal.getTimeInMillis();
 							long difference = setTime - currentTime;
 
@@ -658,26 +668,99 @@ public class NapActivity extends Activity implements ViewFactory{
 							startActivity(backToMain);
 							
 							Toast.makeText(NapActivity.this, "Alarm set for a " + differenceToast + " minute nap. Enjoy!", Toast.LENGTH_LONG).show();
-							
-							
-						}
-					};
-
-					
-					TimePickerDialog tpDialog = new TimePickerDialog(NapActivity.this, tpListener, currentHourTimeNum, currentMinuteTimeNum, false);
-					tpDialog.setMessage("Set custom naptime!");
-					tpDialog.setCancelable(true);
-					
-//					tpDialog.set
-					tpDialog.setOnDismissListener(new OnDismissListener() {
+				    	  
+				    	  
+				    	  
+				    	  
+				    	  
+				    	  }
+				    	  });
+				    ad.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
 						
 						@Override
-						public void onDismiss(DialogInterface dialog) {
+						public void onClick(DialogInterface dialog, int which) {
 							// TODO Auto-generated method stub
-							System.out.println("this has been dismissed, please no alarmarino");
+							System.out.println("cancel was clicked");
+							
 						}
 					});
-					tpDialog.show();
+				    ad.show();
+					
+					//==============================================================
+					
+//					TimePickerDialog.OnTimeSetListener tpListener = new OnTimeSetListener() {
+//						
+//						@Override
+//						public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+//							
+//							
+//							
+//							NotificationCompat.Builder mBuilder = nh.createNotification(NapActivity.this);
+//							NotificationManager mNotificationManager =
+//								    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+//							int mId = 1;
+//							mNotificationManager.notify(mId, mBuilder.build());
+//							
+//							Calendar cal = Calendar.getInstance();
+//							Calendar calCurrent = Calendar.getInstance();
+//							long currentTime = calCurrent.getTimeInMillis();
+//							
+//							cal.set(Calendar.HOUR_OF_DAY, hourOfDay);
+//							cal.set(Calendar.MINUTE, minute);
+//							long setTime = cal.getTimeInMillis();
+//							long difference = setTime - currentTime;
+//
+//							Date futureCalTime = cal.getTime();
+//							
+//							String futureSetHour = df3.format(futureCalTime);
+//							String futureSetMinute = df2.format(futureCalTime);
+//							String setAlarmEnd = futureSetHour + ":" + futureSetMinute;
+//							String alarmname = "custom alarm";
+//							System.out.println("set hour: " + futureSetHour + "set minute: " + futureSetMinute + "complete: " + setAlarmEnd);
+//							
+//							String differenceToast = String.valueOf(difference/60000);
+//							System.out.println("current time: " + currentTime + " \nsetTime: " + setTime + " \ndifference:" + difference);
+//							
+//							db.insertEntry(currentAlarmTime, setAlarmEnd, alarmname, currentFormattedDate, 1);
+//							final Intent intent = new Intent(NapActivity.this, AlarmReceiver.class);
+//							int lastIdRequestCode = db.getLastEntryId();
+//							
+//							intent.putExtra("requestCode", lastIdRequestCode);
+//
+////							intent.putExtra("testvalue", "hello");
+//							System.out.println("last id: " + String.valueOf(lastIdRequestCode));
+//							
+//							
+//							final PendingIntent pt = PendingIntent.getBroadcast(NapActivity.this, lastIdRequestCode, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+//							final AlarmManager am = (AlarmManager)getSystemService(Context.ALARM_SERVICE);
+//							System.out.println("20 min nap int test after pt declaration: " + String.valueOf(lastIdRequestCode));
+//							am.set(AlarmManager.RTC_WAKEUP, currentTime + difference, pt);
+//							
+//							Intent backToMain = new Intent(NapActivity.this, MainActivity.class);
+//							backToMain.putExtra("customAlarmSet", "Custom alarm set for a " + differenceToast + " minute nap.");
+//							startActivity(backToMain);
+//							
+//							Toast.makeText(NapActivity.this, "Alarm set for a " + differenceToast + " minute nap. Enjoy!", Toast.LENGTH_LONG).show();
+//							
+//							
+//						}
+//					};
+//
+//					
+//					TimePickerDialog tpDialog = new TimePickerDialog(NapActivity.this, tpListener, currentHourTimeNum, currentMinuteTimeNum, false);
+//					tpDialog.setMessage("Set custom naptime!");
+//					tpDialog.setCancelable(true);
+//					
+////					tpDialog.set
+//					tpDialog.setOnDismissListener(new OnDismissListener() {
+//						
+//						@Override
+//						public void onDismiss(DialogInterface dialog) {
+//							// TODO Auto-generated method stub
+//							System.out.println("this has been dismissed, please no alarmarino");
+//						}
+//					});
+//					tpDialog.show();
 					
 					return true; 
 				default:
