@@ -16,8 +16,10 @@ import android.view.View.OnClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RadioButton;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 public class AlarmControlActivity extends Activity {
 	
@@ -34,6 +36,8 @@ public class AlarmControlActivity extends Activity {
 		Button stopAlarms = (Button)findViewById(R.id.stopAlarm);
 		ListView listview = (ListView)findViewById(R.id.alarmList);
 		List<String> alarmList = new ArrayList<String>();
+		RadioButton catAlarm =(RadioButton)findViewById(R.id.catAlarmRadioButton);
+		RadioButton regularAlarm =(RadioButton)findViewById(R.id.regularAlarmRadioButton);
 		
 		stopAlarms.setVisibility(View.VISIBLE);
 		if (checkAlarmAmount.isEmpty()) {
@@ -43,6 +47,24 @@ public class AlarmControlActivity extends Activity {
 				    (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
 			aNotificationManager.cancel(1);
 		}
+		
+		catAlarm.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Toast.makeText(AlarmControlActivity.this, "Cat alarm chosen as alarm sound!", Toast.LENGTH_SHORT).show();
+				
+			}
+		});
+		
+		regularAlarm.setOnClickListener(new OnClickListener() {
+			
+			@Override
+			public void onClick(View arg0) {
+				Toast.makeText(AlarmControlActivity.this, "Regular alarm chosen as alarm sound!", Toast.LENGTH_SHORT).show();
+				
+			}
+		});
 		
 		stopAlarms.setOnClickListener(new OnClickListener() {
 			@Override

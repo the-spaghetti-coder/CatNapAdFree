@@ -4,10 +4,10 @@ import java.util.List;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Point;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Build;
@@ -20,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.RelativeLayout;
+
 import com.example.catnap.util.SystemUiHider;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
@@ -49,7 +50,19 @@ private AdView mAdView;
 			aNotificationManager.cancel(1);
 		}
 		///////////////////////////TEST ENVIRONMENT/////////////////////////////
-//		
+
+		SharedPreferences prefs = this.getSharedPreferences(
+			      "com.cedideas.catnap", Context.MODE_PRIVATE);
+		String key = "key";
+		prefs.edit().putBoolean(key, true).apply();
+		boolean doesItContain = prefs.contains(key);
+		if (doesItContain) {
+			System.out.println("prefs CONTAINS IT! :)");
+			}
+		else {
+			System.out.println("prefs DOESN'T CONTAIN IT! :((((");
+		}
+		
 //		  final TimePicker timePicker = new TimePicker(this);
 //		    timePicker.setIs24HourView(false);
 //		    AlertDialog.Builder ad = new AlertDialog.Builder(this);

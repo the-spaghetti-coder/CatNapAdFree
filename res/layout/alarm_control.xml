@@ -23,29 +23,53 @@
         android:id="@+id/alarmList"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/stopAlarm"
+        android:layout_alignBottom="@+id/noAlarms"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/alarmControl" >
-
     </ListView>
+
+    <TextView
+        android:id="@+id/noAlarms"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/textView1"
+        android:layout_below="@+id/alarmControl"
+        android:layout_centerHorizontal="true"
+        android:text="No alarms currently pending."
+        android:textSize="30sp"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/stopAlarm"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
+        android:layout_alignParentRight="true"
+        android:layout_toRightOf="@+id/radioGroup1"
         android:text="Emergency Alarm Stop"
         android:visibility="invisible" />
 
-    <TextView
-        android:id="@+id/noAlarms"
+    <RadioGroup
+        android:id="@+id/radioGroup1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/alarmControl"
-        android:layout_centerHorizontal="true"
-        android:text="No alarms currently pending."
-        android:textSize="30sp"
-        android:visibility="invisible" />
+        android:layout_alignBottom="@+id/stopAlarm"
+        android:layout_alignParentLeft="true"
+        android:background="#F2BD68" >
+
+        <RadioButton
+            android:id="@+id/catAlarmRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/stopAlarm"
+            android:layout_alignLeft="@+id/alarmList"
+            android:text="Cat Alarm" />
+
+        <RadioButton
+            android:id="@+id/regularAlarmRadioButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Regular Alarm" />
+    </RadioGroup>
 
 </RelativeLayout>

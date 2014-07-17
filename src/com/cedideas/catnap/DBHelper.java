@@ -24,8 +24,13 @@ public class DBHelper extends SQLiteOpenHelper{
 	private static final String COLUMN_CURRENTDATE = "currentdate";
 	private static final String COLUMN_ALARMACTIVEORNOT = "alarmactiveornot";
 	
+	private static final String COLUMN_ALARMTYPE = "alarmtype";
+	private static final String COLUMN_ISALARMCAT = "isalarmcat";
+	
 	private static final String TABLE_ALARMEVENTS_CREATE = "create table if not exists alarmevents('_id' integer primary key autoincrement, alarmstart text, alarmend text, alarmname text, currentdate text, alarmactiveornot integer);";
+	private static final String TABLE_ALARMTYPE_CREATE = "create table if not exists alarmtype('_id' integer primary key autoincrement, alarmtype text, isalarmcat integer);";
 	private static final String TABLE_ALARMEVENTS = "alarmevents";
+	private static final String TABLE_ALARMTYPE = "alarmtype";
 	
 	
 	public DBHelper(Context context) {
@@ -36,13 +41,59 @@ public class DBHelper extends SQLiteOpenHelper{
 	public void onCreate(SQLiteDatabase db) {
 		try {
 			db.execSQL(TABLE_ALARMEVENTS_CREATE);
-
+			db.execSQL(TABLE_ALARMTYPE_CREATE);
+			
 		} catch (SQLiteException e){
 			Log.e("createFAIL", e.toString(), e);
 		}
 		
 	}
-
+	
+	public boolean isLastAlarmCat(boolean alarmType){
+		
+		
+		return alarmType;
+	}
+	
+	public void insertIntoAlarmTypes(int alarmType) {
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		values.put(COLUMN_ISALARMCAT, alarmType);
+		db.insert(TABLE_ALARMTYPE, COLUMN_ISALARMCAT, values);
+		try {
+			
+			Cursor c = db.rawQuery("SELECT * FROM alarmtype;", null);
+			if (c!=null) {
+				c.moveToLast();
+				
+			}
+			
+		} catch (SQLiteException e ) {
+			Log.e("addUSERfailed", e.toString(), e);
+			
+		}
+	}
+	
+	public void getAlarmSoundType(){
+		SQLiteDatabase db = this.getWritableDatabase();
+		ContentValues values = new ContentValues();
+		try {
+			
+			Cursor c = db.rawQuery("SELECT * FROM alarmtype;", null);
+			if (c!=null) {
+				c.moveToLast();
+				int cursorCount = c.getCount();
+				System.out.println("alarmtype table has: " + cursorCount + " entries");
+				int alarmCatOrNot = c.getInt(1);
+				System.out.println("is alarm cat? " + alarmCatOrNot);
+			}
+			
+		} catch (SQLiteException e ) {
+			Log.e("addUSERfailed", e.toString(), e);
+			
+		}
+	}
+	
 	public void insertEntry(String alarmstart, String alarmend, String alarmname, String currentdate, int alarmactiveornot){
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
