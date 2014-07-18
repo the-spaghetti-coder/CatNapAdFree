@@ -32,7 +32,7 @@
         android:id="@+id/noAlarms"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/textView1"
+        android:layout_above="@+id/alarmChoice"
         android:layout_below="@+id/alarmControl"
         android:layout_centerHorizontal="true"
         android:text="No alarms currently pending."
@@ -45,31 +45,16 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/radioGroup1"
+        android:layout_toRightOf="@+id/alarmChoice"
         android:text="Emergency Alarm Stop"
         android:visibility="invisible" />
 
-    <RadioGroup
-        android:id="@+id/radioGroup1"
+    <ImageView
+        android:id="@+id/alarmChoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/stopAlarm"
+        android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:background="#F2BD68" >
-
-        <RadioButton
-            android:id="@+id/catAlarmRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/stopAlarm"
-            android:layout_alignLeft="@+id/alarmList"
-            android:text="Cat Alarm" />
-
-        <RadioButton
-            android:id="@+id/regularAlarmRadioButton"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Regular Alarm" />
-    </RadioGroup>
+        android:src="@drawable/alarmchoicebutton" />
 
 </RelativeLayout>

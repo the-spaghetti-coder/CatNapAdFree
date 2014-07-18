@@ -610,7 +610,7 @@ public class NapActivity extends Activity implements ViewFactory{
 						@Override
 						public void onClick(DialogInterface dialog, int which) {
 							System.out.println("cancel was clicked");
-							
+							customImgSw.setImageResource(customImgs[0]);
 						}
 					});
 				    ad.show();

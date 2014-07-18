@@ -196,7 +196,7 @@ public class DBHelper extends SQLiteOpenHelper{
 					String strCurrentDate = c.getString(4).toString();
 					int alarmActive = c.getInt(5);
 					String strAlarmActive = String.valueOf(alarmActive);
-					String completeEntry = strRowId + " - Alarm started at " + strAlarmStart + ", ends at " + strAlarmEnd + ". \n" + strAlarmName + " " + strCurrentDate;
+					String completeEntry = strRowId + " - Alarm started at " + strAlarmStart + ", ends at " + strAlarmEnd + ". \n" + strAlarmName;
 					c.moveToNext();
 					activeList.add(completeEntry);
 					System.out.println("alarm status: " + strAlarmActive + "///" + completeEntry);
