@@ -161,7 +161,8 @@ int layout notificationlayout 0x7f030006
 int menu alarm_control 0x7f0b0000
 int menu nap 0x7f0b0001
 int menu options 0x7f0b0002
-int raw firstdraft 0x7f040000
+int raw alarmclock 0x7f040000
+int raw firstdraft 0x7f040001
 int string action_settings 0x7f07001e
 int string adunitid 0x7f070021
 int string app_name 0x7f07001a

@@ -11,7 +11,9 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -40,6 +42,15 @@ public class AlarmControlActivity extends Activity {
 		Button stopAlarms = (Button)findViewById(R.id.stopAlarm);
 		ListView listview = (ListView)findViewById(R.id.alarmList);
 		List<String> alarmList = new ArrayList<String>();
+		
+//		final SharedPreferences prefs = getApplicationContext().getSharedPreferences(
+//			      "com.cedideas.catnap", Context.MODE_PRIVATE);
+		
+		final SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+		
+		final String alarmPreference = "alarmChoice";
+		
+		
 		
 //		RadioButton catAlarm =(RadioButton)findViewById(R.id.catAlarmRadioButton);
 //		RadioButton regularAlarm =(RadioButton)findViewById(R.id.regularAlarmRadioButton);
@@ -83,10 +94,18 @@ public class AlarmControlActivity extends Activity {
 						
 						int rbId = rg.getCheckedRadioButtonId();
 						if (rbId == rOneId){
+							prefs.edit().putString(alarmPreference, "Meowing").commit();
+							prefs.edit().apply();
 							Toast.makeText(AlarmControlActivity.this, "Alarm sound changed to '"+ rOneCharS + "'", Toast.LENGTH_LONG).show();
+							String alarmStoredPreference = prefs.getString(alarmPreference, null);
+							System.out.println("Alarm preference read: " + prefs.getString(alarmPreference, null));
 						}
 						else {
+							prefs.edit().putString(alarmPreference, "Normal").commit();
+							prefs.edit().apply();
+							String alarmStoredPreferenceTwo = prefs.getString(alarmPreference, null);
 							Toast.makeText(AlarmControlActivity.this, "Alarm sound changed to '"+ rTwoCharS + "'", Toast.LENGTH_LONG).show();
+							System.out.println("Alarm preference read: " + prefs.getString(alarmPreference, null));
 						}
 					}
 				});

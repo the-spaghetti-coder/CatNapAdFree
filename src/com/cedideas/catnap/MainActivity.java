@@ -53,15 +53,24 @@ private AdView mAdView;
 
 		SharedPreferences prefs = this.getSharedPreferences(
 			      "com.cedideas.catnap", Context.MODE_PRIVATE);
-		String key = "key";
-		prefs.edit().putBoolean(key, true).apply();
-		boolean doesItContain = prefs.contains(key);
-		if (doesItContain) {
-			System.out.println("prefs CONTAINS IT! :)");
-			}
-		else {
-			System.out.println("prefs DOESN'T CONTAIN IT! :((((");
-		}
+//		String key = "key";
+//		prefs.edit().putBoolean(key, true).apply();
+		String alarmPreference = "alarmChoice";
+		prefs.edit().putString(alarmPreference, "Meowing").apply();
+		String alarmStoredPreference = prefs.getString(alarmPreference, null);
+		System.out.println("First preference read: " + alarmStoredPreference);
+		prefs.edit().putString(alarmPreference, "Normal").commit();
+		String alarmStoredPreferenceTwo = prefs.getString(alarmPreference, null);
+		prefs.edit().apply();
+		System.out.println("Second preference read:" + alarmStoredPreferenceTwo);
+		
+//		boolean doesItContain = prefs.contains("key");
+//		if (doesItContain) {
+//			System.out.println("prefs CONTAINS IT! :)");
+//			}
+//		else {
+//			System.out.println("prefs DOESN'T CONTAIN IT! :((((");
+//		}
 		
 //		  final TimePicker timePicker = new TimePicker(this);
 //		    timePicker.setIs24HourView(false);
