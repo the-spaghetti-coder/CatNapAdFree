@@ -45,9 +45,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/alarmChoice"
-        android:text="Emergency Alarm Stop"
-        android:visibility="invisible" />
+        
+        android:background="@drawable/emergencyalarmstop"
+        android:text=""
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/alarmChoice"

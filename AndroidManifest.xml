@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.cedideas.catnap"
-    android:versionCode="11"
-    android:versionName="2.2" >
+    package="com.cedideas.catnapadfree"
+    android:versionCode="1"
+    android:versionName="1.0" >
 
     <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
     <uses-permission android:name="android.permission.DISABLE_KEYGUARD" />
@@ -25,7 +25,7 @@
 
         <!-- <meta-data android:name="com.google.android.gms.ads.AdActivity"/> -->
         <activity
-            android:name="com.cedideas.catnap.MainActivity"
+            android:name="com.cedideas.catnapadfree.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"
             android:screenOrientation="portrait"
@@ -37,20 +37,20 @@
             </intent-filter>
         </activity>
         <activity
-            android:name="com.cedideas.catnap.NapActivity"
+            android:name="com.cedideas.catnapadfree.NapActivity"
             android:label="@string/title_activity_nap"
             android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@style/FULLSCREEN"
-            android:value="com.cedideas.catnap.MainActivity" >
+            android:value="com.cedideas.catnapadfree.MainActivity" >
         </activity>
         <activity
-            android:name="com.cedideas.catnap.Options"
+            android:name="com.cedideas.catnapadfree.Options"
             android:label="@string/title_activity_options"
             android:theme="@style/FULLSCREEN" >
         </activity>
         <activity
-            android:name="com.cedideas.catnap.AlarmDialog"
+            android:name="com.cedideas.catnapadfree.AlarmDialog"
             android:label="alarmdialog"
             android:screenOrientation="portrait"
             android:noHistory="true"
@@ -61,18 +61,18 @@
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize" />
 
         <receiver
-            android:name="com.cedideas.catnap.AlarmReceiver"
+            android:name="com.cedideas.catnapadfree.AlarmReceiver"
             android:enabled="true" />
 
         <activity
-            android:name="com.cedideas.catnap.AlarmControlActivity"
+            android:name="com.cedideas.catnapadfree.AlarmControlActivity"
             android:label="@string/title_activity_alarm_control"
             android:screenOrientation="portrait"
             android:theme="@style/FULLSCREEN" >
         </activity>
         
         <service
-		  android:name="com.cedideas.catnap.RingtonePlayingService"
+		  android:name="com.cedideas.catnapadfree.RingtonePlayingService"
 		  android:icon="@drawable/catbed"
 		  android:label="service name"
 		  >
